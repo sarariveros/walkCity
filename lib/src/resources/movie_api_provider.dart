@@ -8,12 +8,6 @@ class MovieApiProvider {
   final _apiKey = '802b2c4b88ea1183e50e6b285a27696e';
 
   Future<ItemModel> fetchMovieList() async {
-    // Uri(
-    //   scheme: 'http',
-    //   host: 'api.themoviedb.org',
-    //   path: '3/movie/popular',
-    //   queryParameters: {'api_key': _apiKey},
-    // );
     print("entered");
     final response = await client.get(Uri(
       scheme: 'http',

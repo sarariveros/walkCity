@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:walkcity/src/routes/routes.dart';
 //import 'ui/movie_list.dart';
 
@@ -14,6 +15,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'WalkCity',
       theme: ThemeData(
+        fontFamily: GoogleFonts.nunito().fontFamily,
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),

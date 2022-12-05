@@ -17,9 +17,9 @@ class MyRoutes {
       case ('/perfil'):
       //return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case ('/login'):
-      // return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       case ('/registro'):
-      // return MaterialPageRoute(builder: (_) => const RegistroScreen());
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case ('/verify'):
       // return MaterialPageRoute(builder: (_) => const VerifyAuthScreen());
       case ('/ajustes'):

@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:walkcity/src/models/site_model.dart';
+import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/styles/style.dart';
+import 'package:provider/provider.dart';
 
 class SiteCard extends StatelessWidget {
-  final String nombre;
-  final String descripcion;
+  final IconData icon;
+  final Site site;
 
-  const SiteCard({super.key, required this.nombre, required this.descripcion});
+  const SiteCard({
+    super.key,
+    required this.icon,
+    required this.site,
+  });
+
   @override
   Widget build(BuildContext context) {
+    final favorites = Provider.of<SiteProvider>(context, listen: true);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      height: 250,
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      height: 350,
       width: 150,
       decoration: const BoxDecoration(
         color: Colors.orange,
@@ -21,51 +30,79 @@ class SiteCard extends StatelessWidget {
         children: [
           Container(
             height: 120,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.orange,
-              borderRadius: BorderRadius.vertical(
+              borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(10), bottom: Radius.circular(10)),
               image: DecorationImage(
-                image: NetworkImage(
-                    'https://cdn.pixabay.com/photo/2015/11/27/20/28/cathedral-1066314_960_720.jpg'),
+                image: NetworkImage(site.image!),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 40,
                   child: Text(
-                    nombre,
-                    textAlign: TextAlign.start,
+                    site.titulo!,
+                    textAlign: TextAlign.left,
                     style: Styles.sitecardTStyle,
                     overflow: TextOverflow.clip,
                   ),
                 ),
-                Text(
-                  descripcion,
-                  style: Styles.sitecardDStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                OutlinedButton.icon(
-                  style: ButtonStyle(
-                      side: MaterialStateProperty.all(const BorderSide(
-                          color: Colors.orange,
-                          width: 1.0,
-                          style: BorderStyle.solid))),
-                  label: Text(
-                    'Visitar',
-                    style: Styles.sitecardBStyle,
-                  ),
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.send,
-                    color: Colors.red,
-                  ),
+                // Text(
+                //   site.descripcion!,
+                //   style: Styles.sitecardDStyle,
+                //   overflow: TextOverflow.ellipsis,
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ButtonTheme(
+                      minWidth: 80.0,
+                      height: 100.0,
+                      child: OutlinedButton.icon(
+                        style: ButtonStyle(
+                            //  maximumSize: MaterialStateProperty,
+                            side: MaterialStateProperty.all(const BorderSide(
+                                color: Colors.orange,
+                                width: 1.0,
+                                style: BorderStyle.solid))),
+                        label: Text(
+                          'Ir',
+                          style: Styles.sitecardBStyle,
+                        ),
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.send,
+                          color: Styles.secondColor,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          if (icon == Icons.favorite_border) {
+                            favorites.addSite(
+                                titulo: site.titulo,
+                                descripcion: site.descripcion,
+                                image: site.image,
+                                categoria: 'favoritos',
+                                lat: site.lat,
+                                lon: site.lon);
+                          } else if (icon == Icons.remove_circle_outline) {
+                            favorites.delete(site.id);
+                          }
+                        },
+                        icon: Icon(
+                          // Icons.favorite_border,
+                          icon!,
+                          color: Styles.secondColor,
+                        ))
+                  ],
                 ),
               ],
             ),

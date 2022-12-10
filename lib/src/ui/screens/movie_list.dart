@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:walkcity/src/blocs/movies_bloc.dart';
+import 'package:walkcity/src/services/movies_bloc.dart';
 import 'package:walkcity/src/models/item_model.dart';
 
 class MovieList extends StatelessWidget {

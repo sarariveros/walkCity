@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/routes/routes.dart';
+import 'package:provider/provider.dart';
 //import 'ui/movie_list.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(
-      // theme: ThemeData.dark(),
-      // home: Scaffold(
-      //   //body: MovieList(),
-      // ),
-      debugShowCheckedModeBanner: false,
-      title: 'WalkCity',
-      theme: ThemeData(
-        fontFamily: GoogleFonts.nunito().fontFamily,
-        useMaterial3: true,
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        // ChangeNotifierProvider(create: (_) => WeaterApiProvider()),
+        ChangeNotifierProvider(create: (_) => SiteProvider())
+      ],
+      child: MaterialApp(
+        // theme: ThemeData.dark(),
+        // home: Scaffold(
+        //   //body: MovieList(),
+        // ),
+        debugShowCheckedModeBanner: false,
+        title: 'WalkCity',
+        theme: ThemeData(
+          fontFamily: GoogleFonts.nunito().fontFamily,
+          useMaterial3: true,
+          primarySwatch: Colors.blue,
+        ),
+        onGenerateRoute: MyRoutes.generateRoute,
+        initialRoute: MyRoutes.rHome,
       ),
-      onGenerateRoute: MyRoutes.generateRoute,
-      initialRoute: MyRoutes.rHome,
     );
   }
 }

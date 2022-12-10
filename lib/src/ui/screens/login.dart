@@ -16,106 +16,109 @@ class LoginScreen extends StatelessWidget {
             height: 200,
             child: Image.asset("assets/shape_01.png"),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text(
-                    "Bienvenido",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                  ),
-                  Image.asset("assets/shape_02.png"),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Form(
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          style: const TextStyle(color: Colors.black),
-                          autocorrect: false,
-                          keyboardType: TextInputType.text,
-                          decoration: _buildDecoration(
-                            hintText: 'Ingresa tu correo',
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text(
+                      "Bienvenido",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                    ),
+                    Image.asset("assets/shape_02.png"),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Form(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            style: const TextStyle(color: Colors.black),
+                            autocorrect: false,
+                            keyboardType: TextInputType.text,
+                            decoration: _buildDecoration(
+                              hintText: 'Ingresa tu correo',
+                            ),
+                            validator: (value) {
+                              return (value != null && value.length >= 8)
+                                  ? null
+                                  : 'Debe tener minimo 8 caracteres';
+                            },
                           ),
-                          validator: (value) {
-                            return (value != null && value.length >= 8)
-                                ? null
-                                : 'Debe tener minimo 8 caracteres';
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.black),
-                          autocorrect: false,
-                          obscureText: true,
-                          keyboardType: TextInputType.text,
-                          decoration: _buildDecoration(
-                            hintText: 'Ingresa tu contraseña',
+                          const SizedBox(
+                            height: 20,
                           ),
-                          validator: (value) {
-                            return (value != null && value.length >= 8)
-                                ? null
-                                : 'Debe tener minimo 8 caracteres';
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Recuperar contraseña",
-                          style: TextStyle(
-                              color: Color.fromRGBO(228, 36, 36, .7),
-                              fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        MaterialButton(
-                          height: 60,
-                          minWidth: double.infinity,
-                          color: const Color.fromRGBO(228, 36, 36, .7),
-                          child: const Text(
-                            "Iniciar secion",
+                          TextFormField(
+                            style: const TextStyle(color: Colors.black),
+                            autocorrect: false,
+                            obscureText: true,
+                            keyboardType: TextInputType.text,
+                            decoration: _buildDecoration(
+                              hintText: 'Ingresa tu contraseña',
+                            ),
+                            validator: (value) {
+                              return (value != null && value.length >= 8)
+                                  ? null
+                                  : 'Debe tener minimo 8 caracteres';
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Text(
+                            "Recuperar contraseña",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            ),
+                                color: Color.fromRGBO(228, 36, 36, .7),
+                                fontWeight: FontWeight.w600),
                           ),
-                          onPressed: () {},
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            const Text(
-                              "¿No tienes una cuenta?",
-                            ),
-                            MaterialButton(
-                              onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                    context, MyRoutes.rRegistro);
-                              },
-                              child: const Text(
-                                "Registrate",
-                                style: TextStyle(
-                                    color: Color.fromRGBO(228, 36, 36, .7),
-                                    fontWeight: FontWeight.w600),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          MaterialButton(
+                            height: 60,
+                            minWidth: double.infinity,
+                            color: const Color.fromRGBO(228, 36, 36, .7),
+                            child: const Text(
+                              "Iniciar secion",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                          ],
-                        )
-                      ],
+                            onPressed: () {},
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text(
+                                "¿No tienes una cuenta?",
+                              ),
+                              MaterialButton(
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, MyRoutes.rRegistro);
+                                },
+                                child: const Text(
+                                  "Registrate",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(228, 36, 36, .7),
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           )

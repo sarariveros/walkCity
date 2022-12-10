@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:walkcity/src/models/index.dart';
+import 'package:walkcity/src/providers/index.dart';
+import 'package:walkcity/src/resources/sites_repository.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/widgets/index.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   void onItemTapped(int index) {}
+
   @override
   Widget build(BuildContext context) {
+    /// final favorites = Provider.of<SiteProvider>(context, listen: false);
+    // favorites.queryAll();
+    setState(() {
+      //favorites.queryAll();
+    });
+
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('WalkCity'),
-      //   centerTitle: true,
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
@@ -26,74 +39,28 @@ class HomeScreen extends StatelessWidget {
                     '¿Listo?',
                     style: Styles.textStyleB,
                   ),
-                  Text('Ayacucho, Peru'),
+                  const Text('Ayacucho, Peru'),
+                  Visibility(
+                    child: IconButton(
+                      tooltip: 'Clima',
+                      onPressed: () {
+                        //codigo para ocultar widget
+                      },
+                      icon: const Icon(
+                        Icons.notifications,
+                      ),
+                      color: Colors.orange,
+                    ),
+                  ),
                 ],
               ),
-              Container(
-                height: 180,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2019/03/16/04/49/mountain-4058445_960_720.jpg'),
-                      fit: BoxFit.fill),
-                  borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(20), bottom: Radius.circular(20)),
-                ),
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(123, 192, 154, 29),
-                    borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20), bottom: Radius.circular(20)),
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.notifications,
-                            ),
-                            color: Colors.white,
-                          ),
-                          Text(
-                            'Recorre nuestra ciudad',
-                            style: Styles.sitecardTStyle,
-                          ),
-                          Text(
-                            '14:24 pm',
-                            style: Styles.sitecardTStyle,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            height: 110,
-                            width: 150,
-                            child: Image(
-                              image: NetworkImage(
-                                  'https://cdn.pixabay.com/photo/2014/04/02/10/41/bus-304248_960_720.png'),
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              const WeatherWidget(),
               Text(
                 'Sitios',
                 style: Styles.textStyle,
               ),
-              const ListSites(clasificacion: 'Iglesias'),
-              const ListSites(clasificacion: 'Parques'),
-              const ListSites(clasificacion: 'Museos'),
+              //weatherProvider: weatherProvider
+              const ListAllSites(),
             ],
           ),
         ),
@@ -119,6 +86,41 @@ class HomeScreen extends StatelessWidget {
         // currentIndex: _selectedIndex,
         onTap: onItemTapped,
       ),
+    );
+  }
+}
+
+class ListAllSites extends StatelessWidget {
+  const ListAllSites({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Site> showFavorites() {
+      final favorites = Provider.of<SiteProvider>(context, listen: true);
+      favorites.queryAll();
+      return favorites.sites;
+    }
+
+    return Column(
+      children: [
+        ListSites(
+          categoria: 'Iglesias',
+          sites: SiteRepository.iglesias,
+        ),
+        ListSites(
+          categoria: 'Parques',
+          sites: SiteRepository.parques,
+        ),
+        ListSites(
+          categoria: 'Museos',
+          sites: SiteRepository.museos,
+        ),
+        ListSites(
+            categoria: 'Favoritos', sites: showFavorites() //favorites.sites,
+            ),
+      ],
     );
   }
 }

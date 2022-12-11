@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/models/index.dart';
 import 'package:walkcity/src/providers/index.dart';
+import 'package:walkcity/src/providers/weather_provider.dart';
 import 'package:walkcity/src/resources/sites_repository.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/widgets/index.dart';
@@ -14,17 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void onItemTapped(int index) {}
-
   @override
   Widget build(BuildContext context) {
-    /// final favorites = Provider.of<SiteProvider>(context, listen: false);
-    // favorites.queryAll();
-    setState(() {
-      //favorites.queryAll();
-    });
+    final showWeather = Provider.of<SWeatherProvider>(context, listen: false);
 
     return Scaffold(
+      //key: messengerKey,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
@@ -40,18 +36,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: Styles.textStyleB,
                   ),
                   const Text('Ayacucho, Peru'),
-                  Visibility(
-                    child: IconButton(
-                      tooltip: 'Clima',
-                      onPressed: () {
-                        //codigo para ocultar widget
-                      },
-                      icon: const Icon(
-                        Icons.notifications,
-                      ),
-                      color: Colors.orange,
-                    ),
-                  ),
+                  // IconButton(
+                  //   tooltip: 'Clima',
+                  //   onPressed: () {
+                  //     //codigo para ocultar widget
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.sunny,
+                  //   ),
+                  //   color: Colors.orange,
+                  // ),
+                  Switch(
+                      value: showWeather.estado,
+                      onChanged: ((value) {
+                        showWeather.changeVisibility();
+                        value = showWeather.estado;
+                      })),
                 ],
               ),
               const WeatherWidget(),
@@ -59,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Sitios',
                 style: Styles.textStyle,
               ),
-              //weatherProvider: weatherProvider
               const ListAllSites(),
             ],
           ),
@@ -67,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.black,
+        //backgroundColor: Colors.black,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.white,
+        selectedItemColor: Colors.amber[800],
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: 'Events'),
@@ -84,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Profile'),
         ],
         // currentIndex: _selectedIndex,
-        onTap: onItemTapped,
       ),
     );
   }

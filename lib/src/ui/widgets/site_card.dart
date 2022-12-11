@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/providers/index.dart';
+import 'package:walkcity/src/services/index.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class SiteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = Provider.of<SiteProvider>(context, listen: true);
+    final favorites = Provider.of<SiteProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       height: 350,
@@ -93,8 +94,12 @@ class SiteCard extends StatelessWidget {
                                 categoria: 'favoritos',
                                 lat: site.lat,
                                 lon: site.lon);
+                            NotificationServices.showSnackbar(
+                                'Añadido a Favoritos', 1);
                           } else if (icon == Icons.remove_circle_outline) {
                             favorites.delete(site.id);
+                            NotificationServices.showSnackbar(
+                                'Quitado de Favoritos', 2);
                           }
                         },
                         icon: Icon(

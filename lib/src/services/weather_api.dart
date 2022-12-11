@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' show Client;
 import 'dart:convert';
 
-class WeaterApiProvider
-// extends ChangeNotifier
-{
+class WeaterApiProvider {
   Client client = Client();
   final _apiKey = 'fd06e06f3e6e43f5a3e02135220812 ';
   final String _location = '-13.16,-74.22';
@@ -23,7 +21,7 @@ class WeaterApiProvider
         scheme: 'https',
         host: 'api.weatherapi.com',
         path: 'v1/current.json',
-        queryParameters: {'key': _apiKey, 'q': '$_location', 'aqi': 'no'},
+        queryParameters: {'key': _apiKey, 'q': _location, 'aqi': 'no'},
       ),
       //body: json.encode(clima)
     );

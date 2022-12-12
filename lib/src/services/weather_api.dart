@@ -23,7 +23,6 @@ class WeaterApiProvider {
         path: 'v1/current.json',
         queryParameters: {'key': _apiKey, 'q': _location, 'aqi': 'no'},
       ),
-      //body: json.encode(clima)
     );
 
 // If the call to the server was successful, parse the JSON
@@ -35,6 +34,7 @@ class WeaterApiProvider {
       clima['temp_c'] = jsonData['current']['temp_c'];
       clima['text'] = jsonData['current']['condition']['text'];
       clima['icon'] = jsonData['current']['condition']['icon'];
+      // print(jsonData);
 
       return clima;
     } else {

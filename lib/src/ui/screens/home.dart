@@ -17,10 +17,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final showWeather = Provider.of<SWeatherProvider>(context, listen: false);
+    final show = Provider.of<SWeatherProvider>(context);
 
     return Scaffold(
-      //key: messengerKey,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
@@ -36,25 +35,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: Styles.textStyleB,
                   ),
                   const Text('Ayacucho, Peru'),
-                  // IconButton(
-                  //   tooltip: 'Clima',
-                  //   onPressed: () {
-                  //     //codigo para ocultar widget
-                  //   },
-                  //   icon: const Icon(
-                  //     Icons.sunny,
-                  //   ),
-                  //   color: Colors.orange,
-                  // ),
-                  Switch(
-                      value: showWeather.estado,
-                      onChanged: ((value) {
-                        showWeather.changeVisibility();
-                        value = showWeather.estado;
-                      })),
+                  IconButton(
+                    tooltip: 'Clima',
+                    onPressed: () {
+                      show.changeVisibility();
+                      //codigo para ocultar widget
+                    },
+                    icon: (!show.showWeather)
+                        ? const Icon(Icons.sunny)
+                        : const Icon(Icons.self_improvement_sharp),
+                    color: Colors.orange,
+                  ),
+                  // Switch(
+                  //     value: show.showWeather,
+                  //     onChanged: (value) {
+                  //       show.changeVisibility();
+                  //     }),
                 ],
               ),
-              const WeatherWidget(),
+              Visibility(
+                  visible: show.showWeather, child: const WeatherWidget()),
               Text(
                 'Sitios',
                 style: Styles.textStyle,

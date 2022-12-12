@@ -1,3 +1,5 @@
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/avd.dart';
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/styles/style.dart';
@@ -5,104 +7,111 @@ import 'package:walkcity/src/styles/style.dart';
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({
     Key? key,
-    // required this.weatherProvider,
   }) : super(key: key);
-
-  // final WeaterApiProvider weatherProvider;
 
   @override
   Widget build(BuildContext context) {
     final weatherProvider = WeaterApiProvider();
-    // Provider.of<WeaterApiProvider>(context, listen: false);
-    return Container(
-      height: 170,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-                'https://cdn.pixabay.com/photo/2019/03/16/04/49/mountain-4058445_960_720.jpg'),
-            fit: BoxFit.fill),
-        borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20), bottom: Radius.circular(20)),
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(123, 192, 154, 29),
-          borderRadius: BorderRadius.vertical(
-              top: Radius.circular(20), bottom: Radius.circular(20)),
-        ),
-        child: Column(
-          children: [
-            Text(
-              'Recorre nuestra ciudad',
-              style: Styles.wTitleStyle,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FutureBuilder(
-                            future: weatherProvider.getweather(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                //  print(snapshot.data);
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Clima Actual',
-                                      style: Styles.sitecardTStyle,
-                                    ),
-                                    Text(
-                                      '${snapshot.data!['temp_c']} °C  -  ${snapshot.data!['temp_f']} °F ',
-                                      style: Styles.wdataTempStyle,
-                                    ),
-                                    SizedBox(
-                                      height: 30,
-                                      width: 150,
-                                      child: Text(
-                                        '${snapshot.data!['text']}',
-                                        style: Styles.wdataTextStyle,
-                                        textAlign: TextAlign.center,
+                FutureBuilder(
+                    future: weatherProvider.getweather(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: (double.parse(
+                                          snapshot.data!['temp_c'].toString()) >
+                                      15)
+                                  ? const Color.fromARGB(122, 29, 142, 207)
+                                  : const Color.fromARGB(123, 192, 154, 29),
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                  bottom: Radius.circular(20)),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 15,
+                                              width: double.infinity,
+                                              child: Text(
+                                                '${snapshot.data!['text']}',
+                                                style: Styles.wdataTextStyle,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Text(
+                                                  '${snapshot.data!['temp_c']} °C',
+                                                  //-  ${snapshot.data!['temp_f']} °F
+                                                  style: Styles.wdataTempStyle,
+                                                ),
+                                                Image.network(
+                                                    'https:${snapshot.data!['icon']}',
+                                                    errorBuilder: ((context,
+                                                            error,
+                                                            stackTrace) =>
+                                                        const Text('Opps'))),
+                                              ],
+                                            ),
+                                          ]),
+                                    )),
+                                Expanded(
+                                  // ignore: unnecessary_new
+                                  child: SizedBox(
+                                      height: 110,
+                                      width: 120,
+                                      child: SvgPicture.asset(
+                                        'assets/travel2.svg',
+                                        //color: Colors.red,
+                                      )
+
+                                      //   // NetworkImage(
+                                      //   //     'https://cdn.pixabay.com/photo/2014/04/02/10/41/bus-304248_960_720.png'),
+                                      //   fit: BoxFit.contain,
+                                      // ),
                                       ),
-                                    ),
-                                    // Image.network('${snapshot.data!['icon']}',
-                                    //     errorBuilder: ((context, error, stackTrace) =>
-                                    //         Text('data')))
-                                  ],
-                                );
-                              }
-                              return const CircularProgressIndicator(); //Text('Error');
-                            }),
-                      ],
-                    ),
-                  ),
-                ),
-                const Expanded(
-                  child: SizedBox(
-                    height: 110,
-                    // width: 120,
-                    child: Image(
-                      //color: Colors.red,
-                      image: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2014/04/02/10/41/bus-304248_960_720.png'),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                )
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      return CircularProgressIndicator(
+                        color: Styles.firstColor,
+                      ); //Text('Error');
+                    }),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

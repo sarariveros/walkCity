@@ -31,7 +31,7 @@ class Styles {
       height: 1,
       fontWeight: FontWeight.bold);
   static TextStyle wdataTempStyle = TextStyle(
-      fontSize: 22,
+      fontSize: 40,
       color: sitecardColor,
       height: 2,
       fontWeight: FontWeight.bold);

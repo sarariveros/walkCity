@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/styles/style.dart';
+import 'package:walkcity/src/ui/screens/index.dart';
 
 class SiteCard extends StatelessWidget {
   final String nombre;
@@ -61,7 +62,10 @@ class SiteCard extends StatelessWidget {
                     'Visitar',
                     style: Styles.sitecardBStyle,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PlacePage()));
+                  },
                   icon: const Icon(
                     Icons.send,
                     color: Colors.red,

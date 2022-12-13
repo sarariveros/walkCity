@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/providers/weather_provider.dart';
+
 import 'package:walkcity/src/routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/services/notificacion_services.dart';
@@ -11,6 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return MultiProvider(
       providers: [
         // ChangeNotifierProvider(create: (_) => WeaterApiProvider()),
@@ -18,10 +21,12 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SWeatherProvider()),
       ],
       child: MaterialApp(
+
         // theme: ThemeData.dark(),
         // home: Scaffold(
         //   //body: MovieList(),
         // ),
+
         scaffoldMessengerKey: NotificationServices.messengerKey,
         debugShowCheckedModeBanner: false,
         title: 'WalkCity',
@@ -32,7 +37,9 @@ class App extends StatelessWidget {
         ),
         onGenerateRoute: MyRoutes.generateRoute,
         initialRoute: MyRoutes.rHome,
+
       ),
     );
+
   }
 }

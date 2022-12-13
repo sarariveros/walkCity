@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
+import 'package:walkcity/src/ui/screens/place.dart';
 
 class MyRoutes {
   static const String rHome = '/home';
@@ -10,6 +11,8 @@ class MyRoutes {
   static const String rLogin = '/login';
   static const String rRegistro = '/registro';
   static const String rVerify = '/verify';
+  static const String rPlace = '/place';
+  static const String rMap="/map";
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case ('/home'):
@@ -26,7 +29,10 @@ class MyRoutes {
       // return MaterialPageRoute(
       //     builder: (_) =>
       //         const ConfigScreen()); //subguion en lugar de poner context
-
+      case ('/place'):
+        return MaterialPageRoute(builder: (_) => const PlacePage());
+      case ('/map'):
+        return MaterialPageRoute(builder: (_) => const MapPage());
       default:
         return MaterialPageRoute(builder: (_) => const ErrorScreen());
     }

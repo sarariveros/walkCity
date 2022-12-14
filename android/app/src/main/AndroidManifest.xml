@@ -1,9 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.walkcity">
+   
+   <!-- Permisos -->
+   <uses-permission android:name="android.permission.INTERNET"/>
+    
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
    <application
         android:label="walkcity"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,5 +39,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- Permiso para la API_KEY -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBMSNja3sThI12Hko-oFOkZkDvb0zY3jUs"/>
+        
     </application>
 </manifest>

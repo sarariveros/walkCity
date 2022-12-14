@@ -3,7 +3,9 @@ import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/services/index.dart';
 import 'package:walkcity/src/styles/style.dart';
+import 'package:walkcity/src/ui/screens/index.dart';
 import 'package:provider/provider.dart';
+
 
 class SiteCard extends StatelessWidget {
   final IconData icon;
@@ -55,6 +57,7 @@ class SiteCard extends StatelessWidget {
                     overflow: TextOverflow.clip,
                   ),
                 ),
+
                 // Text(
                 //   site.descripcion!,
                 //   style: Styles.sitecardDStyle,
@@ -108,6 +111,7 @@ class SiteCard extends StatelessWidget {
                           color: Styles.secondColor,
                         ))
                   ],
+
                 ),
               ],
             ),

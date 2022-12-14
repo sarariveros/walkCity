@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final show = Provider.of<SWeatherProvider>(context);
+    final show = Provider.of<SWeatherProvider>(context, listen: true);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -70,9 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.amber[800],
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: 'Events'),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'News'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.newspaper), label: 'Festividades'),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritos'),
           BottomNavigationBarItem(
               icon: Icon(Icons.people),
               // CircleAvatar(
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //       'https://cdn.pixabay.com/photo/2021/05/23/00/21/woman-6274879_960_720.png'),
               //   radius: 15,
               // ),
-              label: 'Profile'),
+              label: 'Perfil'),
         ],
         // currentIndex: _selectedIndex,
       ),

@@ -15,14 +15,14 @@ class SiteProvider extends ChangeNotifier {
       DBSite.columnImage: image,
     };
     Site site = Site.fromMap(row);
-    final id = await dbSite.newSite(site);
+    final id = await dbSite.newFavorite(site);
     queryAll();
     // print(id);
     notifyListeners();
   }
 
   void queryAll() async {
-    final allrows = await dbSite.queryAllSites();
+    final allrows = await dbSite.queryAllFavorites();
     sites.clear();
     for (var element in allrows) {
       sites.add(Site.fromMap(element));
@@ -32,12 +32,14 @@ class SiteProvider extends ChangeNotifier {
 
   //borrar uno
   void delete(id) async {
-    final item = await dbSite.delete(id);
+    final item = await dbSite.deleteFavorite(id);
+    notifyListeners();
   }
 
   //borrar la lista/
   void deleteAll() async {
-    final itemAll = await dbSite.deleteAll();
+    final itemAll = await dbSite.deleteAllFavorites();
+    notifyListeners();
   }
 
   void update({id, titulo, descripcion, categoria, lon, lat, image}) async {
@@ -48,7 +50,7 @@ class SiteProvider extends ChangeNotifier {
         lon: lon,
         lat: lat,
         image: image);
-    final rowupdate = await dbSite.update(site);
+    final rowupdate = await dbSite.updateFavorite(site);
     notifyListeners();
   }
 }

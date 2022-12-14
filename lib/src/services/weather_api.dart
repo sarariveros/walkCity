@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' show Client;
 import 'dart:convert';
 
@@ -7,7 +6,6 @@ class WeaterApiProvider {
   Client client = Client();
   final _apiKey = 'fd06e06f3e6e43f5a3e02135220812 ';
   final String _location = '-13.16,-74.22';
-  //final String _long = '-74.22';
   final Map<String, dynamic> clima = {
     'temp_c': '',
     'temp_f': '',

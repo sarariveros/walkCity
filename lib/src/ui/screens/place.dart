@@ -7,7 +7,6 @@ class PlacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -18,39 +17,43 @@ class PlacePage extends StatelessWidget {
           Positioned(
             bottom: 300,
             right: 30,
-
             child: Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                border: Border.all(width: 3,color:Color.fromARGB(255, 196, 158, 7)),
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(20)
-
-              ),
-              child:Column(children: [
-                Icon(Icons.park,color: Colors.green,),
-                Text("Parque Sucre",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),)
+                  border: Border.all(
+                      width: 3, color: Color.fromARGB(255, 196, 158, 7)),
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(20)),
+              child: Column(children: const [
+                Icon(
+                  Icons.park,
+                  color: Colors.green,
+                ),
+                Text(
+                  "Parque Sucre",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                )
               ]),
-             ),
+            ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Color.fromRGBO(231, 63, 63,1),
+        backgroundColor: Color.fromRGBO(231, 63, 63, 1),
         onPressed: () {
           showModalBottomSheet(
-            barrierColor: Colors.transparent,
+              barrierColor: Colors.transparent,
               context: context,
               isScrollControlled: true,
-              
               shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(20))),
               builder: (context) => Container(
                     height: 200,
-                    
                     child: Column(
-                      
                       children: [
                         SizedBox(
                           height: 20,
@@ -85,8 +88,10 @@ class PlacePage extends StatelessWidget {
                         ),
                         ListTile(
                           onTap: (() {
-                            Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MapPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MapPage()));
                           }),
                           title: Text(
                             "Ir al mapa",
@@ -100,11 +105,12 @@ class PlacePage extends StatelessWidget {
                     ),
                   ));
         },
-        label: Text("Informacion",style: TextStyle(fontSize: 20),),
+        label: Text(
+          "Informacion",
+          style: TextStyle(fontSize: 20),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      
-
     );
   }
 }

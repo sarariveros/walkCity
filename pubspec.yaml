@@ -47,6 +47,7 @@ dependencies:
   permission_handler: ^10.2.0
   location: ^4.4.0
   google_maps_webservice: ^0.0.19
+  supabase_flutter: ^1.2.2
   
 
 

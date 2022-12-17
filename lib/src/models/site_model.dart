@@ -1,68 +1,52 @@
 //import 'package:walkcity/src/models/index.dart';
-import 'package:walkcity/src/services/db_site.dart';
+import 'package:walkcity/src/services/sqlite_site.dart';
 
 class Site {
   int? id;
   String? categoria;
-  String? titulo;
+  String? nombre;
   String? descripcion;
   String? lat;
   String? lon;
-  String? image;
-  // List<Comentario>? comentarios = [];
+  String? imagen;
+
   Site({
     this.id,
     this.categoria,
-    this.titulo,
-    this.descripcion,
+    this.nombre,
     this.lat,
     this.lon,
-    this.image,
+    this.imagen,
     // this.comentarios
   });
 
   Site.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    categoria = map['categoria'];
-    titulo = map['titulo'];
-    descripcion = map['descripcion'];
+    categoria = map['id_categoria'].toString();
+    nombre = map['nombre'];
     lat = map['lat'];
     lon = map['lon'];
-    image = map['image'];
+    imagen = map['imagen'];
     // comentarios = map['comentarios'];
   }
   Map<String, dynamic> toMapFavDB() {
     return {
       DBSite.columnId: id,
       DBSite.columnCategoria: categoria,
-      DBSite.columnDescripcion: descripcion,
       DBSite.columnLon: lon,
       DBSite.columnLat: lat,
-      DBSite.columnTitulo: titulo,
-      DBSite.columnImage: image,
+      DBSite.columnTitulo: nombre,
+      DBSite.columnImage: imagen,
     };
   }
 
-  // Map<String, dynamic> toMap() {
-  //   return {
-  //     'id': id,
-  //     'categoria': categoria,
-  //     'descripcion': descripcion,
-  //     'lon': lon,
-  //     'lat': lat,
-  //     'titulo': titulo,
-  //     'image': image,
-  //     //'comentarios': comentarios,
-  //   };
-  // }
-
-  Site copyWith() => Site(
-        id: id,
-        titulo: titulo,
-        descripcion: descripcion,
-        lon: lon,
-        lat: lat,
-        image: image,
-        // comentarios: comentarios
-      );
+  // Site copyWith() => Site(
+  //       id: id,
+  //       titulo: titulo,
+  //       descripcion: descripcion,
+  //       lon: lon,
+  //       lat: lat,
+  //       image: image,
+  //       // comentarios: comentarios
+  //     );
 }

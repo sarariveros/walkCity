@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-//import 'package:walkcity/src/models/comentario_model.dart';
 import 'package:walkcity/src/models/site_model.dart';
 
 class DBSite {
@@ -48,12 +47,11 @@ CREATE TABLE $table(
     Database? db = await instance.database;
     return await db!.insert(table, {
       'id': site.id,
-      'titulo': site.titulo,
+      'titulo': site.nombre,
       'categoria': site.categoria,
-      'descripcion': site.descripcion,
       'lon': site.lon,
       'lat': site.lat,
-      'image': site.image
+      'image': site.imagen
     });
   }
 

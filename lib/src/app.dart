@@ -21,7 +21,6 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SWeatherProvider()),
       ],
       child: MaterialApp(
-
         // theme: ThemeData.dark(),
         // home: Scaffold(
         //   //body: MovieList(),
@@ -37,9 +36,7 @@ class App extends StatelessWidget {
         ),
         onGenerateRoute: MyRoutes.generateRoute,
         initialRoute: MyRoutes.rHome,
-
       ),
     );
-
   }
 }

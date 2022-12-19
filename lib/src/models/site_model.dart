@@ -6,19 +6,19 @@ class Site {
   String? categoria;
   String? nombre;
   String? descripcion;
-  String? lat;
-  String? lon;
-  String? imagen;
 
-  Site({
-    this.id,
-    this.categoria,
-    this.nombre,
-    this.lat,
-    this.lon,
-    this.imagen,
-    // this.comentarios
-  });
+  double? lat;
+  double? lon;
+  String? image;
+  Site(
+      {this.id,
+      this.categoria,
+      this.titulo,
+      this.descripcion,
+      this.lat,
+      this.lon,
+      this.image});
+
 
   Site.fromMap(Map<String, dynamic> map) {
     id = map['id'];

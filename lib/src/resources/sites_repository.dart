@@ -9,8 +9,8 @@ class SiteRepository {
         titulo: 'Iglesia de Ayacucho',
         image:
             'https://cdn.pixabay.com/photo/2015/11/27/20/28/cathedral-1066314_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
     Site(
         id: 2,
         categoria: 'Iglesias',
@@ -18,8 +18,8 @@ class SiteRepository {
         titulo: 'Iglesia2 de Ayacucho',
         image:
             'https://cdn.pixabay.com/photo/2015/11/27/20/28/cathedral-1066314_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
     Site(
         id: 3,
         categoria: 'Iglesias',
@@ -27,8 +27,8 @@ class SiteRepository {
         titulo: 'Iglesia3 de Ayacucho',
         image:
             'https://cdn.pixabay.com/photo/2015/11/27/20/28/cathedral-1066314_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
   ];
   static List<Site> parques = [
     Site(
@@ -38,8 +38,8 @@ class SiteRepository {
         titulo: 'Parques de Ayacucho',
         image:
             'https://cdn.pixabay.com/photo/2015/11/27/20/28/cathedral-1066314_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
     Site(
         id: 5,
         categoria: 'Parques',
@@ -47,8 +47,8 @@ class SiteRepository {
         titulo: 'Parques2 de Ayacucho',
         image:
             'https://cdn.pixabay.com/photo/2015/11/27/20/28/cathedral-1066314_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
     Site(
         id: 6,
         categoria: 'Parques',
@@ -56,19 +56,19 @@ class SiteRepository {
         titulo: 'Parques3 de Ayacucho',
         image:
             'https://cdn.pixabay.com/photo/2015/11/27/20/28/cathedral-1066314_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
   ];
   static List<Site> museos = [
     Site(
         id: 7,
         categoria: 'Museos',
         descripcion: 'descripcion',
-        titulo: 'Museo Principal de Ayacucho',
+        titulo: 'Museo Taller Retablos Ramos',
         image:
-            'https://cdn.pixabay.com/photo/2017/04/05/01/10/natural-history-museum-2203648_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+            'https://lh5.googleusercontent.com/p/AF1QipNIWtqETGP2D-iNLIN4ZRygQmxPl7ctUW6tpjZL=w900-h727-p-k-no',
+        lat: -13.16432017934998,
+        lon: -74.23442602395),
     Site(
         id: 8,
         categoria: 'Museos',
@@ -76,8 +76,8 @@ class SiteRepository {
         titulo: 'Museo El Grandioso',
         image:
             'https://cdn.pixabay.com/photo/2016/03/27/16/23/woman-1283009_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
     Site(
         id: 9,
         categoria: 'Museos',
@@ -85,7 +85,7 @@ class SiteRepository {
         titulo: 'Museo Monumental de Ayacucho',
         image:
             'https://cdn.pixabay.com/photo/2019/07/03/09/41/national-history-museum-4314035_960_720.jpg',
-        lat: '10',
-        lon: '10'),
+        lat: 0,
+        lon: 0),
   ];
 }

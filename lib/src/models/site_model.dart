@@ -5,8 +5,8 @@ class Site {
   String? categoria;
   String? titulo;
   String? descripcion;
-  String? lat;
-  String? lon;
+  double? lat;
+  double? lon;
   String? image;
   Site(
       {this.id,

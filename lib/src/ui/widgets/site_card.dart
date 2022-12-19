@@ -80,7 +80,10 @@ class SiteCard extends StatelessWidget {
                           'Ir',
                           style: Styles.sitecardBStyle,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PlacePage()));
+                        },
                         icon: Icon(
                           Icons.send,
                           color: Styles.secondColor,

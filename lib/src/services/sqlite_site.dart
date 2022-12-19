@@ -5,14 +5,14 @@ import 'package:walkcity/src/models/site_model.dart';
 class DBSite {
   static const _dbName = 'Site';
   static const _dbVersion = 1;
-  static const table = 'sites';
-  static const columnTitulo = 'titulo';
-  static const columnDescripcion = 'descripcion';
+  static const table = 'favorites';
+  static const columnNombre = 'nombre';
+  // static const columnDescripcion = 'descripcion';
   static const columnCategoria = 'categoria';
   static const columnLon = 'lon';
   static const columnLat = 'lat';
   static const columnId = 'id';
-  static const columnImage = 'image';
+  static const columnImagen = 'imagen';
   // static const comentario = List<Comentario>;
   DBSite._privateConstructor();
   static final DBSite instance = DBSite._privateConstructor();
@@ -33,12 +33,11 @@ class DBSite {
     await db.execute('''
 CREATE TABLE $table(
   $columnId INTEGER PRIMARY KEY ,
-  $columnTitulo TEXT NOT NULL,
+  $columnNombre TEXT NOT NULL,
   $columnCategoria TEXT NOT NULL,
-  $columnDescripcion TEXT NOT NULL,
   $columnLon TEXT NOT NULL,
   $columnLat TEXT NOT NULL,
-  $columnImage TEXT NOT NULL
+  $columnImagen TEXT NOT NULL
   )''');
   }
 
@@ -47,11 +46,11 @@ CREATE TABLE $table(
     Database? db = await instance.database;
     return await db!.insert(table, {
       'id': site.id,
-      'titulo': site.nombre,
+      'nombre': site.nombre,
       'categoria': site.categoria,
       'lon': site.lon,
       'lat': site.lat,
-      'image': site.imagen
+      'imagen': site.imagen
     });
   }
 
@@ -74,10 +73,10 @@ CREATE TABLE $table(
   }
 
   ////actualizar
-  Future<int?> updateFavorite(Site producto) async {
+  Future<int?> updateFavorite(Site site) async {
     Database? db = await instance.database;
-    int id = producto.toMapFavDB()['id'];
-    return await db!.update(table, producto.toMapFavDB(),
+    int id = site.toMapFavDB()['id'];
+    return await db!.update(table, site.toMapFavDB(),
         where: '$columnId=?', whereArgs: [id]);
   }
 }

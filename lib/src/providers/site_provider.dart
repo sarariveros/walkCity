@@ -5,13 +5,13 @@ import 'package:walkcity/src/services/sqlite_site.dart';
 class SiteProvider extends ChangeNotifier {
   final dbSite = DBSite.instance;
   List<Site> sites = [];
-  void addSite({titulo, categoria, lon, lat, image}) async {
+  void addSite({nombre, categoria, lon, lat, imagen}) async {
     Map<String, dynamic> row = {
-      DBSite.columnTitulo: titulo,
+      DBSite.columnNombre: nombre,
       DBSite.columnCategoria: categoria,
       DBSite.columnLon: lon,
       DBSite.columnLat: lat,
-      DBSite.columnImage: image,
+      DBSite.columnImagen: imagen,
     };
     Site site = Site.fromMap(row);
     final id = await dbSite.newFavorite(site);
@@ -30,20 +30,27 @@ class SiteProvider extends ChangeNotifier {
   }
 
   //borrar uno
-  void delete(id) async {
-    final item = await dbSite.deleteFavorite(id);
+  void delete(Site site) async {
+    final item = await dbSite.deleteFavorite(site.id!);
+    sites.remove(site);
     notifyListeners();
   }
 
   //borrar la lista/
   void deleteAll() async {
     final itemAll = await dbSite.deleteAllFavorites();
+    sites.clear();
     notifyListeners();
   }
 
-  void update({id, titulo, categoria, lon, lat, image}) async {
-    Site site =
-        Site(id: id, categoria: categoria, lon: lon, lat: lat, imagen: image);
+  void update({id, nombre, categoria, lon, lat, image}) async {
+    Site site = Site(
+        id: id,
+        categoria: categoria,
+        nombre: nombre,
+        lon: lon,
+        lat: lat,
+        imagen: image);
     final rowupdate = await dbSite.updateFavorite(site);
     notifyListeners();
   }

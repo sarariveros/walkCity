@@ -10,9 +10,9 @@ class MyRoutes {
   static const String rAjustes = '/ajustes';
   static const String rLogin = '/login';
   static const String rRegistro = '/registro';
-  static const String rVerify = '/verify';
+  static const String rFavoritos = '/favoritos';
   static const String rPlace = '/place';
-  static const String rMap="/map";
+  static const String rMap = "/map";
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case ('/home'):
@@ -23,8 +23,8 @@ class MyRoutes {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case ('/registro'):
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
-      case ('/verify'):
-      // return MaterialPageRoute(builder: (_) => const VerifyAuthScreen());
+      case ('/favoritos'):
+        return MaterialPageRoute(builder: (_) => const FavoritosScreen());
       case ('/ajustes'):
       // return MaterialPageRoute(
       //     builder: (_) =>

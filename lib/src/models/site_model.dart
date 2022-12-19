@@ -1,10 +1,12 @@
-import 'package:walkcity/src/services/db_site.dart';
+//import 'package:walkcity/src/models/index.dart';
+import 'package:walkcity/src/services/sqlite_site.dart';
 
 class Site {
   int? id;
   String? categoria;
-  String? titulo;
+  String? nombre;
   String? descripcion;
+
   double? lat;
   double? lon;
   String? image;
@@ -17,24 +19,34 @@ class Site {
       this.lon,
       this.image});
 
+
   Site.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    categoria = map['categoria'];
-    titulo = map['titulo'];
-    descripcion = map['descripcion'];
+    categoria = map['id_categoria'].toString();
+    nombre = map['nombre'];
     lat = map['lat'];
     lon = map['lon'];
-    image = map['image'];
+    imagen = map['imagen'];
+    // comentarios = map['comentarios'];
   }
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMapFavDB() {
     return {
       DBSite.columnId: id,
       DBSite.columnCategoria: categoria,
-      DBSite.columnDescripcion: descripcion,
       DBSite.columnLon: lon,
       DBSite.columnLat: lat,
-      DBSite.columnTitulo: titulo,
-      DBSite.columnImage: image,
+      DBSite.columnTitulo: nombre,
+      DBSite.columnImage: imagen,
     };
   }
+
+  // Site copyWith() => Site(
+  //       id: id,
+  //       titulo: titulo,
+  //       descripcion: descripcion,
+  //       lon: lon,
+  //       lat: lat,
+  //       image: image,
+  //       // comentarios: comentarios
+  //     );
 }

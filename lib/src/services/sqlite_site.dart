@@ -5,7 +5,7 @@ import 'package:walkcity/src/models/site_model.dart';
 class DBSite {
   static const _dbName = 'Site';
   static const _dbVersion = 1;
-  static const table = 'Sites';
+  static const table = 'sites';
   static const columnTitulo = 'titulo';
   static const columnDescripcion = 'descripcion';
   static const columnCategoria = 'categoria';
@@ -13,6 +13,7 @@ class DBSite {
   static const columnLat = 'lat';
   static const columnId = 'id';
   static const columnImage = 'image';
+  // static const comentario = List<Comentario>;
   DBSite._privateConstructor();
   static final DBSite instance = DBSite._privateConstructor();
   static Database? _database;
@@ -42,42 +43,41 @@ CREATE TABLE $table(
   }
 
   /////create product
-  Future<int> newSite(Site site) async {
+  Future<int> newFavorite(Site site) async {
     Database? db = await instance.database;
     return await db!.insert(table, {
       'id': site.id,
-      'titulo': site.titulo,
+      'titulo': site.nombre,
       'categoria': site.categoria,
-      'descripcion': site.descripcion,
       'lon': site.lon,
       'lat': site.lat,
-      'image': site.image
+      'image': site.imagen
     });
   }
 
   /////Listar productos
-  Future<List<Map<String, dynamic>>> queryAllSites() async {
+  Future<List<Map<String, dynamic>>> queryAllFavorites() async {
     Database? db = await instance.database;
     return await db!.query(table);
   }
 
   /////borrar un producto////
-  Future<int> delete(int id) async {
+  Future<int> deleteFavorite(int id) async {
     Database? db = await instance.database;
     return await db!.delete(table, where: '$columnId= ?', whereArgs: [id]);
   }
 
   ///borrar todos los productos
-  Future deleteAll() async {
+  Future deleteAllFavorites() async {
     Database? db = await instance.database;
     db!.delete(table);
   }
 
   ////actualizar
-  Future<int?> update(Site producto) async {
+  Future<int?> updateFavorite(Site producto) async {
     Database? db = await instance.database;
-    int id = producto.toMap()['id'];
-    return await db!
-        .update(table, producto.toMap(), where: '$columnId=?', whereArgs: [id]);
+    int id = producto.toMapFavDB()['id'];
+    return await db!.update(table, producto.toMapFavDB(),
+        where: '$columnId=?', whereArgs: [id]);
   }
 }

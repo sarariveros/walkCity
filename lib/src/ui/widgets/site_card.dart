@@ -3,9 +3,7 @@ import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/services/index.dart';
 import 'package:walkcity/src/styles/style.dart';
-import 'package:walkcity/src/ui/screens/index.dart';
 import 'package:provider/provider.dart';
-
 
 class SiteCard extends StatelessWidget {
   final IconData icon;
@@ -21,7 +19,7 @@ class SiteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final favorites = Provider.of<SiteProvider>(context, listen: false);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.only(right: 15, top: 5),
       height: 350,
       width: 150,
       decoration: const BoxDecoration(
@@ -38,7 +36,7 @@ class SiteCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(10), bottom: Radius.circular(10)),
               image: DecorationImage(
-                image: NetworkImage(site.image!),
+                image: NetworkImage(site.imagen!),
                 fit: BoxFit.cover,
               ),
             ),
@@ -51,7 +49,7 @@ class SiteCard extends StatelessWidget {
                 SizedBox(
                   height: 40,
                   child: Text(
-                    site.titulo!,
+                    site.nombre!,
                     textAlign: TextAlign.left,
                     style: Styles.sitecardTStyle,
                     overflow: TextOverflow.clip,
@@ -94,9 +92,8 @@ class SiteCard extends StatelessWidget {
                         onPressed: () {
                           if (icon == Icons.favorite_border) {
                             favorites.addSite(
-                                titulo: site.titulo,
-                                descripcion: site.descripcion,
-                                image: site.image,
+                                titulo: site.nombre,
+                                image: site.imagen,
                                 categoria: 'favoritos',
                                 lat: site.lat,
                                 lon: site.lon);
@@ -114,7 +111,6 @@ class SiteCard extends StatelessWidget {
                           color: Styles.secondColor,
                         ))
                   ],
-
                 ),
               ],
             ),

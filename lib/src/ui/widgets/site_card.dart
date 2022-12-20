@@ -21,7 +21,7 @@ class SiteCard extends StatelessWidget {
     final favorites = Provider.of<SiteProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(right: 15, top: 5),
-      height: 350,
+      height: 250,
       width: 150,
       decoration: const BoxDecoration(
         color: Colors.orange,
@@ -48,7 +48,7 @@ class SiteCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 40,
+                  height: 60,
                   child: Text(
                     site.nombre!,
                     textAlign: TextAlign.left,
@@ -93,15 +93,15 @@ class SiteCard extends StatelessWidget {
                         onPressed: () {
                           if (icon == Icons.favorite_border) {
                             favorites.addSite(
-                                titulo: site.nombre,
-                                image: site.imagen,
-                                categoria: 'favoritos',
-                                lat: site.lat,
-                                lon: site.lon);
+                                nombre: site.nombre!,
+                                imagen: site.imagen!,
+                                categoria: '0',
+                                lat: site.lat!,
+                                lon: site.lon!);
                             NotificationServices.showSnackbar(
                                 'Añadido a Favoritos', 1);
-                          } else if (icon == Icons.remove_circle_outline) {
-                            favorites.delete(site.id);
+                          } else if (icon == Icons.delete) {
+                            favorites.delete(site);
                             NotificationServices.showSnackbar(
                                 'Quitado de Favoritos', 2);
                           }

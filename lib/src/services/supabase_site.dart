@@ -40,15 +40,21 @@ class SBSite {
     }
   }
 
-  Future<List> getSiteByCat(int id) async {
+  Future<List<Site>> getSiteByCat(int id) async {
     final response = await client.get(
         Uri.parse('$_urlSite + ${id.toString()} + &select=*'),
         headers: {'apikey': _apikeySite, 'Authorization': _authSite});
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
       final jsonData = jsonDecode(body);
+      List<Site> sites = [];
 
-      return jsonData;
+      // print(jsonData);
+      for (var element in jsonData) {
+        sites.add(Site.fromMap(element));
+      }
+
+      return sites;
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load Sites');
@@ -69,6 +75,7 @@ class SBSite {
       for (var element in jsonData) {
         sites.add(Site.fromMap(element));
       }
+      print(sites);
 
       return sites;
     } else {

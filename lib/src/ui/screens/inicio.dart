@@ -16,7 +16,7 @@ class InicioScreen extends StatefulWidget {
 class _InicioScreenState extends State<InicioScreen> {
   @override
   Widget build(BuildContext context) {
-    final show = Provider.of<SWeatherProvider>(context, listen: true);
+    // final show = Provider.of<SWeatherProvider>(context, listen: true);
     final SBSite sbSite = SBSite();
     // List<Site> sites = [];
     // List<Category> categories = [];
@@ -29,109 +29,90 @@ class _InicioScreenState extends State<InicioScreen> {
     // fillData();
 
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Styles.secondColor,
-                            radius: 18,
-                            child: Image.asset(
-                              'assets/escudo.png',
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Ayacucho, Peru',
-                            style: Styles.title,
-                          ),
-                        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Styles.secondColor,
+                      radius: 18,
+                      child: Image.asset(
+                        'assets/escudo.png',
+                        height: 30,
+                        width: 30,
                       ),
-                      IconButton(
-                        tooltip: 'Clima',
-                        onPressed: () {
-                          show.changeVisibility();
-                          //codigo para ocultar widget
-                        },
-                        icon: (!show.showWeather)
-                            ? const Icon(Icons.sunny)
-                            : const Icon(Icons.self_improvement_sharp),
-                        color: Colors.orange,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'Explora nuestra hermosa ciudad',
-                    style: Styles.textStyle,
-                  ),
-                  Visibility(
-                      visible: show.showWeather, child: const WeatherWidget()),
-                  // const ListAllSites(),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Ayacucho, Peru',
+                      style: Styles.title,
+                    ),
+                  ],
+                ),
+                Text(
+                  'Explora nuestra hermosa ciudad',
+                  style: Styles.textStyle,
+                ),
+                // Visibility(
+                //     visible: show.showWeather, child: const WeatherWidget()),
+                // // const ListAllSites(),
 
-                  FutureBuilder(
-                    future: sbSite.getcategorias(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List datos = snapshot.data!;
-                        return SizedBox(
-                          height: 250,
-                          width: double.infinity,
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: false,
-                            itemCount: datos.length,
-                            itemBuilder: (context, index) {
-                              return FutureBuilder(
-                                future: sbSite.getSiteByCat(datos[index].id),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    List<Site> sites = [];
-                                    List data = snapshot.data!;
-                                    for (var element in data) {
-                                      Site site = Site.fromMap(element);
-                                      sites.add(site);
-                                    }
-                                    return ListSites(
-                                      categoria: datos[index].nombre,
-                                      sites: sites,
-                                    );
+                FutureBuilder(
+                  future: sbSite.getcategorias(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List datos = snapshot.data!;
+                      return SizedBox(
+                        height: 400,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: false,
+                          itemCount: datos.length,
+                          itemBuilder: (context, index) {
+                            return FutureBuilder(
+                              future: sbSite.getSiteByCat(datos[index].id),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  List<Site> sites = [];
+                                  List data = snapshot.data!;
+                                  for (var element in data) {
+                                    Site site = element;
+                                    sites.add(site);
                                   }
-                                  return Text('data');
-                                },
-                              );
-                            },
-                          ),
-                        );
-                      }
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: Styles.firstColor,
+
+                                  return ListSites(
+                                    categoria: datos[index].nombre,
+                                    sites: sites,
+                                  );
+                                }
+                                return const Text('');
+                              },
+                            );
+                          },
                         ),
                       );
-                    },
-                  )
-                ],
-              ),
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: Styles.firstColor,
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
-          ),
-        ],
-        //bottomNavigationBar: const MenuWidget(),
+          ],
+          //bottomNavigationBar: const MenuWidget(),
+        ),
       ),
     );
   }

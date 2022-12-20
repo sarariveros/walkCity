@@ -6,6 +6,10 @@ class Site {
   String? nombre;
   String? lat;
   String? lon;
+
+ // double? lat;
+  //double? lon;
+  
   String? imagen;
 
   Site({
@@ -16,6 +20,7 @@ class Site {
     this.lon,
     this.imagen,
   });
+
 
   Site.fromMap(Map<String, dynamic> map) {
     id = map['id'];

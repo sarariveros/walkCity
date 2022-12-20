@@ -46,8 +46,12 @@ dependencies:
   flutter_speed_dial: ^6.2.0
   permission_handler: ^10.2.0
   location: ^4.4.0
+  shared_preferences: ^2.0.15
   google_maps_webservice: ^0.0.19
+  flutter_polyline_points: ^1.0.0
+  table_calendar: ^3.0.8
   supabase_flutter: ^1.2.2
+
   
 
 
@@ -61,6 +65,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
   flutter_svg: ^1.1.6
 
 # For information on the generic Dart part of this file, see the

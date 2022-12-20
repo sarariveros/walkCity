@@ -1,6 +1,7 @@
 import 'package:walkcity/src/models/index.dart';
 
 class SiteRepository {
+
   // static List<Site> iglesias = [
   //   Site(
   //       id: 1,
@@ -79,4 +80,5 @@ class SiteRepository {
   //       lat: '10',
   //       lon: '10'),
   // ];
+
 }

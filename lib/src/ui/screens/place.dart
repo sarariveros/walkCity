@@ -106,7 +106,7 @@ class PlacePage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MapPage(site: site,)));
+                                    builder: (context) => MapPage(site: site)));
                           }),
                           title: Text(
                             "Ir al mapa",
@@ -131,7 +131,7 @@ class PlacePage extends StatelessWidget {
 }
 //funcion Para el icono
 Icon iconCategory(category){
-  Icon icon=Icon(Icons.map,color: Color.fromARGB(255, 133, 103, 14),);
+  Icon icon=Icon(Icons.favorite,color: Color.fromARGB(255, 217, 27, 90),);
   switch (category) {
     case "1":
       icon=Icon(Icons.church,color: Colors.white,);
@@ -143,7 +143,7 @@ Icon iconCategory(category){
       icon=Icon(Icons.museum_sharp,color: Colors.orangeAccent,);
       break; 
     case "4":
-      icon=Icon(Icons.home_work,color: Color.fromARGB(255, 235, 49, 36),);
+      icon=Icon(Icons.home_work,color: Color.fromARGB(255, 218, 60, 49),);
       break;  
     default:
       icon; 

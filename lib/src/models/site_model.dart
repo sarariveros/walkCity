@@ -6,10 +6,10 @@ class Site {
   String? categoria;
   String? nombre;
   String? descripcion;
-
+  String? titulo;
   double? lat;
   double? lon;
-  String? image;
+  String? imagen;
   Site(
       {this.id,
       this.categoria,
@@ -17,7 +17,7 @@ class Site {
       this.descripcion,
       this.lat,
       this.lon,
-      this.image});
+      this.imagen});
 
 
   Site.fromMap(Map<String, dynamic> map) {

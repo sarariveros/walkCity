@@ -4,6 +4,7 @@ import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/services/index.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:provider/provider.dart';
+import 'package:walkcity/src/ui/screens/index.dart';
 
 class SiteCard extends StatelessWidget {
   final IconData icon;

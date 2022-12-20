@@ -29,10 +29,8 @@ class MyRoutes {
       // return MaterialPageRoute(
       //     builder: (_) =>
       //         const ConfigScreen()); //subguion en lugar de poner context
-      case ('/place'):
-        return MaterialPageRoute(builder: (_) => const PlacePage());
-      case ('/map'):
-        return MaterialPageRoute(builder: (_) => const MapPage());
+      
+      
       default:
         return MaterialPageRoute(builder: (_) => const ErrorScreen());
     }

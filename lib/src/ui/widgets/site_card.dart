@@ -81,7 +81,7 @@ class SiteCard extends StatelessWidget {
                         ),
                         onPressed: () {
                           Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => PlacePage()));
+                          MaterialPageRoute(builder: (context) => PlacePage(site: site,)));
                         },
                         icon: Icon(
                           Icons.send,

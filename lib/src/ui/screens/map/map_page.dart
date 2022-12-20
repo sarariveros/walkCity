@@ -6,10 +6,13 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as ph;
+import 'package:walkcity/src/models/site_model.dart';
 //import 'package:google_maps_webservice/directions.dart' as dir;
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key});
+  final Site site;
+
+  const MapPage({super.key, required this.site});
   
   @override
   State<MapPage> createState() => _MapPageState();
@@ -24,8 +27,8 @@ class _MapPageState extends State<MapPage> {
   bool gps=true;
 
   //coordenadas del sitio
-  double _destLatitude = -13.16187972528123, _destLongitude = -74.22332704075211;
-
+  double? _destLatitude;
+  double? _destLongitude;
   //inicializamos el marcador ,los puntos de la direccion y nuestra apikey
   Map<MarkerId, Marker> markers = {};
   Map<PolylineId, Polyline> polylines = {};
@@ -39,7 +42,10 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    
+    _destLatitude = double.parse(widget.site.lat!);
+    _destLongitude = double.parse(widget.site.lon!);
+    print(_destLatitude);
+    print(_destLongitude);
     askGpsAccess();
     /// añadimos la ubicacion a los marcadores
     
@@ -72,21 +78,21 @@ class _MapPageState extends State<MapPage> {
                 barrierColor: Color.fromARGB(185, 0, 0, 0),
                 context: context,
                 isScrollControlled: true,
-                shape: RoundedRectangleBorder(
+                shape:const RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(20))),
                 builder: (context) => Container(
                       height: 200,
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           ListTile(
-                            title: Text("comentario 1",
+                            title: const Text("comentario 1",
                                 style: TextStyle(
                                     color: Color.fromRGBO(231, 63, 63, 1))),
-                            subtitle: Text(
+                            subtitle: const Text(
                               "Esto es un comentario",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -168,7 +174,7 @@ class _MapPageState extends State<MapPage> {
         BitmapDescriptor.defaultMarker);
 
     /// añadimos el sitio a los marcadores
-    _addMarker(LatLng(_destLatitude, _destLongitude), "destination",
+    _addMarker(LatLng(_destLatitude!, _destLongitude!), "destination",
         BitmapDescriptor.defaultMarkerWithHue(90));
 
     //obtenemos los puntos de la direccion
@@ -196,7 +202,7 @@ class _MapPageState extends State<MapPage> {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
       PointLatLng(currentLocation!.latitude!, currentLocation!.latitude!),
-      PointLatLng(_destLatitude, _destLongitude),
+      PointLatLng(_destLatitude!, _destLongitude!),
       travelMode: TravelMode.walking,
     );
     if (result.points.isNotEmpty) {

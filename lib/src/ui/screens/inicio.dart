@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/models/index.dart';
-import 'package:walkcity/src/providers/weather_provider.dart';
 import 'package:walkcity/src/services/supabase_site.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/widgets/index.dart';
-import 'package:provider/provider.dart';
 
 class InicioScreen extends StatefulWidget {
   const InicioScreen({super.key});
@@ -16,17 +14,7 @@ class InicioScreen extends StatefulWidget {
 class _InicioScreenState extends State<InicioScreen> {
   @override
   Widget build(BuildContext context) {
-    // final show = Provider.of<SWeatherProvider>(context, listen: true);
     final SBSite sbSite = SBSite();
-    // List<Site> sites = [];
-    // List<Category> categories = [];
-
-    // Future<void> fillData() async {
-    //   sites = await sbSite.getAllSites();
-    //   categories = await sbSite.getcategorias();
-    // }
-
-    // fillData();
 
     return SingleChildScrollView(
       child: Padding(
@@ -61,17 +49,13 @@ class _InicioScreenState extends State<InicioScreen> {
                   'Explora nuestra hermosa ciudad',
                   style: Styles.textStyle,
                 ),
-                // Visibility(
-                //     visible: show.showWeather, child: const WeatherWidget()),
-                // // const ListAllSites(),
-
                 FutureBuilder(
                   future: sbSite.getcategorias(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List datos = snapshot.data!;
                       return SizedBox(
-                        height: 400,
+                        height: MediaQuery.of(context).size.height - 185,
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
@@ -117,38 +101,3 @@ class _InicioScreenState extends State<InicioScreen> {
     );
   }
 }
-
-// class ListAllSites extends StatelessWidget {
-//   const ListAllSites({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     List<Site> showFavorites() {
-//       final favorites = Provider.of<SiteProvider>(context, listen: true);
-//       favorites.queryAll();
-//       return favorites.sites;
-//     }
-
-//     return Column(
-//       children: [
-//         ListSites(
-//           categoria: 'Iglesias',
-//           sites: SiteRepository.iglesias,
-//         ),
-//         ListSites(
-//           categoria: 'Parques',
-//           sites: SiteRepository.parques,
-//         ),
-//         ListSites(
-//           categoria: 'Museos',
-//           sites: SiteRepository.museos,
-//         ),
-//         ListSites(
-//             categoria: 'Favoritos', sites: showFavorites() //favorites.sites,
-//             ),
-//       ],
-//     );
-//   }
-// }

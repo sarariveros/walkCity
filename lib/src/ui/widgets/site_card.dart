@@ -17,37 +17,40 @@ class SiteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = Provider.of<SiteProvider>(context, listen: false);
+    final favorites = Provider.of<SiteProvider>(context);
     return Container(
       margin: const EdgeInsets.only(right: 15, top: 5),
-      height: 250,
-      width: 150,
-      decoration: const BoxDecoration(
-        color: Colors.orange,
-        borderRadius: BorderRadius.vertical(
+      height: 150,
+      width: (MediaQuery.of(context).size.width / 2) - 15,
+      decoration: BoxDecoration(
+        color: Styles.firstColor,
+        borderRadius: const BorderRadius.vertical(
             top: Radius.circular(10), bottom: Radius.circular(10)),
       ),
       child: Column(
         children: [
           Container(
             height: 120,
+            // width: (MediaQuery.of(context).size.width / 2) - 15,
             decoration: BoxDecoration(
-              color: Colors.orange,
+              color: Styles.firstColor,
               borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(10), bottom: Radius.circular(10)),
+                top: Radius.circular(10),
+                // bottom: Radius.circular(10)
+              ),
               image: DecorationImage(
                 image: NetworkImage(site.imagen!),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 60,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 45,
                   child: Text(
                     site.nombre!,
                     textAlign: TextAlign.left,
@@ -55,62 +58,67 @@ class SiteCard extends StatelessWidget {
                     overflow: TextOverflow.clip,
                   ),
                 ),
-
-                // Text(
-                //   site.descripcion!,
-                //   style: Styles.sitecardDStyle,
-                //   overflow: TextOverflow.ellipsis,
-                // ),
-                Row(
+              ),
+              Container(
+                height: 45,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(230, 233, 78, 78),
+                  //Styles.firstColor,
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(10)),
+                ),
+                width: double.infinity,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ButtonTheme(
-                      minWidth: 80.0,
-                      height: 100.0,
-                      child: OutlinedButton.icon(
-                        style: ButtonStyle(
-                            //  maximumSize: MaterialStateProperty,
-                            side: MaterialStateProperty.all(const BorderSide(
-                                color: Colors.orange,
-                                width: 1.0,
-                                style: BorderStyle.solid))),
-                        label: Text(
-                          'Ir',
-                          style: Styles.sitecardBStyle,
-                        ),
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.send,
-                          color: Styles.secondColor,
-                        ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(230, 233, 78, 78),
+                          minimumSize: const Size(20, 20),
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(7)),
+                      child: Icon(
+                        Icons.send,
+                        size: 22,
+                        color: Styles.firstColor,
                       ),
+                      onPressed: () {},
                     ),
-                    IconButton(
-                        onPressed: () {
-                          if (icon == Icons.favorite_border) {
-                            favorites.addSite(
-                                nombre: site.nombre!,
-                                imagen: site.imagen!,
-                                categoria: '0',
-                                lat: site.lat!,
-                                lon: site.lon!);
-                            NotificationServices.showSnackbar(
-                                'Añadido a Favoritos', 1);
-                          } else if (icon == Icons.delete) {
-                            favorites.delete(site);
-                            NotificationServices.showSnackbar(
-                                'Quitado de Favoritos', 2);
-                          }
-                        },
-                        icon: Icon(
-                          // Icons.favorite_border,
-                          icon!,
-                          color: Styles.secondColor,
-                        ))
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(230, 233, 78, 78),
+                          minimumSize: const Size(20, 20),
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(7)),
+                      child: Icon(
+                        icon,
+                        size: 22,
+                        color: Styles.firstColor,
+                      ),
+                      onPressed: () {
+                        if (icon == Icons.favorite) {
+                          favorites.addSite(
+                              nombre: site.nombre!,
+                              imagen: site.imagen!,
+                              categoria: '0',
+                              lat: site.lat!,
+                              lon: site.lon!);
+                          NotificationServices.showSnackbar(
+                              'Añadido a Favoritos', 1);
+                        } else if (icon == Icons.delete) {
+                          favorites.delete(site);
+                          NotificationServices.showSnackbar(
+                              'Quitado de Favoritos', 2);
+                        }
+                      },
+                    ),
+                    // IconButton()
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

@@ -15,10 +15,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectItem = 0;
   List<Widget> opcionesMenu = [
-    InicioScreen(),
-    FestividaddesScreen(),
-    FavoritosScreen(),
-    PerfilScreen(),
+    const InicioScreen(),
+    const FestividaddesScreen(),
+    const FavoritosScreen(),
+    const PerfilScreen(),
   ];
 
   @override
@@ -29,14 +29,30 @@ class _HomeScreenState extends State<HomeScreen> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(
-              title,
-              textAlign: TextAlign.center,
+            backgroundColor: Color.fromARGB(197, 134, 231, 186),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.tips_and_updates,
+                  color: Colors.amberAccent,
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
+            // Icon(Icons.close),
+
             content: const WeatherWidget(),
             actions: <Widget>[
               TextButton(
-                child: const Text('Salir'),
+                child: const Text(
+                  'Salir',
+                  style: TextStyle(color: Colors.black),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -62,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        toolbarHeight: 35,
+        toolbarHeight: 30,
         actions: [
           IconButton(
             onPressed: () {},
@@ -70,19 +86,22 @@ class _HomeScreenState extends State<HomeScreen> {
             alignment: Alignment.centerRight,
           ),
           PopupMenuButton<String>(
-            elevation: 40,
-            color: const Color.fromARGB(174, 168, 154, 22),
+            //splashRadius: 2,
+            elevation: 20,
+            color: Color.fromARGB(218, 235, 232, 212),
             onSelected: handleClick,
             itemBuilder: (BuildContext context) {
               return {'Tips', 'Cerrar Sesion'}.map((String choice) {
                 return PopupMenuItem<String>(
+                  height: 30,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   value: choice,
                   child: SizedBox(
-                    width: 40,
-                    height: 25,
+                    width: 80,
+                    height: 15,
                     child: Text(
                       choice,
-                      style: const TextStyle(fontSize: 13),
+                      style: const TextStyle(fontSize: 11),
                     ),
                   ),
                 );

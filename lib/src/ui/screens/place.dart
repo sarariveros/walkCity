@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/ui/screens/map/map_page.dart';
 
 class PlacePage extends StatelessWidget {
-  const PlacePage({super.key});
+  final Site site;
+
+  const PlacePage({super.key, required this.site});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +14,23 @@ class PlacePage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.network(
-            "https://elcomercio.pe/resizer/0M-5L6bf9yPkkWpbDrxiK_5kSqE=/980x0/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/C2EMGTHDU5HUJOKKY3TY53HVXE.jpg",
+            site.imagen!,
             fit: BoxFit.cover,
           ),
+          Positioned(
+            top: 40,
+            // child: Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(20),
+            //     color: Color.fromARGB(139, 0, 0, 0),
+
+            //   ),              
+              child: MaterialButton(
+                minWidth: 10,
+                color: Color.fromARGB(149, 0, 0, 0),
+                child: Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 25,),
+                onPressed: (() => Navigator.pushNamed(context, "/home"))),
+            ),
           Positioned(
             bottom: 300,
             right: 30,
@@ -24,13 +41,10 @@ class PlacePage extends StatelessWidget {
                       width: 3, color: Color.fromARGB(255, 196, 158, 7)),
                   color: Colors.amber,
                   borderRadius: BorderRadius.circular(20)),
-              child: Column(children: const [
-                Icon(
-                  Icons.park,
-                  color: Colors.green,
-                ),
+              child: Column(children: [
+                iconCategory(site.categoria!),
                 Text(
-                  "Parque Sucre",
+                  site.nombre!,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -41,11 +55,12 @@ class PlacePage extends StatelessWidget {
           ),
         ],
       ),
+      
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Color.fromRGBO(231, 63, 63, 1),
         onPressed: () {
           showModalBottomSheet(
-              barrierColor: Colors.transparent,
+              barrierColor: Color.fromARGB(151, 0, 0, 0),
               context: context,
               isScrollControlled: true,
               shape: RoundedRectangleBorder(
@@ -63,7 +78,7 @@ class PlacePage extends StatelessWidget {
                               style: TextStyle(
                                   color: Color.fromRGBO(231, 63, 63, 1))),
                           subtitle: Text(
-                            "Parque Sucre",
+                            site.nombre!,
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -77,11 +92,11 @@ class PlacePage extends StatelessWidget {
                                     BorderRadius.all(Radius.circular(10)),
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        "https://elcomercio.pe/resizer/0M-5L6bf9yPkkWpbDrxiK_5kSqE=/980x0/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/C2EMGTHDU5HUJOKKY3TY53HVXE.jpg"),
+                                        site.imagen!),
                                     fit: BoxFit.cover)),
                           ),
                           trailing: Text(
-                            "100m",
+                            "",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -91,7 +106,7 @@ class PlacePage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MapPage()));
+                                    builder: (context) => MapPage(site: site)));
                           }),
                           title: Text(
                             "Ir al mapa",
@@ -113,4 +128,25 @@ class PlacePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+}
+//funcion Para el icono
+Icon iconCategory(category){
+  Icon icon=Icon(Icons.favorite,color: Color.fromARGB(255, 217, 27, 90),);
+  switch (category) {
+    case "1":
+      icon=Icon(Icons.church,color: Colors.white,);
+      break; 
+    case "2":
+      icon=Icon(Icons.park,color: Colors.green,);
+      break; 
+    case "3":
+      icon=Icon(Icons.museum_sharp,color: Colors.orangeAccent,);
+      break; 
+    case "4":
+      icon=Icon(Icons.home_work,color: Color.fromARGB(255, 218, 60, 49),);
+      break;  
+    default:
+      icon; 
+  }
+  return icon;
 }

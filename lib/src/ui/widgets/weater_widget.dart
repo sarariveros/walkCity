@@ -1,5 +1,4 @@
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/avd.dart';
+
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/styles/style.dart';

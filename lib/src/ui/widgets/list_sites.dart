@@ -6,8 +6,8 @@ import 'package:walkcity/src/ui/widgets/index.dart';
 class ListSites extends StatelessWidget {
   final String categoria;
 
-  const ListSites({super.key, required this.categoria, required this.sites});
   final List<Site> sites;
+  const ListSites({super.key, required this.categoria, required this.sites});
 
   @override
   Widget build(BuildContext context) {

@@ -7,13 +7,7 @@ class FestividaddesScreen extends StatelessWidget {
 
   @override
 Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Festividades"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(199, 200, 34, 22),
-      ),
-      body: ListView.builder(
+    return  ListView.builder(
           itemCount: festivities.length,
           itemBuilder: (context, index) {
             final festivity = festivities[index];
@@ -70,7 +64,7 @@ Widget build(BuildContext context) {
                     }),
                   ),
                 ));
-          }),
+          },
     );
   }
 }

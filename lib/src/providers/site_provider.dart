@@ -5,10 +5,11 @@ import 'package:walkcity/src/services/sqlite_site.dart';
 class SiteProvider extends ChangeNotifier {
   final dbSite = DBSite.instance;
   List<Site> sites = [];
-  void addSite({nombre, categoria, lon, lat, imagen}) async {
+  void addSite({idSite, nombre, idCategoria, lon, lat, imagen}) async {
     Map<String, dynamic> row = {
+      DBSite.columnId: idSite,
       DBSite.columnNombre: nombre,
-      DBSite.columnCategoria: categoria,
+      DBSite.columnCategoria: idCategoria.toString(),
       DBSite.columnLon: lon,
       DBSite.columnLat: lat,
       DBSite.columnImagen: imagen,
@@ -16,7 +17,7 @@ class SiteProvider extends ChangeNotifier {
     Site site = Site.fromMap(row);
     final id = await dbSite.newFavorite(site);
     queryAll();
-    // print(id);
+
     notifyListeners();
   }
 
@@ -46,7 +47,7 @@ class SiteProvider extends ChangeNotifier {
   void update({id, nombre, categoria, lon, lat, image}) async {
     Site site = Site(
         id: id,
-        categoria: categoria,
+        id_categoria: categoria,
         nombre: nombre,
         longitud: lon,
         latitud: lat,

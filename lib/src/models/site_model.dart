@@ -2,7 +2,7 @@ import 'package:walkcity/src/services/sqlite_site.dart';
 
 class Site {
   int? id;
-  String? categoria;
+  String? id_categoria;
   String? nombre;
   String? latitud;
   String? longitud;
@@ -14,7 +14,7 @@ class Site {
 
   Site({
     this.id,
-    this.categoria,
+    this.id_categoria,
     this.nombre,
     this.latitud,
     this.longitud,
@@ -23,7 +23,7 @@ class Site {
 
   Site.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    categoria = map['id_categoria'].toString();
+    id_categoria = map['id_categoria'].toString();
     nombre = map['nombre'];
     latitud = map['latitud'].toString();
     longitud = map['longitud'].toString();
@@ -32,7 +32,7 @@ class Site {
   Map<String, dynamic> toMapFavDB() {
     return {
       DBSite.columnId: id,
-      DBSite.columnCategoria: categoria,
+      DBSite.columnCategoria: id_categoria.toString(),
       DBSite.columnLon: longitud.toString(),
       DBSite.columnLat: latitud.toString(),
       DBSite.columnNombre: nombre,

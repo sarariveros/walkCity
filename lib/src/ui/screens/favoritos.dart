@@ -12,6 +12,7 @@ class FavoritosScreen extends StatelessWidget {
     List<Site> showFavorites() {
       final favorites = Provider.of<SiteProvider>(context);
       favorites.queryAll();
+      //print(favorites.sites[1].id);
       return favorites.sites;
     }
 
@@ -20,8 +21,6 @@ class FavoritosScreen extends StatelessWidget {
       child: Center(
         child: ListSites(categoria: 'Favoritos', sites: showFavorites()),
       ),
-
-      //bottomNavigationBar: MenuWidget(),
     );
   }
 }

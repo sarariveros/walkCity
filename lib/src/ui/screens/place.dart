@@ -46,7 +46,7 @@ class PlacePage extends StatelessWidget {
                   color: Colors.amber,
                   borderRadius: BorderRadius.circular(20)),
               child: Column(children: [
-                iconCategory(site.categoria!),
+                iconCategory(site.id_categoria!),
                 Text(
                   site.nombre!,
                   style: TextStyle(
@@ -105,7 +105,6 @@ class PlacePage extends StatelessWidget {
                         ),
                         ListTile(
                           onTap: (() {
-                            // print('desde place page: ' + site.lat.toString());
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

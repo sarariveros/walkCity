@@ -41,6 +41,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
+
     _destLatitude = double.parse(widget.site.latitud!);
     _destLongitude = double.parse(widget.site.longitud!);
 

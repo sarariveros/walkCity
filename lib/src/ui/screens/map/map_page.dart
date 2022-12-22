@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as ph;
 import 'package:walkcity/src/models/site_model.dart';
+import 'package:walkcity/src/routes/routes.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
 
@@ -145,67 +146,71 @@ class _MapPageState extends State<MapPage> {
         heroTag: "comments",
         backgroundColor: Color.fromRGBO(231, 63, 63, 1),
         onPressed: () {
-          showModalBottomSheet(
-              barrierColor: Color.fromARGB(185, 0, 0, 0),
-              context: context,
-              isScrollControlled: true,
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20))),
-              builder: (context) => Container(
-                    height: 200,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        ListTile(
-                          title: const Text("comentario 1",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(231, 63, 63, 1))),
-                          subtitle: const Text(
-                            "Esto es un comentario",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          leading: Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://media.revistagq.com/photos/606b3183a359af169e483dcb/16:9/w_2560%2Cc_limit/estar-guapo.jpeg"),
-                                    fit: BoxFit.cover)),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text("comentario 2",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(231, 63, 63, 1))),
-                          subtitle: Text(
-                            "Esto es un comentario",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          leading: Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://media.revistagq.com/photos/606b3183a359af169e483dcb/16:9/w_2560%2Cc_limit/estar-guapo.jpeg"),
-                                    fit: BoxFit.cover)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ));
+          Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ComentsPage(idSite: widget.site,)));
+          // showModalBottomSheet(
+          //     barrierColor: Color.fromARGB(185, 0, 0, 0),
+          //     context: context,
+          //     isScrollControlled: true,
+          //     shape: const RoundedRectangleBorder(
+          //         borderRadius:
+          //             BorderRadius.vertical(top: Radius.circular(20))),
+          //     builder: (context) => Container(
+          //           height: 200,
+          //           child: Column(
+          //             children: [
+          //               const SizedBox(
+          //                 height: 20,
+          //               ),
+          //               ListTile(
+          //                 title: const Text("comentario 1",
+          //                     style: TextStyle(
+          //                         color: Color.fromRGBO(231, 63, 63, 1))),
+          //                 subtitle: const Text(
+          //                   "Esto es un comentario",
+          //                   style: TextStyle(
+          //                       fontWeight: FontWeight.bold,
+          //                       color: Colors.black),
+          //                 ),
+          //                 leading: Container(
+          //                   width: 60,
+          //                   height: 60,
+          //                   decoration: BoxDecoration(
+          //                       borderRadius:
+          //                           BorderRadius.all(Radius.circular(10)),
+          //                       image: DecorationImage(
+          //                           image: NetworkImage(
+          //                               "https://media.revistagq.com/photos/606b3183a359af169e483dcb/16:9/w_2560%2Cc_limit/estar-guapo.jpeg"),
+          //                           fit: BoxFit.cover)),
+          //                 ),
+          //               ),
+          //               ListTile(
+          //                 title: Text("comentario 2",
+          //                     style: TextStyle(
+          //                         color: Color.fromRGBO(231, 63, 63, 1))),
+          //                 subtitle: Text(
+          //                   "Esto es un comentario",
+          //                   style: TextStyle(
+          //                       fontWeight: FontWeight.bold,
+          //                       color: Colors.black),
+          //                 ),
+          //                 leading: Container(
+          //                   width: 60,
+          //                   height: 60,
+          //                   decoration: BoxDecoration(
+          //                       borderRadius:
+          //                           BorderRadius.all(Radius.circular(10)),
+          //                       image: DecorationImage(
+          //                           image: NetworkImage(
+          //                               "https://media.revistagq.com/photos/606b3183a359af169e483dcb/16:9/w_2560%2Cc_limit/estar-guapo.jpeg"),
+          //                           fit: BoxFit.cover)),
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ));
         },
         label: Text(
           "Comentarios",

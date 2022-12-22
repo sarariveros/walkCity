@@ -49,8 +49,9 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   table_calendar: ^3.0.8
   supabase_flutter: ^1.2.2
-
-  
+  image_picker: ^0.8.6
+  shared_preferences: ^2.0.15
+  flutter_secure_storage: ^6.1.0
 
 
 dev_dependencies:

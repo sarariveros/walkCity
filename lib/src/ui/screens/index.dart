@@ -17,3 +17,9 @@ export 'package:walkcity/src/ui/screens/home.dart';
 export 'package:walkcity/src/ui/screens/login.dart';
 
 export 'package:walkcity/src/ui/screens/register.dart';
+
+export 'package:walkcity/src/ui/screens/verify_auth_screen.dart';
+
+export 'package:walkcity/src/ui/screens/profileSettings.dart';
+
+export 'package:walkcity/src/ui/screens/coments.dart';

@@ -84,7 +84,12 @@ class SiteCard extends StatelessWidget {
                         size: 22,
                         color: Styles.firstColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PlacePage(site: site)));
+                      },
                     ),
 
                     ElevatedButton(

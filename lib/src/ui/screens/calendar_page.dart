@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:walkcity/src/models/festivity_models.dart';
+import 'package:walkcity/src/styles/style.dart';
 
 class CalendarPage extends StatefulWidget {
   final Festivity festivity;
@@ -57,7 +58,8 @@ class _CalendarPageState extends State<CalendarPage> {
         title: const Text('Calendario'),
         centerTitle: true,
       ),
-      body: ListView(
+      body: SingleChildScrollView(
+        child: Column(
         children: [
           
           Padding(
@@ -70,10 +72,12 @@ class _CalendarPageState extends State<CalendarPage> {
               eventLoader: _getEventForDay,
 
               headerStyle: HeaderStyle(
+                  headerMargin: EdgeInsets.only(top: 10,bottom: 20),
                   formatButtonVisible: false,
                   titleCentered: true,
                   decoration: BoxDecoration(
-                      color: Colors.amber,
+                    
+                      color: Styles.firstColor,
                       borderRadius: BorderRadius.circular(20))),
               calendarFormat: _calendarFormat,
               onFormatChanged: (format) {
@@ -100,8 +104,7 @@ class _CalendarPageState extends State<CalendarPage> {
               },
             ),
           ),
-          ListView(
-            shrinkWrap: true,
+          Column(
             children: _getEventForDay(_selectedDay!)
                 .map((event) => Column(children: [
                       Padding(
@@ -123,6 +126,6 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ],
       ),
-    );
+    ));
   }
 }

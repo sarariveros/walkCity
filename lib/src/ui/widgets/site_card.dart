@@ -86,6 +86,7 @@ class SiteCard extends StatelessWidget {
                         color: Styles.firstColor,
                       ),
                       onPressed: () {
+                        print('desde card site: ' + site.latitud.toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -15,19 +15,13 @@ class FavoritosScreen extends StatelessWidget {
       return favorites.sites;
     }
 
-    final List<Site> listaFavoritos = showFavorites();
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
-        child: Column(
-          children: [
-            ListSites(categoria: 'Favoritos', sites: showFavorites()),
-          ],
-        ),
-
-        //bottomNavigationBar: MenuWidget(),
+        child: ListSites(categoria: 'Favoritos', sites: showFavorites()),
       ),
+
+      //bottomNavigationBar: MenuWidget(),
     );
   }
 }

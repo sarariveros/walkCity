@@ -18,7 +18,7 @@ class WeaterApiProvider {
       Uri(
         scheme: 'https',
         host: 'api.weatherapi.com',
-        path: 'v1/current.json',
+        path: 'v1/forecast.json',
         queryParameters: {'key': _apiKey, 'q': _location, 'aqi': 'no'},
       ),
     );
@@ -27,12 +27,16 @@ class WeaterApiProvider {
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
       final jsonData = jsonDecode(body);
+      print(jsonData);
 
-      clima['temp_f'] = jsonData['current']['temp_f'];
-      clima['temp_c'] = jsonData['current']['temp_c'];
-      clima['text'] = jsonData['current']['condition']['text'];
-      clima['icon'] = jsonData['current']['condition']['icon'];
-      // print(jsonData);
+      clima['temp_f'] =
+          jsonData['forecast']['forecastday'][0]['day']['maxtemp_f'];
+      clima['temp_c'] =
+          jsonData['forecast']['forecastday'][0]['day']['maxtemp_c'];
+      clima['text'] =
+          jsonData['forecast']['forecastday'][0]['day']['condition']['text'];
+      clima['icon'] =
+          jsonData['forecast']['forecastday'][0]['day']['condition']['icon'];
 
       return clima;
     } else {

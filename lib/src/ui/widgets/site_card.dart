@@ -75,7 +75,8 @@ class SiteCard extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(230, 233, 78, 78),
+                          backgroundColor:
+                              const Color.fromARGB(230, 233, 78, 78),
                           minimumSize: const Size(20, 20),
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(7)),
@@ -85,9 +86,8 @@ class SiteCard extends StatelessWidget {
                         color: Styles.firstColor,
                       ),
                       onPressed: () {
-
-                         Navigator.push(
-
+                        print('desde card site: ' + site.latitud.toString());
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PlacePage(site: site)));
@@ -108,11 +108,13 @@ class SiteCard extends StatelessWidget {
                       onPressed: () {
                         if (icon == Icons.favorite) {
                           favorites.addSite(
+                              idSite: site.id,
                               nombre: site.nombre!,
                               imagen: site.imagen!,
-                              categoria: '0',
+                              idCategoria: site.id_categoria!,
                               lat: site.latitud!,
                               lon: site.longitud!);
+
                           NotificationServices.showSnackbar(
                               'Añadido a Favoritos', 1);
                         } else if (icon == Icons.delete) {

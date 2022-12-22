@@ -39,11 +39,9 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    print(widget.site.latitud);
     _destLatitude = double.parse(widget.site!.latitud!);
     _destLongitude = double.parse(widget.site!.longitud!);
-    print(_destLatitude);
-    print(_destLongitude);
+
     askGpsAccess();
 
     /// añadimos la ubicacion a los marcadores

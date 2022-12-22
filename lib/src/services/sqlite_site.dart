@@ -8,10 +8,11 @@ class DBSite {
   static const table = 'favorites';
   static const columnNombre = 'nombre';
   // static const columnDescripcion = 'descripcion';
-  static const columnCategoria = 'categoria';
+  static const columnCategoria = 'id_categoria';
   static const columnLon = 'longitud';
   static const columnLat = 'latitud';
   static const columnId = 'id';
+  // static const columnIdSite = 'idSite';
   static const columnImagen = 'imagen';
   // static const comentario = List<Comentario>;
   DBSite._privateConstructor();
@@ -32,7 +33,7 @@ class DBSite {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
 CREATE TABLE $table(
-  $columnId INTEGER PRIMARY KEY ,
+  $columnId INTEGER ,
   $columnNombre TEXT NOT NULL,
   $columnCategoria TEXT NOT NULL,
   $columnLon TEXT NOT NULL,
@@ -47,7 +48,7 @@ CREATE TABLE $table(
     return await db!.insert(table, {
       'id': site.id,
       'nombre': site.nombre,
-      'categoria': site.categoria,
+      'id_categoria': site.id_categoria.toString(),
       'longitud': site.longitud,
       'latitud': site.latitud,
       'imagen': site.imagen

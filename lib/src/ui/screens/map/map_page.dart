@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as ph;
 import 'package:walkcity/src/models/site_model.dart';
+import 'package:walkcity/src/styles/style.dart';
+import 'package:walkcity/src/ui/screens/index.dart';
 
 class MapPage extends StatefulWidget {
   final Site site;
@@ -39,11 +41,9 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    print(widget.site.latitud);
-    _destLatitude = double.parse(widget.site!.latitud!);
-    _destLongitude = double.parse(widget.site!.longitud!);
-    print(_destLatitude);
-    print(_destLongitude);
+    _destLatitude = double.parse(widget.site.latitud!);
+    _destLongitude = double.parse(widget.site.longitud!);
+
     askGpsAccess();
 
     /// añadimos la ubicacion a los marcadores
@@ -77,16 +77,19 @@ class _MapPageState extends State<MapPage> {
                 polylines: Set<Polyline>.of(polylines.values),
               ),
               Positioned(
-                  top: 50,
-                  left: 15,
+                
+                  top: 30,
+                  right: 15,
                   child: SpeedDial(
                     direction: SpeedDialDirection.down,
                     animatedIcon: AnimatedIcons.menu_arrow,
                     curve: Curves.easeInBack,
                     overlayColor: Color.fromARGB(151, 0, 0, 0),
-                    spacing: 30,
+                    
+                    spaceBetweenChildren: 30,
                     children: [
                       SpeedDialChild(
+                        label: "Normal",
                         child: Icon(
                           Icons.map,
                           color: Colors.white,
@@ -98,6 +101,7 @@ class _MapPageState extends State<MapPage> {
                         }),
                       ),
                       SpeedDialChild(
+                        label: "Satelital",
                         child: Icon(
                           Icons.satellite_alt,
                           color: Colors.white,
@@ -111,19 +115,33 @@ class _MapPageState extends State<MapPage> {
                     ],
                   )),
               Positioned(
-                  right: 10,
-                  top: 30,
+                  left: 10,
+                  top: 100,
                   child: FloatingActionButton(
+                    heroTag: "location",
                     shape: CircleBorder(),
                     backgroundColor: Colors.green,
                     child: Icon(gps ? Icons.gps_off : Icons.gps_fixed),
                     onPressed: (() => setState(() {
                           gps = !gps;
                         })),
-                  ))
+                  )),
+              Positioned(
+                  left: 10,
+                  top: 30,
+                  child: FloatingActionButton(
+                    heroTag: "back",
+                    shape: CircleBorder(),
+                    backgroundColor: Styles.secondColor,
+                    child: Icon(Icons.arrow_back_ios_new,color: Colors.white,),
+                    onPressed: (() {
+                      Navigator.pushNamed(context, "/home");
+                    }
+                  ))),
             ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: "comments",
         backgroundColor: Color.fromRGBO(231, 63, 63, 1),
         onPressed: () {
           showModalBottomSheet(

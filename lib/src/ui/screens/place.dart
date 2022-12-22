@@ -105,7 +105,6 @@ class PlacePage extends StatelessWidget {
                         ),
                         ListTile(
                           onTap: (() {
-                            // print('desde place page: ' + site.lat.toString());
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

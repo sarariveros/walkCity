@@ -48,8 +48,8 @@ class SiteProvider extends ChangeNotifier {
         id: id,
         categoria: categoria,
         nombre: nombre,
-        lon: lon,
-        lat: lat,
+        longitud: lon,
+        latitud: lat,
         imagen: image);
     final rowupdate = await dbSite.updateFavorite(site);
     notifyListeners();

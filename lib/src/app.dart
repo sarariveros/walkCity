@@ -28,6 +28,7 @@ class App extends StatelessWidget {
         ),
         onGenerateRoute: MyRoutes.generateRoute,
         initialRoute: MyRoutes.rHome,
+        //initialRoute: MyRoutes.rLogin,
       ),
     );
   }

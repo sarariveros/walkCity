@@ -24,13 +24,17 @@ class PlacePage extends StatelessWidget {
             //     borderRadius: BorderRadius.circular(20),
             //     color: Color.fromARGB(139, 0, 0, 0),
 
-            //   ),              
-              child: MaterialButton(
+            //   ),
+            child: MaterialButton(
                 minWidth: 10,
                 color: Color.fromARGB(149, 0, 0, 0),
-                child: Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 25,),
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.white,
+                  size: 25,
+                ),
                 onPressed: (() => Navigator.pushNamed(context, "/home"))),
-            ),
+          ),
           Positioned(
             bottom: 300,
             right: 30,
@@ -55,7 +59,6 @@ class PlacePage extends StatelessWidget {
           ),
         ],
       ),
-      
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Color.fromRGBO(231, 63, 63, 1),
         onPressed: () {
@@ -91,8 +94,7 @@ class PlacePage extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                                 image: DecorationImage(
-                                    image: NetworkImage(
-                                        site.imagen!),
+                                    image: NetworkImage(site.imagen!),
                                     fit: BoxFit.cover)),
                           ),
                           trailing: Text(
@@ -103,6 +105,7 @@ class PlacePage extends StatelessWidget {
                         ),
                         ListTile(
                           onTap: (() {
+                            // print('desde place page: ' + site.lat.toString());
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -129,24 +132,40 @@ class PlacePage extends StatelessWidget {
     );
   }
 }
+
 //funcion Para el icono
-Icon iconCategory(category){
-  Icon icon=Icon(Icons.favorite,color: Color.fromARGB(255, 217, 27, 90),);
+Icon iconCategory(category) {
+  Icon icon = Icon(
+    Icons.favorite,
+    color: Color.fromARGB(255, 217, 27, 90),
+  );
   switch (category) {
     case "1":
-      icon=Icon(Icons.church,color: Colors.white,);
-      break; 
+      icon = Icon(
+        Icons.church,
+        color: Colors.white,
+      );
+      break;
     case "2":
-      icon=Icon(Icons.park,color: Colors.green,);
-      break; 
+      icon = Icon(
+        Icons.park,
+        color: Colors.green,
+      );
+      break;
     case "3":
-      icon=Icon(Icons.museum_sharp,color: Colors.orangeAccent,);
-      break; 
+      icon = Icon(
+        Icons.museum_sharp,
+        color: Colors.orangeAccent,
+      );
+      break;
     case "4":
-      icon=Icon(Icons.home_work,color: Color.fromARGB(255, 218, 60, 49),);
-      break;  
+      icon = Icon(
+        Icons.home_work,
+        color: Color.fromARGB(255, 218, 60, 49),
+      );
+      break;
     default:
-      icon; 
+      icon;
   }
   return icon;
 }

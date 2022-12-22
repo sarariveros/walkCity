@@ -18,9 +18,9 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   late GoogleMapController mapController;
-  
+
   //para el tipo de mapa
-  MapType mapType=MapType.normal;
+  MapType mapType = MapType.normal;
   //Coordenadas del usuario
   bool gps = true;
 
@@ -39,8 +39,9 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    _destLatitude = double.parse(widget.site.lat!);
-    _destLongitude = double.parse(widget.site.lon!);
+    print(widget.site.latitud);
+    _destLatitude = double.parse(widget.site!.latitud!);
+    _destLongitude = double.parse(widget.site!.longitud!);
     print(_destLatitude);
     print(_destLongitude);
     askGpsAccess();
@@ -59,13 +60,11 @@ class _MapPageState extends State<MapPage> {
           ? Center(
               child: Text("loading"),
             )
-          : Stack(
-            children:[ 
-              
+          : Stack(children: [
               GoogleMap(
                 initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                        currentLocation!.latitude!, currentLocation!.longitude!),
+                    target: LatLng(currentLocation!.latitude!,
+                        currentLocation!.longitude!),
                     zoom: 15),
                 mapType: mapType,
                 myLocationEnabled: gps,
@@ -78,46 +77,51 @@ class _MapPageState extends State<MapPage> {
                 polylines: Set<Polyline>.of(polylines.values),
               ),
               Positioned(
-              
-                top: 50,
-                left: 15,
-                child:SpeedDial(
-                  direction: SpeedDialDirection.down,
-                  animatedIcon:AnimatedIcons.menu_arrow ,
-                  curve: Curves.easeInBack,
-                  overlayColor:  Color.fromARGB(151, 0, 0, 0),
-                  spacing: 30,
-                  children: [
-                    SpeedDialChild(
-                      child: Icon(Icons.map,color:Colors.white,),
-                      backgroundColor: Colors.lightBlue,
-                      shape: CircleBorder(),
-                      onTap: () => setState(() {
-                        mapType=MapType.normal;
-                      }),
-                    ),
-                    SpeedDialChild(
-                      child: Icon(Icons.satellite_alt,color: Colors.white,),
-                      backgroundColor: Colors.lightBlue,
-                      shape: CircleBorder(),
-                      onTap: () => setState(() {
-                        mapType=MapType.satellite;
-                      }),
-                    )
-                  ],
-                ) ),
-                Positioned(
+                  top: 50,
+                  left: 15,
+                  child: SpeedDial(
+                    direction: SpeedDialDirection.down,
+                    animatedIcon: AnimatedIcons.menu_arrow,
+                    curve: Curves.easeInBack,
+                    overlayColor: Color.fromARGB(151, 0, 0, 0),
+                    spacing: 30,
+                    children: [
+                      SpeedDialChild(
+                        child: Icon(
+                          Icons.map,
+                          color: Colors.white,
+                        ),
+                        backgroundColor: Colors.lightBlue,
+                        shape: CircleBorder(),
+                        onTap: () => setState(() {
+                          mapType = MapType.normal;
+                        }),
+                      ),
+                      SpeedDialChild(
+                        child: Icon(
+                          Icons.satellite_alt,
+                          color: Colors.white,
+                        ),
+                        backgroundColor: Colors.lightBlue,
+                        shape: CircleBorder(),
+                        onTap: () => setState(() {
+                          mapType = MapType.satellite;
+                        }),
+                      )
+                    ],
+                  )),
+              Positioned(
                   right: 10,
                   top: 30,
                   child: FloatingActionButton(
                     shape: CircleBorder(),
                     backgroundColor: Colors.green,
-                    child: Icon(gps?Icons.gps_off:Icons.gps_fixed),
-                    onPressed:(() => setState(() {
-                      gps=!gps;
-                    })) ,))
-              ]
-          ),
+                    child: Icon(gps ? Icons.gps_off : Icons.gps_fixed),
+                    onPressed: (() => setState(() {
+                          gps = !gps;
+                        })),
+                  ))
+            ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Color.fromRGBO(231, 63, 63, 1),
@@ -197,13 +201,12 @@ class _MapPageState extends State<MapPage> {
   //para pedir permsos de ubicacion
   void askGpsAccess() async {
     var status = await ph.Permission.location.request();
-   
+
     if (status == ph.PermissionStatus.granted) {
       getCurrentLocation();
       setState(() => gps = false);
     } else {
       askGpsAccess();
-      
     }
   }
 

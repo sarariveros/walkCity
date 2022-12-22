@@ -85,6 +85,7 @@ class SiteCard extends StatelessWidget {
                         color: Styles.firstColor,
                       ),
                       onPressed: () {
+                        print('desde card site: ' + site.latitud.toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -109,8 +110,8 @@ class SiteCard extends StatelessWidget {
                               nombre: site.nombre!,
                               imagen: site.imagen!,
                               categoria: '0',
-                              lat: site.lat!,
-                              lon: site.lon!);
+                              lat: site.latitud!,
+                              lon: site.longitud!);
                           NotificationServices.showSnackbar(
                               'Añadido a Favoritos', 1);
                         } else if (icon == Icons.delete) {

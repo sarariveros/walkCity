@@ -9,8 +9,8 @@ class DBSite {
   static const columnNombre = 'nombre';
   // static const columnDescripcion = 'descripcion';
   static const columnCategoria = 'categoria';
-  static const columnLon = 'lon';
-  static const columnLat = 'lat';
+  static const columnLon = 'longitud';
+  static const columnLat = 'latitud';
   static const columnId = 'id';
   static const columnImagen = 'imagen';
   // static const comentario = List<Comentario>;
@@ -48,8 +48,8 @@ CREATE TABLE $table(
       'id': site.id,
       'nombre': site.nombre,
       'categoria': site.categoria,
-      'lon': site.lon,
-      'lat': site.lat,
+      'longitud': site.longitud,
+      'latitud': site.latitud,
       'imagen': site.imagen
     });
   }

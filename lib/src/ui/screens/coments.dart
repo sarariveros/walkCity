@@ -31,32 +31,36 @@ class _ComentsPageState extends State<ComentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 70, 10, 0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Comentarios (${comments.length})',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 70, 10, 0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Comentarios (${comments.length})',
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  ShowSheet(idSite: widget.idSite.id)
+                ],
+              ),
+              SingleChildScrollView(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: comments.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    return Comment(info: comments[i]);
+                  },
                 ),
-                ShowSheet(idSite: widget.idSite.id)
-              ],
-            ),
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: comments.length,
-              itemBuilder: (BuildContext context, int i) {
-                return Comment(info: comments[i]);
-              },
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

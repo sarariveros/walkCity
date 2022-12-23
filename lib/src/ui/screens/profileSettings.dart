@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/providers/storage_provider.dart';
+import 'package:walkcity/src/routes/routes.dart';
 
 class ProfileSettingPage extends StatelessWidget {
   const ProfileSettingPage({super.key});
@@ -175,7 +176,7 @@ void _showDialog(BuildContext context, String title, String info) {
           TextButton(
             child: const Text('Volver'),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context,MyRoutes.rHome,);
             },
           )
         ],

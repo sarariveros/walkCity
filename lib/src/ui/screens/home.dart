@@ -80,11 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         toolbarHeight: 30,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.favorite, color: Styles.secondColor),
-            alignment: Alignment.centerRight,
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(Icons.favorite, color: Styles.secondColor),
+          //   alignment: Alignment.centerRight,
+          // ),
           PopupMenuButton<String>(
             //splashRadius: 2,
             elevation: 20,

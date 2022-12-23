@@ -51,7 +51,7 @@ class ListSites extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 0.72,
+                  childAspectRatio: 0.83,
                 ),
                 itemBuilder: (context, index) => sitesCard[index],
                 itemCount: sitesCard.length,
@@ -72,7 +72,7 @@ class ListSites extends StatelessWidget {
       ),
       SizedBox(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height / 2.55,
+        height: 232,//MediaQuery.of(context).size.height / 2.55,
         child: AnimatedRotation(
           turns: 1,
           duration: const Duration(seconds: 1),

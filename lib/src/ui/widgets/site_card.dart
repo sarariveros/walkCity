@@ -81,12 +81,32 @@ class SiteCard extends StatelessWidget {
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(7)),
                       child: Icon(
+                        Icons.message,
+                        size: 22,
+                        color: Styles.firstColor,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ComentsPage(
+                                      idSite: site,
+                                    )));
+                      },
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(230, 233, 78, 78),
+                          minimumSize: const Size(20, 20),
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(7)),
+                      child: Icon(
                         Icons.send,
                         size: 22,
                         color: Styles.firstColor,
                       ),
                       onPressed: () {
-                        print('desde card site: ' + site.latitud.toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(

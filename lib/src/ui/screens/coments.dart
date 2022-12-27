@@ -50,13 +50,16 @@ class _ComentsPageState extends State<ComentsPage> {
                 ],
               ),
               SingleChildScrollView(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: comments.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return Comment(info: comments[i]);
-                  },
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height - 120,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: comments.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      return Comment(info: comments[i]);
+                    },
+                  ),
                 ),
               )
             ],
@@ -93,7 +96,7 @@ class _ComentsPageState extends State<ComentsPage> {
       'Content-Type': 'application/json',
       'Prefer': 'return=minimal'
     };
-    
+
     final url =
         'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Comentario?id_sitio=eq.${widget.idSite.id}';
     final uri = Uri.parse(url);

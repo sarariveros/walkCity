@@ -49,9 +49,9 @@ class ListSites extends StatelessWidget {
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 10,
+                  mainAxisSpacing: 20,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 0.83,
+                  childAspectRatio: 0.72,
                 ),
                 itemBuilder: (context, index) => sitesCard[index],
                 itemCount: sitesCard.length,
@@ -72,7 +72,7 @@ class ListSites extends StatelessWidget {
       ),
       SizedBox(
         width: double.infinity,
-        height: 232,//MediaQuery.of(context).size.height / 2.55,
+        height: 232, //MediaQuery.of(context).size.height / 2.55,
         child: AnimatedRotation(
           turns: 1,
           duration: const Duration(seconds: 1),

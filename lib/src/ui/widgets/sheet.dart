@@ -82,14 +82,14 @@ class _ShowSheetState extends State<ShowSheet> {
                         'Content-Type': 'application/json',
                         'Prefer': 'return=minimal'
                       };
-print(data);
+// print(data);
                       const url =
                           'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Comentario';
                       final uri = Uri.parse(url);
                       final res = await http.post(uri,
                           body: json.encode(data), headers: header);
                       final body = res.body;
-                      print(body);
+                      // print(body);
                     },
                     icon: const Icon(Icons.send))
               ],

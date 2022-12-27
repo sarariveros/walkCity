@@ -8,7 +8,7 @@ class VerifyAuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context, listen: false);
+    final authService = Provider.of<AuthService>(context, listen: true);
     return Scaffold(
       body: Center(
         child: FutureBuilder(

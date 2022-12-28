@@ -69,11 +69,19 @@ class FestividaddesScreen extends StatelessWidget {
                   ),
                 ),
               
-                trailing: const Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                  
-                  size: 30,
+                trailing: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromARGB(160, 0, 0, 0),
+                    
+                  ),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                    
+                    size: 30,
+                  ),
                 ),
                 onTap: (() {
                   Navigator.of(context).push(MaterialPageRoute(

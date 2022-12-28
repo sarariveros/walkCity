@@ -124,6 +124,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     ]))
                 .toList(),
           ),
+          SizedBox(height: 20,)
         ],
       ),
     ));

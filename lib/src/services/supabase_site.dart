@@ -30,9 +30,6 @@ class SBSite {
       for (var element in jsonData) {
         categorias.add(Category.fromMap(element));
       }
-
-      // print(jsonData);
-
       return categorias;
     } else {
       // If that call was not successful, throw an error.
@@ -71,7 +68,6 @@ class SBSite {
       final jsonData = jsonDecode(body);
       List<Site> sites = [];
 
-      // print(jsonData);
       for (var element in jsonData) {
         sites.add(Site.fromMap(element));
       }

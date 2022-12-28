@@ -128,12 +128,11 @@ class SiteCard extends StatelessWidget {
                       onPressed: () {
                         if (icon == Icons.favorite) {
                           favorites.addSite(
-                              idSite: site.id,
-                              nombre: site.nombre!,
-                              imagen: site.imagen!,
-                              idCategoria: site.id_categoria!,
-                              lat: site.latitud!,
-                              lon: site.longitud!);
+                            idSite: site.id,
+                            nombre: site.nombre!,
+                            imagen: site.imagen!,
+                            idCategoria: site.id_categoria!,
+                          );
 
                           NotificationServices.showSnackbar(
                               'Añadido a Favoritos', 1);

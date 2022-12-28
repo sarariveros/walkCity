@@ -49,8 +49,6 @@ CREATE TABLE $table(
       'id': site.id,
       'nombre': site.nombre,
       'id_categoria': site.id_categoria.toString(),
-      'longitud': site.longitud,
-      'latitud': site.latitud,
       'imagen': site.imagen
     });
   }
@@ -74,10 +72,10 @@ CREATE TABLE $table(
   }
 
   ////actualizar
-  Future<int?> updateFavorite(Site site) async {
-    Database? db = await instance.database;
-    int id = site.toMapFavDB()['id'];
-    return await db!.update(table, site.toMapFavDB(),
-        where: '$columnId=?', whereArgs: [id]);
-  }
+  // Future<int?> updateFavorite(Site site) async {
+  //   Database? db = await instance.database;
+  //   int id = site.toMapFavDB()['id'];
+  //   return await db!.update(table, site.toMapFavDB(),
+  //       where: '$columnId=?', whereArgs: [id]);
+  // }
 }

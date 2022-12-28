@@ -45,14 +45,9 @@ class SiteProvider extends ChangeNotifier {
   }
 
   void update({id, nombre, categoria, lon, lat, image}) async {
-    Site site = Site(
-        id: id,
-        id_categoria: categoria,
-        nombre: nombre,
-        longitud: lon,
-        latitud: lat,
-        imagen: image);
-    final rowupdate = await dbSite.updateFavorite(site);
+    Site site =
+        Site(id: id, id_categoria: categoria, nombre: nombre, imagen: image);
+    // final rowupdate = await dbSite.updateFavorite(site);
     notifyListeners();
   }
 }

@@ -42,9 +42,8 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-
-    _destLatitude = double.parse(widget.site.latitud!);
-    _destLongitude = double.parse(widget.site.longitud!);
+    // _destLatitude = double.parse(widget.site.latitud!);
+    // _destLongitude = double.parse(widget.site.longitud!);
 
     askGpsAccess();
 
@@ -79,7 +78,6 @@ class _MapPageState extends State<MapPage> {
                 polylines: Set<Polyline>.of(polylines.values),
               ),
               Positioned(
-                
                   top: 30,
                   right: 15,
                   child: SpeedDial(
@@ -87,7 +85,6 @@ class _MapPageState extends State<MapPage> {
                     animatedIcon: AnimatedIcons.menu_arrow,
                     curve: Curves.easeInBack,
                     overlayColor: Color.fromARGB(151, 0, 0, 0),
-                    
                     spaceBetweenChildren: 30,
                     children: [
                       SpeedDialChild(
@@ -132,14 +129,16 @@ class _MapPageState extends State<MapPage> {
                   left: 10,
                   top: 30,
                   child: FloatingActionButton(
-                    heroTag: "back",
-                    shape: CircleBorder(),
-                    backgroundColor: Styles.secondColor,
-                    child: Icon(Icons.arrow_back_ios_new,color: Colors.white,),
-                    onPressed: (() {
-                      Navigator.pushNamed(context, "/home");
-                    }
-                  ))),
+                      heroTag: "back",
+                      shape: CircleBorder(),
+                      backgroundColor: Styles.secondColor,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.white,
+                      ),
+                      onPressed: (() {
+                        Navigator.pushNamed(context, "/home");
+                      }))),
             ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
@@ -147,9 +146,11 @@ class _MapPageState extends State<MapPage> {
         backgroundColor: Color.fromRGBO(231, 63, 63, 1),
         onPressed: () {
           Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ComentsPage(idSite: widget.site,)));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ComentsPage(
+                        idSite: widget.site,
+                      )));
           // showModalBottomSheet(
           //     barrierColor: Color.fromARGB(185, 0, 0, 0),
           //     context: context,

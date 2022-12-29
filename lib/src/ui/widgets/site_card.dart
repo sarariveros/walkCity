@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:walkcity/src/models/favorito_model.dart';
 import 'package:walkcity/src/models/site_model.dart';
-import 'package:walkcity/src/providers/index.dart';
+// import 'package:walkcity/src/providers/index.dart';
+import 'package:walkcity/src/preferences/preferences.dart';
+import 'package:walkcity/src/providers/favorite_provider.dart';
 import 'package:walkcity/src/services/index.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +21,8 @@ class SiteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = Provider.of<SiteProvider>(context);
+    final sbFav = Provider.of<SBFavorite>(context);
+
     return Container(
       margin: const EdgeInsets.only(right: 15, top: 5),
       height: 150,
@@ -116,7 +120,8 @@ class SiteCard extends StatelessWidget {
 
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(230, 233, 78, 78),
+                          backgroundColor:
+                              const Color.fromARGB(230, 233, 78, 78),
                           minimumSize: const Size(20, 20),
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(7)),
@@ -126,20 +131,24 @@ class SiteCard extends StatelessWidget {
                         color: Styles.firstColor,
                       ),
                       onPressed: () {
+                        print(Preferences.identificador);
                         if (icon == Icons.favorite) {
-                          favorites.addSite(
-                            idSite: site.id,
-                            nombre: site.nombre!,
-                            imagen: site.imagen!,
-                            idCategoria: site.id_categoria!,
-                          );
+                          sbFav.addFavorite(Favorito.fromMap({
+                            'id_site': site.id,
+                            'estado': 0,
+                            'usuario': Preferences.identificador
+                          }));
 
-                          NotificationServices.showSnackbar(
-                              'Añadido a Favoritos', 1);
+                          // NotificationServices.showSnackbar(
+                          //     'Añadido a Favoritos', 1);
                         } else if (icon == Icons.delete) {
-                          favorites.delete(site);
-                          NotificationServices.showSnackbar(
-                              'Quitado de Favoritos', 2);
+                          sbFav.removeFavorite(Favorito.fromMap({
+                            'id_site': site.id,
+                            'estado': 0,
+                            'usuario': Preferences.identificador
+                          }));
+                          // NotificationServices.showSnackbar(
+                          //     'Quitado de Favoritos', 2);
                         }
                       },
                     ),

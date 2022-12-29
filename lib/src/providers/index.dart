@@ -1,3 +1,4 @@
+export 'package:walkcity/src/providers/favorite_provider.dart';
 export 'package:walkcity/src/services/weather_api.dart';
 export 'package:walkcity/src/providers/site_provider.dart';
 export 'package:walkcity/src/providers/storage_provider.dart';

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:path/path.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
 import 'package:walkcity/src/ui/widgets/index.dart';
@@ -29,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: Color.fromARGB(197, 134, 231, 186),
+            backgroundColor: const Color.fromARGB(197, 134, 231, 186),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -63,15 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    void handleClick(String value) {
-      switch (value) {
-        case 'Tips':
-          wshowDialog(context, 'Tips');
-          break;
-        case 'Cerrar Sesion':
-          break;
-      }
-    }
+    // void handleClick(String value) {
+    //   switch (value) {
+    //     case 'Tips':
+    //       wshowDialog(context, 'Tips');
+    //       break;
+    //     case 'Cerrar Sesion':
+    //       break;
+    //   }
+    // }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -80,34 +78,36 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         toolbarHeight: 30,
         actions: [
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(Icons.favorite, color: Styles.secondColor),
-          //   alignment: Alignment.centerRight,
-          // ),
-          PopupMenuButton<String>(
-            //splashRadius: 2,
-            elevation: 20,
-            color: Color.fromARGB(218, 235, 232, 212),
-            onSelected: handleClick,
-            itemBuilder: (BuildContext context) {
-              return {'Tips', 'Cerrar Sesion'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  height: 30,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  value: choice,
-                  child: SizedBox(
-                    width: 80,
-                    height: 15,
-                    child: Text(
-                      choice,
-                      style: const TextStyle(fontSize: 11),
-                    ),
-                  ),
-                );
-              }).toList();
+          IconButton(
+            onPressed: () {
+              wshowDialog(context, 'Tips');
             },
+            icon: Icon(Icons.sunny_snowing, color: Styles.secondColor),
+            alignment: Alignment.centerRight,
           ),
+          // PopupMenuButton<String>(
+          //   //splashRadius: 2,
+          //   elevation: 20,
+          //   color: const Color.fromARGB(218, 235, 232, 212),
+          //   onSelected: handleClick,
+          //   itemBuilder: (BuildContext context) {
+          //     return {'Tips', 'Cerrar Sesion'}.map((String choice) {
+          //       return PopupMenuItem<String>(
+          //         height: 30,
+          //         padding: const EdgeInsets.symmetric(horizontal: 10),
+          //         value: choice,
+          //         child: SizedBox(
+          //           width: 80,
+          //           height: 15,
+          //           child: Text(
+          //             choice,
+          //             style: const TextStyle(fontSize: 11),
+          //           ),
+          //         ),
+          //       );
+          //     }).toList();
+          //   },
+          // ),
         ],
       ),
       body: opcionesMenu.elementAt(_selectItem),

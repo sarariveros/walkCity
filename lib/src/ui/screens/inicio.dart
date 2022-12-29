@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:walkcity/src/models/index.dart';
-import 'package:walkcity/src/services/supabase_site.dart';
+import 'package:walkcity/src/providers/site_provider.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/widgets/index.dart';
 
@@ -14,7 +15,8 @@ class InicioScreen extends StatefulWidget {
 class _InicioScreenState extends State<InicioScreen> {
   @override
   Widget build(BuildContext context) {
-    final SBSite sbSite = SBSite();
+    final sbSite = Provider.of<SBSite>(context);
+    sbSite.getcategorias();
 
     return SingleChildScrollView(
       child: Padding(

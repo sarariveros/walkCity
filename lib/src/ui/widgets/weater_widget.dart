@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/providers/index.dart';
 import 'package:walkcity/src/styles/style.dart';
@@ -159,7 +158,7 @@ class WeatherWidget extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       width: 220,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:walkcity/src/preferences/preferences.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService extends ChangeNotifier {
   final String urlbase =
@@ -50,6 +49,7 @@ class AuthService extends ChangeNotifier {
     final decodeResponse = json.decode(response.body);
 
     if (decodeResponse.containsKey('access_token')) {
+      Preferences.identificador = decodeResponse["user"]["id"];
       storage.write(key: 'token', value: decodeResponse['access_token']);
       return null;
     } else {

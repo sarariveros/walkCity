@@ -1,53 +1,83 @@
 import 'package:flutter/cupertino.dart';
-import 'package:walkcity/src/models/site_model.dart';
-import 'package:walkcity/src/services/sqlite_site.dart';
+import 'package:http/http.dart' show Client;
+import 'dart:convert';
 
-class SiteProvider extends ChangeNotifier {
-  final dbSite = DBSite.instance;
+import 'package:walkcity/src/models/index.dart';
+
+class SBSite extends ChangeNotifier {
+  Client client = Client();
   List<Site> sites = [];
-  void addSite({idSite, nombre, idCategoria, lon, lat, imagen}) async {
-    Map<String, dynamic> row = {
-      DBSite.columnId: idSite,
-      DBSite.columnNombre: nombre,
-      DBSite.columnCategoria: idCategoria.toString(),
-      DBSite.columnLon: lon,
-      DBSite.columnLat: lat,
-      DBSite.columnImagen: imagen,
-    };
-    Site site = Site.fromMap(row);
-    final id = await dbSite.newFavorite(site);
-    queryAll();
+  final _urlCat =
+      'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Categoria?select=*';
+  final _apiKeyCat =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3psbmNmcnJxamNvanhhcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwNjgzMDQsImV4cCI6MTk4NjY0NDMwNH0.uyGGT_QVwemGWQY-IEsIVPuEC0itGhQ19l4sjJkc1gQ ';
+  final _authCat =
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3psbmNmcnJxamNvanhhcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwNjgzMDQsImV4cCI6MTk4NjY0NDMwNH0.uyGGT_QVwemGWQY-IEsIVPuEC0itGhQ19l4sjJkc1gQ ';
 
-    notifyListeners();
-  }
+  final _urlSite =
+      'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Sitio?id_categoria=eq.';
+  final _apikeySite =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3psbmNmcnJxamNvanhhcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwNjgzMDQsImV4cCI6MTk4NjY0NDMwNH0.uyGGT_QVwemGWQY-IEsIVPuEC0itGhQ19l4sjJkc1gQ';
+  final _authSite =
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3psbmNmcnJxamNvanhhcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwNjgzMDQsImV4cCI6MTk4NjY0NDMwNH0.uyGGT_QVwemGWQY-IEsIVPuEC0itGhQ19l4sjJkc1gQ';
 
-  void queryAll() async {
-    final allrows = await dbSite.queryAllFavorites();
-    sites.clear();
-    for (var element in allrows) {
-      sites.add(Site.fromMap(element));
+  Future<List<Category>> getcategorias() async {
+    final response = await client.get(Uri.parse(_urlCat),
+        headers: {'apikey': _apiKeyCat, 'Authorization': _authCat});
+    if (response.statusCode == 200) {
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
+      List<Category> categorias = [];
+      for (var element in jsonData) {
+        categorias.add(Category.fromMap(element));
+      }
+
+      return categorias;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load categories');
     }
-    notifyListeners();
   }
 
-  //borrar uno
-  void delete(Site site) async {
-    final item = await dbSite.deleteFavorite(site.id!);
-    sites.remove(site);
-    notifyListeners();
+  Future<List<Site>> getSiteByCat(int id) async {
+    final response = await client.get(
+        Uri.parse('$_urlSite + ${id.toString()} + &select=*'),
+        headers: {'apikey': _apikeySite, 'Authorization': _authSite});
+    if (response.statusCode == 200) {
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
+      List<Site> sitesCat = [];
+
+      // print(jsonData);
+      for (var element in jsonData) {
+        sitesCat.add(Site.fromMap(element));
+      }
+
+      return sitesCat;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load Sites');
+    }
   }
 
-  //borrar la lista/
-  void deleteAll() async {
-    final itemAll = await dbSite.deleteAllFavorites();
-    sites.clear();
-    notifyListeners();
-  }
+  Future getAllSites() async {
+    final response = await client.get(
+        Uri.parse(
+            'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Sitio?select=*'),
+        headers: {'apikey': _apikeySite, 'Authorization': _authSite});
+    if (response.statusCode == 200) {
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
+      List<Site> sitesTemp = [];
+      for (var element in jsonData) {
+        sitesTemp.add(Site.fromMap(element));
+      }
+      sites = sitesTemp;
 
-  void update({id, nombre, categoria, lon, lat, image}) async {
-    Site site =
-        Site(id: id, id_categoria: categoria, nombre: nombre, imagen: image);
-    // final rowupdate = await dbSite.updateFavorite(site);
-    notifyListeners();
+      notifyListeners();
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load Sites');
+    }
   }
 }

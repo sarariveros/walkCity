@@ -1,5 +1,3 @@
-import 'package:walkcity/src/services/sqlite_site.dart';
-
 class Site {
   int? id;
   String? id_categoria;

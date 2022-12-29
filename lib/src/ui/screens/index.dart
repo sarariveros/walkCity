@@ -6,7 +6,6 @@ export 'package:walkcity/src/ui/screens/favoritos.dart';
 
 export 'package:walkcity/src/ui/screens/festividades.dart';
 
-export 'package:walkcity/src/ui/screens/map/map_page.dart';
 
 export 'package:walkcity/src/ui/screens/place.dart';
 

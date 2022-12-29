@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/providers/map_provider.dart';
+import 'package:walkcity/src/routes/routes.dart';
 
 class PlacePage extends StatelessWidget {
   final Site site;
@@ -12,54 +13,66 @@ class PlacePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mapProvider = Provider.of<MapProvider>(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            leading:IconButton(
+            elevation: 0,
+            // leading:IconButton(
               
-              icon: Icon(Icons.arrow_back_ios_new_outlined,size: 30,color: Colors.white,),
-              onPressed: () {
-                (() => Navigator.pushNamed(context, "/home"));
-              }) ,
+            //   icon: Icon(Icons.arrow_back_ios_new_outlined,size: 30,color: Colors.white,),
+            //   onPressed: () {
+            //     (() => Navigator.pushNamed(context,MyRoutes.rHome ));
+            //   }) ,
             pinned: true,
             bottom: PreferredSize(
+            
               preferredSize:Size.fromHeight(40),
               child: Container(
-                decoration: BoxDecoration(
+                
+                decoration: const BoxDecoration(
                    gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color.fromARGB(180, 255, 255, 255),
-                Color.fromARGB(190, 255, 255, 255),
+                Color.fromARGB(100, 255, 255, 255),
+                Color.fromARGB(150, 255, 255, 255),
                 Color.fromARGB(200, 255, 255, 255),
-                Color.fromARGB(230, 255, 255, 255),
+                Color.fromARGB(220, 255, 255, 255),
                 Color.fromARGB(255, 255, 255, 255),
-                
-                
-              ],
-            ),
+              ],),
                   borderRadius: 
                     BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
 
-                  color: Color.fromARGB(196, 255, 255, 255),
+                  color: Color.fromARGB(255, 255, 255, 255),
                 ),
                 width: double.maxFinite,
                 padding: EdgeInsets.all(10),
                 child: Column(
                   children: [
                     Text(site.nombre!,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),
+                      
+                      style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
                       ),
-                    iconCategory(site.id_categoria!)
+                    iconCategory(site.id_categoria!),
+                    SizedBox(height: 20,),
+                    Container(
+                      width: double.infinity,
+                      child: Text(
+                        "Descripcion",
+                        textAlign: TextAlign.left,
+                        style:TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                        ),
+                    )
                     
                   ],
                 )),
 
                ),
             
-            expandedHeight: MediaQuery.of(context).size.height*0.4,
+            expandedHeight: MediaQuery.of(context).size.height*0.5,
             flexibleSpace: FlexibleSpaceBar(
               background:Image.network(site.imagen!,
                 width: double.maxFinite,
@@ -69,22 +82,14 @@ class PlacePage extends StatelessWidget {
           ),
           SliverToBoxAdapter(
           
-            child:Container(
-              decoration: BoxDecoration(
-                   gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(180, 255, 255, 255),
-                Color.fromARGB(190, 255, 255, 255),
-                Color.fromARGB(200, 255, 255, 255),
-                Color.fromARGB(230, 255, 255, 255),
-                Color.fromARGB(255, 255, 255, 255),
-                
-                
+            child:Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
+                  child: Text(site.descripcion!,style: TextStyle(fontSize: 15),)),
               ],
-            ),),
-              child: Text(site.nombre!)) ,
+            ) ,
           )
         ],
       ),
@@ -93,7 +98,7 @@ class PlacePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         
         onPressed: (){
-          mapProvider.goMap();
+          mapProvider.goMap(site.linkMap!);
         },
         label: Text("Ir al mapa",textAlign: TextAlign.center,),
         

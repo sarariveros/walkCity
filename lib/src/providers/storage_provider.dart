@@ -26,7 +26,7 @@ class StorageImageProvider extends ChangeNotifier {
   //=======================================================
   //API
 
-  Future<String> guardarDB(String name, int edad, String from) async {
+  Future<String> guardarDB(String? from) async {
     final url = Uri.parse('$urlbase?usuario=eq.${Preferences.identificador}');
     final String msg;
 
@@ -38,8 +38,8 @@ class StorageImageProvider extends ChangeNotifier {
     };
 
     final body = jsonEncode({
-      "nombre": name,
-      "edad": edad,
+      "nombre": Preferences.name,
+      "edad": Preferences.years,
       "origen": from,
       "image": nameImage
     });

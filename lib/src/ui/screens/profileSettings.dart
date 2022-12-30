@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:walkcity/src/helper/countries.dart';
+import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/storage_provider.dart';
 import 'package:walkcity/src/routes/routes.dart';
 
@@ -62,13 +64,16 @@ class _FormData extends StatefulWidget {
 }
 
 class __FormDataState extends State<_FormData> {
-  String name = "";
-  String edad = "";
-  String from = "";
+  __FormDataState() {
+    _selectVal = listCountries[0]["name"];
+  }
+
+  String? _selectVal = "";
 
   @override
   Widget build(BuildContext context) {
     final storageProvider = Provider.of<StorageImageProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SizedBox(
@@ -82,7 +87,8 @@ class __FormDataState extends State<_FormData> {
                 decoration: _buildDecoration(
                   hintText: 'Nombre',
                 ),
-                onChanged: (value) => name = value,
+                initialValue: Preferences.name,
+                onChanged: (value) => Preferences.name = value,
               ),
               const SizedBox(
                 height: 20,
@@ -94,19 +100,31 @@ class __FormDataState extends State<_FormData> {
                 decoration: _buildDecoration(
                   hintText: 'Edad',
                 ),
-                onChanged: (value) => edad = value,
+                initialValue: Preferences.years,
+                onChanged: (value) => Preferences.years = value,
               ),
               const SizedBox(
                 height: 20,
               ),
-              TextFormField(
-                style: const TextStyle(color: Colors.black),
-                autocorrect: false,
-                keyboardType: TextInputType.text,
-                decoration: _buildDecoration(
-                  hintText: 'Eres de: ',
+              DropdownButtonFormField(
+                value: _selectVal,
+                items: listCountries.map((itemVal) {
+                  return DropdownMenuItem(
+                    value: itemVal["name"],
+                    child: Text(itemVal["name"]),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectVal = value.toString();
+                  });
+                },
+                icon: const Icon(
+                  Icons.arrow_drop_down_circle,
+                  color: Color.fromRGBO(228, 36, 36, .7),
+                  size: 10,
                 ),
-                onChanged: (value) => from = value,
+                decoration: _buildDecoration(),
               ),
               const SizedBox(
                 height: 20,
@@ -120,7 +138,7 @@ class __FormDataState extends State<_FormData> {
                   color: const Color.fromRGBO(228, 36, 36, .7),
                   onPressed: () async {
                     await storageProvider.guardarDB(
-                        name, int.parse(edad), from);
+                         _selectVal);
                     // ignore: use_build_context_synchronously
                     _showDialog(context, "Exito", "Se actualizo exitosamente");
                   },
@@ -176,7 +194,10 @@ void _showDialog(BuildContext context, String title, String info) {
           TextButton(
             child: const Text('Volver'),
             onPressed: () {
-              Navigator.pushNamed(context,MyRoutes.rHome,);
+              Navigator.pushNamed(
+                context,
+                MyRoutes.rHome,
+              );
             },
           )
         ],

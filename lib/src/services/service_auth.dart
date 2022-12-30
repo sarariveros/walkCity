@@ -50,6 +50,7 @@ class AuthService extends ChangeNotifier {
     final decodeResponse = json.decode(response.body);
 
     if (decodeResponse.containsKey('access_token')) {
+      Preferences.identificador = decodeResponse["user"]["id"];
       storage.write(key: 'token', value: decodeResponse['access_token']);
       return null;
     } else {
@@ -70,6 +71,10 @@ class AuthService extends ChangeNotifier {
 
     final response = await http.get(url, headers: header);
     final decodeResponse = json.decode(response.body)[0];
+
+    Preferences.name = decodeResponse["nombre"];
+    Preferences.years = decodeResponse["edad"].toString();
+    Preferences.country = decodeResponse["origen"];
 
     return decodeResponse;
   }

@@ -10,6 +10,9 @@ class SBFavorite extends ChangeNotifier {
   Client client = Client();
 
   List<Favorito> favoritos = [];
+  // List<Favorito> favToVisit = [];
+  // List<Favorito> favVisited = [];
+
   final _apiKeyFav =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3psbmNmcnJxamNvanhhcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwNjgzMDQsImV4cCI6MTk4NjY0NDMwNH0.uyGGT_QVwemGWQY-IEsIVPuEC0itGhQ19l4sjJkc1gQ';
   final _authfav =
@@ -17,6 +20,8 @@ class SBFavorite extends ChangeNotifier {
 
   Future getFavByUser() async {
     // favoritos.clear();
+    // favToVisit.clear();
+    // favVisited.clear();
     final response = await client.get(
         Uri.parse(
             'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Favorito?usuario=eq.${Preferences.identificador}&select=*'),
@@ -30,10 +35,39 @@ class SBFavorite extends ChangeNotifier {
       }
       favoritos = favTemp;
 
+      // favToVisit.addAll(favoritos.where((fav) => fav.estado == 0).toList());
+
+      // favVisited.addAll(favoritos.where((fav) => fav.estado == 1).toList());
+
       notifyListeners();
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load favorites');
+    }
+  }
+
+  Future updateFav(Favorito fav) async {
+    final body = jsonEncode({"estado": 1});
+    final response = await client.patch(
+        Uri.parse(
+            'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Favorito?id_site=eq.${fav.id_site}&usuario=eq.${fav.usuario}'),
+        headers: {
+          'apikey': _apiKeyFav,
+          'Authorization': _authfav,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: body);
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      // String body = utf8.decode(response.bodyBytes);
+      // final jsonData = jsonDecode(body);
+      // favToVisit.remove(fav);
+      // favVisited.add(fav);
+      notifyListeners();
+    } else {
+      // If that call was not successful, throw an error.
+      print(response.statusCode);
+      throw Exception('Failed to update favorite');
     }
   }
 

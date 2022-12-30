@@ -9,7 +9,7 @@ class FavoritosScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Site> showFavorites() {
+    List<Site> showFavorites(int estado) {
       final sbFav = Provider.of<SBFavorite>(context);
       sbFav.getFavByUser();
       final sbSite = Provider.of<SBSite>(context);
@@ -19,8 +19,9 @@ class FavoritosScreen extends StatelessWidget {
       List<Site> favSites = [];
 
       for (var fav in favoritos) {
-        favSites
-            .addAll(allsites.where((site) => site.id == fav.id_site).toList());
+        favSites.addAll(allsites
+            .where((site) => site.id == fav.id_site && fav.estado == estado)
+            .toList());
       }
 
       return favSites;
@@ -28,8 +29,55 @@ class FavoritosScreen extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: ListSites(categoria: 'Favoritos', sites: showFavorites()),
+      child: DefaultTabController(
+        length: 2,
+        child: Column(children: [
+          TabBar(
+              unselectedLabelColor: Colors.redAccent,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.redAccent),
+              tabs: [
+                Tab(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.redAccent, width: 1)),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text("POR VISITAR"),
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.redAccent, width: 1)),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text("VISITADOS"),
+                    ),
+                  ),
+                ),
+              ]),
+
+          Expanded(
+            flex: 1,
+            child: TabBarView(
+              viewportFraction: 1,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: ListSites(categoria: '0', sites: showFavorites(0)),
+                ),
+                ListSites(categoria: '1', sites: showFavorites(1)),
+              ],
+            ),
+          ),
+          // ListSites(categoria: 'Favoritos', sites: showFavorites()),
+        ]),
       ),
     );
   }

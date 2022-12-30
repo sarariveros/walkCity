@@ -7,6 +7,7 @@ class Preferences {
   static String _name = '';
   static String _years = '';
   static String _country = '';
+  static String _image = '';
 
   static Future init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -52,5 +53,15 @@ class Preferences {
   static set country(String country) {
     _country = country;
     _prefs.setString('country', country);
+  }
+
+  //IMAGE
+  static String get image {
+    return _prefs.getString('image') ?? _image;
+  }
+
+  static set image(String image) {
+    _image = image;
+    _prefs.setString('image', image);
   }
 }

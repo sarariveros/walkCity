@@ -72,8 +72,10 @@ class AuthService extends ChangeNotifier {
     final decodeResponse = json.decode(response.body)[0];
 
     Preferences.name = decodeResponse["nombre"];
-    Preferences.years = decodeResponse["edad"].toString();
-    Preferences.country = decodeResponse["origen"];
+    Preferences.years =
+        decodeResponse["edad"] == null ? "" : decodeResponse["edad"].toString();
+    Preferences.country = decodeResponse["origen"] ?? "";
+    Preferences.image = decodeResponse["image"] ?? "";
 
     return decodeResponse;
   }

@@ -41,7 +41,7 @@ class StorageImageProvider extends ChangeNotifier {
       "nombre": Preferences.name,
       "edad": Preferences.years,
       "origen": from,
-      "image": nameImage
+      "image": nameImage ?? Preferences.image
     });
 
     final response = await http.patch(url, body: body, headers: header);
@@ -50,7 +50,9 @@ class StorageImageProvider extends ChangeNotifier {
       msg = 'MSG=> NO SE GUARDO CORRECTAMENTE';
     } else {
       msg = 'MSG=> SE GUARDO CORRECTAMENTE';
-      subirImageStorage();
+      if(nameImage != null){
+        subirImageStorage();
+      }
     }
     return msg;
   }

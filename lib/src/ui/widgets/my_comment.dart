@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // ignore: camel_case_types
-class Comment extends StatefulWidget {
+class MyComment extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final info;
 
-  const Comment({super.key, required this.info});
+  const MyComment({super.key, required this.info});
 
   @override
-  State<Comment> createState() => _CommentState();
+  State<MyComment> createState() => _MyCommentState();
 }
 
-class _CommentState extends State<Comment> {
+class _MyCommentState extends State<MyComment> {
   dynamic dataUser = {};
   String apikey =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3psbmNmcnJxamNvanhhcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwNjgzMDQsImV4cCI6MTk4NjY0NDMwNH0.uyGGT_QVwemGWQY-IEsIVPuEC0itGhQ19l4sjJkc1gQ';
@@ -33,28 +33,12 @@ class _CommentState extends State<Comment> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
-            height: 35,
-            width: 35,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              image: DecorationImage(
-                image: NetworkImage(
-                  dataUser["image"] == null
-                      ? "https://cultura-sorda.org/wp-content/uploads/2015/02/Usuario-Vacio-300x300.png"
-                      : 'https://kowzlncfrrqjcojxapmv.supabase.co/storage/v1/object/public/profile.images/data/user/0/com.example.walkcity/cache/${dataUser["image"]}',
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.amber),
+                borderRadius: BorderRadius.circular(20), color: Colors.green),
             width: MediaQuery.of(context).size.width - 150,
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -85,7 +69,25 @@ class _CommentState extends State<Comment> {
                 )
               ],
             ),
-          )
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            height: 35,
+            width: 35,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              image: DecorationImage(
+                image: NetworkImage(
+                  dataUser["image"] == null
+                      ? "https://cultura-sorda.org/wp-content/uploads/2015/02/Usuario-Vacio-300x300.png"
+                      : 'https://kowzlncfrrqjcojxapmv.supabase.co/storage/v1/object/public/profile.images/data/user/0/com.example.walkcity/cache/${dataUser["image"]}',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
         ],
       ),
     );

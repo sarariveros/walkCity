@@ -11,53 +11,47 @@ class ListSites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (categoria == 'Favoritos') {
+    final msgVacio = [
+      {
+        'msg': 'Aun no tienes favoritos por visitar',
+        'image': 'assets/empty.png',
+      },
+      {
+        'msg': 'Aun no haz visitado ningun lugar',
+        'image': 'assets/empty.png',
+      }
+    ];
+    if (categoria == '0' || categoria == '1') {
+      int index = int.parse(categoria);
       if (sites.isEmpty) {
-        return Column(
-          children: [
-            (const Text('Aun no tienes favoritos agregados')),
-            SizedBox(
-                height: 150,
-                width: 100,
-                child: Image.asset('assets/empty.png')),
-          ],
+        return Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              (Text(msgVacio[index]['msg']!)),
+              SizedBox(
+                  height: 150,
+                  width: 100,
+                  child: Image.asset(msgVacio[index]['image']!)),
+            ],
+          ),
         );
       } else {
-        List<SiteCard> sitesCard = [];
+        List<SiteCardFav> sitesCard = [];
         for (var element in sites) {
-          final card = SiteCard(icon: (Icons.delete), site: element);
+          final card = SiteCardFav(icon: (Icons.delete), site: element);
           sitesCard.add(card);
         }
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 35,
-                  child: Text(
-                    categoria,
-                    style: Styles.textStyleCl,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 0.72,
-                ),
-                itemBuilder: (context, index) => sitesCard[index],
-                itemCount: sitesCard.length,
-              ),
-            )
-          ],
+        return GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 0,
+            childAspectRatio: 0.7,
+          ),
+          itemBuilder: (context, index) => sitesCard[index],
+          itemCount: sitesCard.length,
         );
       }
     }

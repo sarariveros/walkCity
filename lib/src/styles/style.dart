@@ -6,17 +6,17 @@ class Styles {
   static Color thirdColor = Colors.black;
 
   static Color textColor = Colors.black;
-  static Color sitecardColor = Color.fromARGB(255, 39, 35, 35);
-  static Color textColorCl = const Color(0xff96969A);
+  static Color sitecardColor = const Color.fromARGB(255, 139, 137, 137);
+  static Color textColorCl = const Color.fromARGB(255, 18, 95, 105);
   static TextStyle textStyle =
       const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
   static TextStyle textStyleB =
       const TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
   static TextStyle textStyleCl = TextStyle(fontSize: 15, color: textColorCl);
   static TextStyle sitecardTStyle = TextStyle(
-      fontSize: 13,
+      fontSize: 12,
       color: sitecardColor,
-      height: 1.2,
+      // height: 1.2,
       fontWeight: FontWeight.bold);
 
   static TextStyle sitecardDStyle =

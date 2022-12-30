@@ -50,7 +50,7 @@ class AuthService extends ChangeNotifier {
 
     if (decodeResponse.containsKey('access_token')) {
       Preferences.identificador = decodeResponse["user"]["id"];
-      storage.write(key: 'token', value: decodeResponse['access_token']);
+      Preferences.token = decodeResponse['access_token'];
       return null;
     } else {
       return "error";
@@ -110,12 +110,12 @@ class AuthService extends ChangeNotifier {
 
   //CERRAR SESION
   Future cerrarSesion() async {
-    await storage.delete(key: 'token');
+    Preferences.token = "";
     return;
   }
 
   //VERIFICAR TOKEN
   Future<String> leerToken() async {
-    return await storage.read(key: 'token') ?? '';
+    return Preferences.token;
   }
 }

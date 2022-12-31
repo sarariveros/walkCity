@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:walkcity/src/models/site_model.dart';
+import 'package:walkcity/src/models/index.dart';
+import 'package:walkcity/src/preferences/preferences.dart';
+import 'package:walkcity/src/providers/favorite_provider.dart';
 import 'package:walkcity/src/providers/map_provider.dart';
-import 'package:walkcity/src/routes/routes.dart';
+import 'package:walkcity/src/styles/style.dart';
+import 'package:walkcity/src/ui/screens/index.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlacePage extends StatelessWidget {
   final Site site;
@@ -12,232 +16,182 @@ class PlacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mapProvider = Provider.of<MapProvider>(context);
+    final sbFav = Provider.of<SBFavorite>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    sbFav.addFavorite(Favorito.fromMap({
+                      'id_site': site.id,
+                      'estado': 0,
+                      'usuario': Preferences.identificador
+                    }));
+                  },
+                  icon: Icon(Icons.favorite))
+            ],
             elevation: 0,
-            // leading:IconButton(
-              
-            //   icon: Icon(Icons.arrow_back_ios_new_outlined,size: 30,color: Colors.white,),
-            //   onPressed: () {
-            //     (() => Navigator.pushNamed(context,MyRoutes.rHome ));
-            //   }) ,
             pinned: true,
             bottom: PreferredSize(
-            
-              preferredSize:Size.fromHeight(40),
+              preferredSize: Size.fromHeight(40),
               child: Container(
-                
-                decoration: const BoxDecoration(
-                   gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(100, 255, 255, 255),
-                Color.fromARGB(150, 255, 255, 255),
-                Color.fromARGB(200, 255, 255, 255),
-                Color.fromARGB(220, 255, 255, 255),
-                Color.fromARGB(255, 255, 255, 255),
-              ],),
-                  borderRadius: 
-                    BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
-
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ),
-                width: double.maxFinite,
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Text(site.nombre!,
-                      
-                      style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromARGB(100, 255, 255, 255),
+                        Color.fromARGB(150, 255, 255, 255),
+                        Color.fromARGB(200, 255, 255, 255),
+                        Color.fromARGB(220, 255, 255, 255),
+                        Color.fromARGB(255, 255, 255, 255),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  width: double.maxFinite,
+                  padding:const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Text(
+                        site.nombre!,
+                        style:const TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
-                    iconCategory(site.id_categoria!),
-                    SizedBox(height: 20,),
-                    Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Descripcion",
-                        textAlign: TextAlign.left,
-                        style:TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      iconCategory(site.id_categoria!),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                       Container(
+                        width: double.infinity,
+                        child:const Text(
+                          "Descripcion",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                    )
-                    
-                  ],
-                )),
-
-               ),
-            
-            expandedHeight: MediaQuery.of(context).size.height*0.5,
+                      )
+                    ],
+                  )),
+            ),
+            expandedHeight: MediaQuery.of(context).size.height * 0.5,
             flexibleSpace: FlexibleSpaceBar(
-              background:Image.network(site.imagen!,
+              background: Image.network(
+                site.imagen!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
             ),
           ),
           SliverToBoxAdapter(
-          
-            child:Column(
+            child: Column(
               children: [
                 Container(
-                  color: Colors.white,
-                  margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                  child: Text(site.descripcion!,style: TextStyle(fontSize: 15),)),
+                    color: Colors.white,
+                    margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    child: Text(
+                      site.descripcion!,
+                      style:const TextStyle(fontSize: 15),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: YoutubePlayer(
+                    controller: YoutubePlayerController(
+                      initialVideoId: site
+                          .linkVideo!,
+                      flags: YoutubePlayerFlags(
+                        autoPlay: true,
+                        mute: false,
+                      ),
+                    ),
+                    showVideoProgressIndicator: true,
+                    progressIndicatorColor: Styles.secondColor,
+                    progressColors: ProgressBarColors(
+                      playedColor: Styles.secondColor,
+                      handleColor: Styles.secondColor,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                        style: (ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Styles.secondColor))),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ComentsPage(
+                                        idSite: site,
+                                      )));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                          child: Row(
+                            children:const  [
+                              Icon(
+                                Icons.chat,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                              SizedBox(width: 10,),
+                              Text(
+                                "Comentarios",
+                                style:
+                                    TextStyle(color: Colors.white, fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        )),
+                    ElevatedButton(
+                        style: (ButtonStyle(
+                            
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Styles.firstColor))),
+                        onPressed: () {
+                          mapProvider.goMap(site.linkMap!);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                          child: Row(
+                            
+                            children:const [
+                              Icon(
+                                Icons.location_on,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                              SizedBox(width: 10,),
+                              Text(
+                                "Ir al mapa",
+                                style:
+                                    TextStyle(color: Colors.white, fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                )
               ],
-            ) ,
+            ),
           )
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButton: FloatingActionButton.extended(
-        
-        onPressed: (){
-          mapProvider.goMap(site.linkMap!);
-        },
-        label: Text("Ir al mapa",textAlign: TextAlign.center,),
-        
-        
-        ),
-    );}
-  
-  
+    );
+  }
 }
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-// Stack(
-//         fit: StackFit.expand,
-//         children: [
-//           Image.network(
-//             site.imagen!,
-//             fit: BoxFit.cover,
-//           ),
-//           Positioned(
-//             top: 40,
-
-//             child: MaterialButton(
-//                 minWidth: 10,
-//                 color: Color.fromARGB(149, 0, 0, 0),
-//                 child: Icon(
-//                   Icons.arrow_back_ios_new,
-//                   color: Colors.white,
-//                   size: 25,
-//                 ),
-//                 onPressed: (() => Navigator.pushNamed(context, "/home"))),
-//           ),
-//           Positioned(
-//             bottom: 300,
-//             right: 30,
-//             child: Container(
-//               padding: EdgeInsets.all(10),
-//               decoration: BoxDecoration(
-//                   border: Border.all(
-//                       width: 3, color: Color.fromARGB(255, 196, 158, 7)),
-//                   color: Colors.amber,
-//                   borderRadius: BorderRadius.circular(20)),
-//               child: Column(children: [
-//                 iconCategory(site.id_categoria!),
-//                 Text(
-//                   site.nombre!,
-//                   style: TextStyle(
-//                       color: Colors.white,
-//                       fontSize: 20,
-//                       fontWeight: FontWeight.bold),
-//                 )
-//               ]),
-//             ),
-//           ),
-//         ],
-//       ),
-//       floatingActionButton: FloatingActionButton.extended(
-//         backgroundColor: Color.fromRGBO(231, 63, 63, 1),
-//         onPressed: () {
-//           showModalBottomSheet(
-//               barrierColor: Color.fromARGB(151, 0, 0, 0),
-//               context: context,
-//               isScrollControlled: true,
-//               shape: RoundedRectangleBorder(
-//                   borderRadius:
-//                       BorderRadius.vertical(top: Radius.circular(20))),
-//               builder: (context) => Container(
-//                     height: 200,
-//                     child: Column(
-//                       children: [
-//                         SizedBox(
-//                           height: 20,
-//                         ),
-//                         ListTile(
-//                           title: Text("Estamos Cerca",
-//                               style: TextStyle(
-//                                   color: Color.fromRGBO(231, 63, 63, 1))),
-//                           subtitle: Text(
-//                             site.nombre!,
-//                             style: TextStyle(
-//                                 fontSize: 30,
-//                                 fontWeight: FontWeight.bold,
-//                                 color: Colors.black),
-//                           ),
-//                           leading: Container(
-//                             width: 60,
-//                             height: 60,
-//                             decoration: BoxDecoration(
-//                                 borderRadius:
-//                                     BorderRadius.all(Radius.circular(10)),
-//                                 image: DecorationImage(
-//                                     image: NetworkImage(site.imagen!),
-//                                     fit: BoxFit.cover)),
-//                           ),
-//                           trailing: Text(
-//                             "",
-//                             style: TextStyle(
-//                                 fontSize: 20, fontWeight: FontWeight.bold),
-//                           ),
-//                         ),
-//                         ListTile(
-//                           onTap: (() {
-//                             Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                     builder: (context) => MapPage()));
-//                           }),
-//                           title: Text(
-//                             "Ir al mapa",
-//                             style: TextStyle(
-//                                 color: Color.fromRGBO(158, 158, 158, 1),
-//                                 fontSize: 20),
-//                             textAlign: TextAlign.center,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ));
-//         },
-//         label: Text(
-//           "Informacion",
-//           style: TextStyle(fontSize: 20),
-//         ),
-//       ),
-//       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-//     );
-//   }
-// }
 
 //funcion Para el icono
 Icon iconCategory(category) {
@@ -249,7 +203,7 @@ Icon iconCategory(category) {
     case "1":
       icon = Icon(
         Icons.church,
-        color: Colors.white,
+        color: Color.fromARGB(255, 215, 147, 147),
       );
       break;
     case "2":

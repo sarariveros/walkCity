@@ -27,33 +27,56 @@ class _HomeScreenState extends State<HomeScreen> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: const Color.fromARGB(197, 134, 231, 186),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.tips_and_updates,
-                  color: Colors.amberAccent,
+            backgroundColor: Styles.secondColor,
+            //const Color.fromARGB(197, 134, 231, 186),
+            title: Container(
+              decoration: BoxDecoration(
+                color: Styles.firstColor,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(15),
                 ),
-                const SizedBox(width: 10),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                // boxShadow: const [
+                //   BoxShadow(
+                //     color: Color.fromARGB(235, 143, 165, 161),
+                //     blurRadius: 4.0,
+                //     spreadRadius: 2.0,
+                //     offset: Offset(0.0, 0.0),
+                //   )
+                // ],
+              ),
+              height: 45,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.tips_and_updates,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
             // Icon(Icons.close),
 
             content: const WeatherWidget(),
             actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  'Salir',
-                  style: TextStyle(color: Colors.black),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  child: Text(
+                    'ENTENDIDO',
+                    style: TextStyle(color: Styles.thirdColor),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
               )
             ],
           );
@@ -80,34 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              wshowDialog(context, 'Tips');
+              wshowDialog(context, 'TIPS');
             },
-            icon: Icon(Icons.sunny_snowing, color: Styles.secondColor),
+            icon: Icon(Icons.sunny_snowing, color: Styles.firstColor),
             alignment: Alignment.centerRight,
           ),
-          // PopupMenuButton<String>(
-          //   //splashRadius: 2,
-          //   elevation: 20,
-          //   color: const Color.fromARGB(218, 235, 232, 212),
-          //   onSelected: handleClick,
-          //   itemBuilder: (BuildContext context) {
-          //     return {'Tips', 'Cerrar Sesion'}.map((String choice) {
-          //       return PopupMenuItem<String>(
-          //         height: 30,
-          //         padding: const EdgeInsets.symmetric(horizontal: 10),
-          //         value: choice,
-          //         child: SizedBox(
-          //           width: 80,
-          //           height: 15,
-          //           child: Text(
-          //             choice,
-          //             style: const TextStyle(fontSize: 11),
-          //           ),
-          //         ),
-          //       );
-          //     }).toList();
-          //   },
-          // ),
         ],
       ),
       body: opcionesMenu.elementAt(_selectItem),
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _selectItem = value;
         }),
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Styles.firstColor,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

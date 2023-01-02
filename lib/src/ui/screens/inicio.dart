@@ -22,82 +22,77 @@ class _InicioScreenState extends State<InicioScreen> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Styles.secondColor,
-                      radius: 18,
-                      child: Image.asset(
-                        'assets/escudo.png',
-                        height: 30,
-                        width: 30,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Ayacucho, Peru',
-                      style: Styles.title,
-                    ),
-                  ],
+                CircleAvatar(
+                  backgroundColor: Styles.firstColor,
+                  radius: 18,
+                  child: Image.asset(
+                    'assets/escudo.png',
+                    height: 30,
+                    width: 30,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
                 ),
                 Text(
-                  'Explora nuestra hermosa ciudad',
-                  style: Styles.textStyle,
+                  'Ayacucho, Peru',
+                  style: Styles.title,
                 ),
-                FutureBuilder(
-                  future: sbSite.getcategorias(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List datos = snapshot.data!;
-                      return SizedBox(
-                        height: MediaQuery.of(context).size.height - 185,
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: false,
-                          itemCount: datos.length,
-                          itemBuilder: (context, index) {
-                            return FutureBuilder(
-                              future: sbSite.getSiteByCat(datos[index].id),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  List<Site> sites = [];
-                                  List data = snapshot.data!;
-                                  for (var element in data) {
-                                    Site site = element;
-                                    sites.add(site);
-                                  }
-
-                                  return ListSites(
-                                    categoria: datos[index].nombre,
-                                    sites: sites,
-                                  );
-                                }
-                                return const Text('');
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: Styles.firstColor,
-                      ),
-                    );
-                  },
-                )
               ],
             ),
+            Text(
+              'Explora nuestra hermosa ciudad',
+              style: Styles.textStyle,
+            ),
+            FutureBuilder(
+              future: sbSite.getcategorias(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List datos = snapshot.data!;
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height - 185,
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: false,
+                      itemCount: datos.length,
+                      itemBuilder: (context, index) {
+                        return FutureBuilder(
+                          future: sbSite.getSiteByCat(datos[index].id),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List<Site> sites = [];
+                              List data = snapshot.data!;
+                              for (var element in data) {
+                                Site site = element;
+                                sites.add(site);
+                              }
+
+                              return ListSites(
+                                categoria: datos[index].nombre,
+                                sites: sites,
+                              );
+                            }
+                            return const Text('');
+                          },
+                        );
+                      },
+                    ),
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Styles.firstColor,
+                  ),
+                );
+              },
+            )
           ],
-          //bottomNavigationBar: const MenuWidget(),
         ),
       ),
     );

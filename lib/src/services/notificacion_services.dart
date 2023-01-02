@@ -7,7 +7,7 @@ class NotificationServices {
 
   static showSnackbar(String message, int type) {
     final snackBar = SnackBar(
-        backgroundColor: Styles.secondColor,
+        backgroundColor: Styles.firstColor,
         duration: const Duration(milliseconds: 240),
         content: Row(
           mainAxisAlignment: MainAxisAlignment.center,

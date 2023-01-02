@@ -27,13 +27,13 @@ class SiteCard extends StatelessWidget {
           padding: const EdgeInsets.all(4),
           height: 210,
           decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: const Color.fromARGB(185, 204, 201, 201)),
+            color: Styles.firstColor.withOpacity(0.5),
+            border: Border.all(color: Color.fromARGB(111, 204, 201, 201)),
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             boxShadow: const [
               BoxShadow(
-                color: Color(0xffDDDDDD),
-                blurRadius: 6.0,
+                color: Color.fromARGB(216, 174, 180, 180),
+                blurRadius: 5.0,
                 spreadRadius: 2.0,
                 offset: Offset(0.0, 0.0),
               )
@@ -47,9 +47,6 @@ class SiteCard extends StatelessWidget {
                 height: 170,
                 width: MediaQuery.of(context).size.width - 30,
                 decoration: BoxDecoration(
-                  // border: Border.all(
-                  //     color: const Color.fromARGB(207, 182, 177, 177
-                  //     )),
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   image: DecorationImage(
                     image: NetworkImage(site.imagen!),
@@ -128,7 +125,7 @@ class SiteCard extends StatelessWidget {
               ),
               Center(
                 child: SizedBox(
-                  height: 28,
+                  height: 30,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Row(
@@ -147,7 +144,8 @@ class SiteCard extends StatelessWidget {
                             onPressed: () {},
                             child: const Text(
                               '100k',
-                              style: TextStyle(fontSize: 11),
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
                             ))
                       ],
                     ),

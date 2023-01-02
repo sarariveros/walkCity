@@ -32,7 +32,7 @@ class PlacePage extends StatelessWidget {
                       'usuario': Preferences.identificador
                     }));
                   },
-                  icon: Icon(Icons.favorite))
+                  icon:Icon(Icons.favorite))
             ],
             elevation: 0,
             pinned: true,
@@ -62,8 +62,8 @@ class PlacePage extends StatelessWidget {
                     children: [
                       Text(
                         site.nombre!,
-                        style:const TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                        style:TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold,color: Styles.textColor),
                       ),
                       iconCategory(site.id_categoria!),
                       const SizedBox(
@@ -71,11 +71,11 @@ class PlacePage extends StatelessWidget {
                       ),
                        Container(
                         width: double.infinity,
-                        child:const Text(
+                        child: Text(
                           "Descripcion",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold,color: Styles.firstColor),
                         ),
                       )
                     ],
@@ -113,73 +113,76 @@ class PlacePage extends StatelessWidget {
                     ),
                     showVideoProgressIndicator: true,
                     progressIndicatorColor: Styles.secondColor,
-                    progressColors: ProgressBarColors(
-                      playedColor: Styles.secondColor,
-                      handleColor: Styles.secondColor,
+                    progressColors:const ProgressBarColors(
+                      playedColor: Color.fromARGB(255, 232, 60, 48),
+                      handleColor: Color.fromARGB(255, 232, 60, 48),
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                        style: (ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Styles.secondColor))),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ComentsPage(
-                                        idSite: site,
-                                      )));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
-                          child: Row(
-                            children:const  [
-                              Icon(
-                                Icons.chat,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                              SizedBox(width: 10,),
-                              Text(
-                                "Comentarios",
-                                style:
-                                    TextStyle(color: Colors.white, fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        )),
-                    ElevatedButton(
-                        style: (ButtonStyle(
-                            
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Styles.firstColor))),
-                        onPressed: () {
-                          mapProvider.goMap(site.linkMap!);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
-                          child: Row(
-                            
-                            children:const [
-                              Icon(
-                                Icons.location_on,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                              SizedBox(width: 10,),
-                              Text(
-                                "Ir al mapa",
-                                style:
-                                    TextStyle(color: Colors.white, fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                          style: (ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll<Color>(
+                                  Styles.textColor))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ComentsPage(
+                                          idSite: site,
+                                        )));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                            child: Row(
+                              children:const  [
+                                Icon(
+                                  Icons.chat,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                SizedBox(width: 10,),
+                                Text(
+                                  "Comentarios",
+                                  style:
+                                      TextStyle(color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          )),
+                      ElevatedButton(
+                          style: (ButtonStyle(
+                              
+                              backgroundColor: MaterialStatePropertyAll<Color>(
+                                  Styles.firstColor))),
+                          onPressed: () {
+                            mapProvider.goMap(site.linkMap!);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                            child: Row(
+                              
+                              children:const [
+                                Icon(
+                                  Icons.location_on,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                SizedBox(width: 10,),
+                                Text(
+                                  "Ir al mapa",
+                                  style:
+                                      TextStyle(color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 20,

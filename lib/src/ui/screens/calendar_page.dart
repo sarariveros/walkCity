@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:walkcity/src/models/festivity_models.dart';
 import 'package:walkcity/src/styles/style.dart';
@@ -55,21 +54,15 @@ class _CalendarPageState extends State<CalendarPage> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Styles.secondColor,
+          backgroundColor: Styles.firstColor,
+          title: Text( widget.festivity.title,
+                  style:const TextStyle(color: Colors.white, fontSize: 30),),
           
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.only(left: 20),
-                color: Styles.secondColor,
-                width: double.maxFinite,
-                child: Text(
-                  widget.festivity.title,
-                  style: TextStyle(color: Colors.white, fontSize: 30),
-                ),
-              ),
+              
               TableCalendar(
                 firstDay: DateTime.utc(DateTime.now().year - 1, 1, 1),
                 lastDay: DateTime.utc(DateTime.now().year + 1, 12, 31),
@@ -91,17 +84,17 @@ class _CalendarPageState extends State<CalendarPage> {
                       color: Colors.white,
                     ),
                     decoration: BoxDecoration(
-                      color: Styles.secondColor,
+                      color: Styles.firstColor,
                     )),
                 calendarFormat: _calendarFormat,
                 calendarStyle: CalendarStyle(
                     tablePadding:
-                        EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                        const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                     todayDecoration: BoxDecoration(
                         color: Styles.sitecardColor,
                         borderRadius: BorderRadius.circular(20)),
                     selectedDecoration: BoxDecoration(
-                        color: Styles.secondColor,
+                        color: Styles.firstColor,
                         borderRadius: BorderRadius.circular(20)),
                     markerDecoration: BoxDecoration(
                         color: Styles.firstColor,

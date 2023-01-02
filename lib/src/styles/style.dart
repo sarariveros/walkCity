@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Styles {
-  static Color firstColor = const Color.fromRGBO(255, 204, 0, .7);
-  static Color secondColor = const Color.fromRGBO(228, 36, 36, .7);
-  static Color thirdColor = Colors.black;
+  static Color firstColor = Color.fromRGBO(20, 200, 226,1);
+  static Color secondColor = Color.fromARGB(255, 215, 215, 210);  static Color thirdColor = Colors.black;
 
-  static Color textColor = Colors.black;
+  static Color textColor = Color.fromRGBO(53, 82, 88,1);
   static Color sitecardColor = const Color.fromARGB(255, 139, 137, 137);
   static Color textColorCl = const Color.fromARGB(255, 18, 95, 105);
   static TextStyle textStyle =

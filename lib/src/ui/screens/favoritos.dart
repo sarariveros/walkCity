@@ -72,7 +72,10 @@ class FavoritosScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 20),
                   child: ListSites(categoria: '0', sites: showFavorites(0)),
                 ),
-                ListSites(categoria: '1', sites: showFavorites(1)),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: ListSites(categoria: '1', sites: showFavorites(1)),
+                ),
               ],
             ),
           ),

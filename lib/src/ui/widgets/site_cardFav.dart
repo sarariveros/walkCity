@@ -53,9 +53,6 @@ class SiteCardFav extends StatelessWidget {
                     height: 170,
                     width: MediaQuery.of(context).size.width / 2 - 10,
                     decoration: BoxDecoration(
-                      // border: Border.all(
-                      //     color: const Color.fromARGB(207, 182, 177, 177
-                      //     )),
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       image: DecorationImage(
                         image: NetworkImage(site.imagen!),
@@ -137,19 +134,13 @@ class SiteCardFav extends StatelessWidget {
                       height: 50,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 5),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              site.nombre!,
-                              textAlign: TextAlign.left,
-                              style: Styles.sitecardTStyle,
-                              overflow: TextOverflow.ellipsis,
-                              // softWrap: true,
-                              //maxLines: 3,
-                            ),
-                          ],
+                        child: Text(
+                          site.nombre!,
+                          textAlign: TextAlign.left,
+                          style: Styles.sitecardTStyle,
+                          overflow: TextOverflow.ellipsis,
+                          // softWrap: true,
+                          //maxLines: 3,
                         ),
                       ),
                     ),

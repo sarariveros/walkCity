@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/helper/countries.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/storage_provider.dart';
 import 'package:walkcity/src/routes/routes.dart';
+import 'package:walkcity/src/styles/style.dart';
 
 class ProfileSettingPage extends StatelessWidget {
   const ProfileSettingPage({super.key});
@@ -27,7 +29,7 @@ class ProfileSettingPage extends StatelessWidget {
                   width: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(200),
-                    color: const Color.fromRGBO(228, 36, 36, .7),
+                    color: Styles.firstColor,
                   ),
                   child: (storageProvider.image != null)
                       ? ClipRRect(
@@ -119,12 +121,8 @@ class __FormDataState extends State<_FormData> {
                     _selectVal = value.toString();
                   });
                 },
-                icon: const Icon(
-                  Icons.arrow_drop_down_circle,
-                  color: Color.fromRGBO(228, 36, 36, .7),
-                  size: 10,
-                ),
-                decoration: _buildDecoration(),
+                decoration: _buildDecoration(
+                    sufIcon: const Icon(Icons.arrow_drop_down_circle)),
               ),
               const SizedBox(
                 height: 20,
@@ -135,10 +133,9 @@ class __FormDataState extends State<_FormData> {
                 child: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  color: const Color.fromRGBO(228, 36, 36, .7),
+                  color: Styles.firstColor,
                   onPressed: () async {
-                    await storageProvider.guardarDB(
-                         _selectVal);
+                    await storageProvider.guardarDB(_selectVal);
                     // ignore: use_build_context_synchronously
                     _showDialog(context, "Exito", "Se actualizo exitosamente");
                   },
@@ -159,10 +156,10 @@ class __FormDataState extends State<_FormData> {
   }
 }
 
-InputDecoration _buildDecoration({
-  final String? hintText,
-}) {
+InputDecoration _buildDecoration(
+    {final String? hintText, final Icon? sufIcon}) {
   return InputDecoration(
+    suffixIcon: sufIcon,
     fillColor: const Color.fromARGB(255, 240, 240, 240),
     hintStyle: const TextStyle(color: Colors.grey),
     contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),

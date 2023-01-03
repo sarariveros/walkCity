@@ -3,6 +3,7 @@ import 'package:walkcity/src/routes/routes.dart';
 import 'package:walkcity/src/providers/provider_login.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/services/service_auth.dart';
+import 'package:walkcity/src/styles/style.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -53,10 +54,10 @@ class LoginScreen extends StatelessWidget {
                             Navigator.pushReplacementNamed(
                                 context, MyRoutes.rRegistro);
                           },
-                          child: const Text(
+                          child: Text(
                             "Registrate",
                             style: TextStyle(
-                                color: Color.fromRGBO(228, 36, 36, .7),
+                                color: Styles.firstColor,
                                 fontWeight: FontWeight.w600),
                           ),
                         ),
@@ -79,13 +80,6 @@ class _LoginForm extends StatefulWidget {
 }
 
 class __LoginFormState extends State<_LoginForm> {
-  bool _ispassword = true;
-
-  void _viewPassword() {
-    setState(() {
-      _ispassword = !_ispassword;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +114,6 @@ class __LoginFormState extends State<_LoginForm> {
             TextFormField(
               style: const TextStyle(color: Colors.black),
               autocorrect: false,
-              obscureText: _ispassword,
               keyboardType: TextInputType.text,
               decoration: _buildDecoration(
                 hintText: 'Ingresa tu contraseña',
@@ -135,10 +128,10 @@ class __LoginFormState extends State<_LoginForm> {
             const SizedBox(
               height: 20,
             ),
-            const Text(
+            Text(
               "Recuperar contraseña",
               style: TextStyle(
-                  color: Color.fromRGBO(228, 36, 36, .7),
+                  color: Styles.firstColor,
                   fontWeight: FontWeight.w600),
             ),
             const SizedBox(
@@ -147,7 +140,7 @@ class __LoginFormState extends State<_LoginForm> {
             MaterialButton(
               height: 60,
               minWidth: double.infinity,
-              color: const Color.fromRGBO(228, 36, 36, .7),
+              color: Styles.firstColor,
               onPressed: loginProvider.isLoading
                   ? null
                   : () async {

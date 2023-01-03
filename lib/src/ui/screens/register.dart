@@ -3,6 +3,7 @@ import 'package:walkcity/src/providers/provider_login.dart';
 import 'package:walkcity/src/routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/services/service_auth.dart';
+import 'package:walkcity/src/styles/style.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -64,10 +65,10 @@ class RegisterScreen extends StatelessWidget {
                               Navigator.pushReplacementNamed(
                                   context, MyRoutes.rLogin);
                             },
-                            child: const Text(
+                            child: Text(
                               "Inicia sesion",
                               style: TextStyle(
-                                  color: Color.fromRGBO(228, 36, 36, .7),
+                                  color: Styles.firstColor,
                                   fontWeight: FontWeight.w600),
                             ),
                           ),
@@ -169,7 +170,7 @@ class __LoginFormState extends State<_LoginForm> {
             MaterialButton(
               height: 60,
               minWidth: double.infinity,
-              color: const Color.fromRGBO(228, 36, 36, .7),
+              color: Styles.firstColor,
               onPressed: loginProvider.isLoading
                   ? null
                   : () async {
@@ -189,8 +190,11 @@ class __LoginFormState extends State<_LoginForm> {
 
                       if (errorMessage == null) {
                         // ignore: use_build_context_synchronously
-                        _showDialog(context, 'Registro exitoso',
-                            'Confirma tu correo en tu email e inicia sesion', '/login');
+                        _showDialog(
+                            context,
+                            'Registro exitoso',
+                            'Confirma tu correo en tu email e inicia sesion',
+                            '/login');
                       } else {
                         // ignore: use_build_context_synchronously
                         _showDialog(context, 'Ocurrio un error',

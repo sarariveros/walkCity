@@ -6,6 +6,7 @@ import 'package:walkcity/src/routes/routes.dart';
 import 'package:walkcity/src/ui/screens/profileSettings.dart';
 import '../../services/service_auth.dart';
 import "../../helper/countries.dart";
+import 'package:walkcity/src/styles/style.dart';
 
 class PerfilScreen extends StatefulWidget {
   const PerfilScreen({super.key});
@@ -43,8 +44,9 @@ class _PerfilScreenState extends State<PerfilScreen> {
                   margin: const EdgeInsets.only(top: 20.0),
                   width: double.infinity,
                   height: 270,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(228, 36, 36, .7),
+                  decoration: BoxDecoration(
+                    color: Styles.firstColor,
+                    backgroundBlendMode: BlendMode.multiply
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -57,9 +59,9 @@ class _PerfilScreenState extends State<PerfilScreen> {
                           color: Colors.white,
                           image: DecorationImage(
                             image: NetworkImage(
-                              dataUser["image"] == null
+                              dataUser["image"] == null || dataUser["image"] == ""
                                   ? "https://cultura-sorda.org/wp-content/uploads/2015/02/Usuario-Vacio-300x300.png"
-                                  : 'https://kowzlncfrrqjcojxapmv.supabase.co/storage/v1/object/public/profile.images/data/user/0/com.example.walkcity/cache/${dataUser["image"]}',
+                                  : 'https://kowzlncfrrqjcojxapmv.supabase.co/storage/v1/object/public/profile.images/data/user/0/com.example.walkcity/cache/${dataUser["image"]}'
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -87,9 +89,9 @@ class _PerfilScreenState extends State<PerfilScreen> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.edit,
-                              color: Color.fromRGBO(228, 36, 36, .7),
+                              color: Styles.firstColor,
                               size: 30,
                             ),
                             onPressed: () {
@@ -132,7 +134,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                       MaterialButton(
                         height: 60,
                         minWidth: double.infinity,
-                        color: const Color.fromRGBO(228, 36, 36, .7),
+                        color: Styles.firstColor,
                         onPressed: () async {
                           FocusScope.of(context).unfocus();
 
@@ -171,6 +173,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
   void actualizarData() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     final data = await authService.traerDataUser();
+
     setState(() {
       dataUser = data;
     });

@@ -28,6 +28,9 @@ class FavoritosScreen extends StatelessWidget {
       return favSites;
     }
 
+    List<Site> porVisitar = showFavorites(0);
+    List<Site> visitados = showFavorites(1);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DefaultTabController(
@@ -63,7 +66,6 @@ class FavoritosScreen extends StatelessWidget {
                   ),
                 ),
               ]),
-
           Expanded(
             flex: 1,
             child: TabBarView(
@@ -71,16 +73,15 @@ class FavoritosScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: ListSites(categoria: '0', sites: showFavorites(0)),
+                  child: ListSites(categoria: '0', sites: porVisitar),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: ListSites(categoria: '1', sites: showFavorites(1)),
+                  child: ListSites(categoria: '1', sites: visitados),
                 ),
               ],
             ),
           ),
-          // ListSites(categoria: 'Favoritos', sites: showFavorites()),
         ]),
       ),
     );

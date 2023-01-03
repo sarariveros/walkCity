@@ -108,6 +108,11 @@ class __LoginFormState extends State<_LoginForm> {
                 hintText: 'Ingresa tu nombre',
               ),
               onChanged: (value) => loginProvider.name = value,
+              validator: (value) {
+                return (value != null && value.isNotEmpty)
+                    ? null
+                    : 'Esta vacio';
+              },
             ),
             const SizedBox(
               height: 20,
@@ -192,13 +197,13 @@ class __LoginFormState extends State<_LoginForm> {
                         // ignore: use_build_context_synchronously
                         _showDialog(
                             context,
-                            'Registro exitoso',
+                            'EXITO',
                             'Confirma tu correo en tu email e inicia sesion',
-                            '/login');
+                            '/login', true);
                       } else {
                         // ignore: use_build_context_synchronously
-                        _showDialog(context, 'Ocurrio un error',
-                            'Vuelve a intentarlo', '/registro');
+                        _showDialog(context, 'ERROR',
+                            'Vuelve a intentarlo', '/registro', false);
                         loginProvider.isLoading = false;
                       }
                     },
@@ -244,22 +249,53 @@ InputDecoration _buildDecoration({
 }
 
 // ignore: unused_element
-void _showDialog(BuildContext context, String title, String info, String ruta) {
+void _showDialog(BuildContext context, String title, String info,String ruta, bool img) {
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Text(info),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Inicia sesion ahora'),
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, ruta);
-            },
-          )
-        ],
+      return Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0)), //this right here
+        child: SizedBox(
+          height: 350,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 30),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                  child: Image.network(
+                      img
+                          ? "https://cdn.icon-icons.com/icons2/1506/PNG/512/emblemdefault_103756.png"
+                          : "https://cdn-icons-png.flaticon.com/512/148/148766.png",
+                      width: 100),
+                ),
+                Text(info),
+                SizedBox(
+                  width: 320.0,
+                  child: MaterialButton(
+                    onPressed: () {
+                       Navigator.pushReplacementNamed(context, ruta);
+                    },
+                    color: Styles.firstColor,
+                    child: const Text(
+                      'Volver',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
       );
     },
   );

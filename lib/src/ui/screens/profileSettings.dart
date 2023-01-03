@@ -135,9 +135,17 @@ class __FormDataState extends State<_FormData> {
                       borderRadius: BorderRadius.circular(20)),
                   color: Styles.firstColor,
                   onPressed: () async {
-                    await storageProvider.guardarDB(_selectVal);
-                    // ignore: use_build_context_synchronously
-                    _showDialog(context, "Exito", "Se actualizo exitosamente");
+                    final message = await storageProvider.guardarDB(_selectVal);
+
+                    if (message == "MSG=> SE GUARDO CORRECTAMENTE") {
+                      // ignore: use_build_context_synchronously
+                      _showDialog(
+                          context, "EXITO", "Se actualizo exitosamente", true);
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      _showDialog(
+                          context, "ERROR", "Intentalo nuevamente", false);
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -179,25 +187,56 @@ InputDecoration _buildDecoration(
 }
 
 // ignore: unused_element
-void _showDialog(BuildContext context, String title, String info) {
+void _showDialog(BuildContext context, String title, String info, bool img) {
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Text(info),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Volver'),
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                MyRoutes.rHome,
-              );
-            },
-          )
-        ],
+      return Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0)), //this right here
+        child: SizedBox(
+          height: 330,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 30),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                  child: Image.network(
+                      img
+                          ? "https://cdn.icon-icons.com/icons2/1506/PNG/512/emblemdefault_103756.png"
+                          : "https://cdn-icons-png.flaticon.com/512/148/148766.png",
+                      width: 100),
+                ),
+                Text(info),
+                SizedBox(
+                  width: 320.0,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        MyRoutes.rHome,
+                      );
+                    },
+                    color: Styles.firstColor,
+                    child: const Text(
+                      'Volver',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
       );
     },
   );

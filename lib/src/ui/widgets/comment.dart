@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:walkcity/src/styles/style.dart';
 
 // ignore: camel_case_types
 class Comment extends StatefulWidget {
@@ -54,7 +55,7 @@ class _CommentState extends State<Comment> {
             width: 10,
           ),
           Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.amber),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Styles.secondColor),
             width: MediaQuery.of(context).size.width - 150,
             padding: const EdgeInsets.all(10.0),
             child: Column(

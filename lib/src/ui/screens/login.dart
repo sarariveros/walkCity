@@ -80,7 +80,6 @@ class _LoginForm extends StatefulWidget {
 }
 
 class __LoginFormState extends State<_LoginForm> {
-
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<ProviderLogin>(context);
@@ -103,9 +102,7 @@ class __LoginFormState extends State<_LoginForm> {
 
                 RegExp regExp = RegExp(caracteres);
 
-                return regExp.hasMatch(value ?? '')
-                    ? null
-                    : 'No es un correo NO valido';
+                return regExp.hasMatch(value ?? '') ? null : 'Correo NO valido';
               },
             ),
             const SizedBox(
@@ -131,8 +128,7 @@ class __LoginFormState extends State<_LoginForm> {
             Text(
               "Recuperar contraseña",
               style: TextStyle(
-                  color: Styles.firstColor,
-                  fontWeight: FontWeight.w600),
+                  color: Styles.firstColor, fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 20,
@@ -144,8 +140,6 @@ class __LoginFormState extends State<_LoginForm> {
               onPressed: loginProvider.isLoading
                   ? null
                   : () async {
-                      FocusScope.of(context).unfocus();
-
                       final authService =
                           Provider.of<AuthService>(context, listen: false);
 
@@ -159,6 +153,10 @@ class __LoginFormState extends State<_LoginForm> {
                       if (errorMessage == null) {
                         // ignore: use_build_context_synchronously
                         Navigator.pushReplacementNamed(context, MyRoutes.rHome);
+                      } else {
+                        // ignore: use_build_context_synchronously
+                        _showDialog(
+                            context, "ERROR", "Credenciales invalidas", false);
                       }
                     },
               child: const Text(
@@ -196,5 +194,58 @@ InputDecoration _buildDecoration({
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
     hintText: hintText,
     filled: true,
+  );
+}
+
+// ignore: unused_element
+void _showDialog(BuildContext context, String title, String info, bool img) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0)), //this right here
+        child: SizedBox(
+          height: 330,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 30),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                  child: Image.network(
+                      img
+                          ? "https://cdn.icon-icons.com/icons2/1506/PNG/512/emblemdefault_103756.png"
+                          : "https://cdn-icons-png.flaticon.com/512/148/148766.png",
+                      width: 100),
+                ),
+                Text(info),
+                SizedBox(
+                  width: 320.0,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context, false);
+                    },
+                    color: Styles.firstColor,
+                    child: const Text(
+                      'Volver',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    },
   );
 }

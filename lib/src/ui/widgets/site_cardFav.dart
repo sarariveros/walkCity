@@ -88,6 +88,7 @@ class SiteCardFav extends StatelessWidget {
                                 },
                               ),
                               IconButton(
+                                splashColor: Colors.red,
                                 icon: const Icon(
                                   Icons.send,
                                   size: 22,

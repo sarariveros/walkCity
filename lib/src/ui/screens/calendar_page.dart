@@ -91,7 +91,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     tablePadding:
                         const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                     todayDecoration: BoxDecoration(
-                        color: Styles.sitecardColor,
+                        color: Styles.secondColor,
                         borderRadius: BorderRadius.circular(20)),
                     selectedDecoration: BoxDecoration(
                         color: Styles.firstColor,

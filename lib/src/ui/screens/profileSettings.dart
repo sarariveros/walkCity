@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/helper/countries.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/storage_provider.dart';
 import 'package:walkcity/src/routes/routes.dart';
 import 'package:walkcity/src/styles/style.dart';
+import 'package:walkcity/src/ui/widgets/index.dart';
 
 class ProfileSettingPage extends StatelessWidget {
   const ProfileSettingPage({super.key});
@@ -13,6 +13,7 @@ class ProfileSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final storageProvider = Provider.of<StorageImageProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Editar perfil'),
@@ -86,7 +87,7 @@ class __FormDataState extends State<_FormData> {
                 style: const TextStyle(color: Colors.black),
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
-                decoration: _buildDecoration(
+                decoration: Styles.buildDecoration(
                   hintText: 'Nombre',
                 ),
                 initialValue: Preferences.name,
@@ -99,7 +100,7 @@ class __FormDataState extends State<_FormData> {
                 style: const TextStyle(color: Colors.black),
                 autocorrect: false,
                 keyboardType: TextInputType.text,
-                decoration: _buildDecoration(
+                decoration: Styles.buildDecoration(
                   hintText: 'Edad',
                 ),
                 initialValue: Preferences.years,
@@ -110,6 +111,7 @@ class __FormDataState extends State<_FormData> {
               ),
               DropdownButtonFormField(
                 value: _selectVal,
+                isExpanded: true,
                 items: listCountries.map((itemVal) {
                   return DropdownMenuItem(
                     value: itemVal["name"],
@@ -121,11 +123,10 @@ class __FormDataState extends State<_FormData> {
                     _selectVal = value.toString();
                   });
                 },
-                decoration: _buildDecoration(
-                    sufIcon: const Icon(Icons.arrow_drop_down_circle)),
+                decoration: Styles.buildDecoration(),
               ),
               const SizedBox(
-                height: 20,
+                height: 40,
               ),
               SizedBox(
                 width: 150,
@@ -139,12 +140,18 @@ class __FormDataState extends State<_FormData> {
 
                     if (message == "MSG=> SE GUARDO CORRECTAMENTE") {
                       // ignore: use_build_context_synchronously
-                      _showDialog(
-                          context, "EXITO", "Se actualizo exitosamente", true);
+                      AlertDialogD.showAlertDialog(
+                          context,
+                          "EXITO",
+                          "Se actualizo exitosamente",
+                          true,
+                          true,
+                          MyRoutes.rHome,
+                          "Volver");
                     } else {
                       // ignore: use_build_context_synchronously
-                      _showDialog(
-                          context, "ERROR", "Intentalo nuevamente", false);
+                      AlertDialogD.showAlertDialog(context, "ERROR",
+                          "Intentalo nuevamente", false, false, "", "Volver");
                     }
                   },
                   child: Row(
@@ -162,82 +169,4 @@ class __FormDataState extends State<_FormData> {
       ),
     );
   }
-}
-
-InputDecoration _buildDecoration(
-    {final String? hintText, final Icon? sufIcon}) {
-  return InputDecoration(
-    suffixIcon: sufIcon,
-    fillColor: const Color.fromARGB(255, 240, 240, 240),
-    hintStyle: const TextStyle(color: Colors.grey),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-    enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-    hintText: hintText,
-    filled: true,
-  );
-}
-
-// ignore: unused_element
-void _showDialog(BuildContext context, String title, String info, bool img) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)), //this right here
-        child: SizedBox(
-          height: 330,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 30),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                  child: Image.network(
-                      img
-                          ? "https://cdn.icon-icons.com/icons2/1506/PNG/512/emblemdefault_103756.png"
-                          : "https://cdn-icons-png.flaticon.com/512/148/148766.png",
-                      width: 100),
-                ),
-                Text(info),
-                SizedBox(
-                  width: 320.0,
-                  child: MaterialButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        MyRoutes.rHome,
-                      );
-                    },
-                    color: Styles.firstColor,
-                    child: const Text(
-                      'Volver',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      );
-    },
-  );
 }

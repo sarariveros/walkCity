@@ -4,6 +4,7 @@ import 'package:walkcity/src/providers/provider_login.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/services/service_auth.dart';
 import 'package:walkcity/src/styles/style.dart';
+import 'package:walkcity/src/ui/widgets/index.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -92,7 +93,7 @@ class __LoginFormState extends State<_LoginForm> {
               style: const TextStyle(color: Colors.black),
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
-              decoration: _buildDecoration(
+              decoration: Styles.buildDecoration(
                 hintText: 'Ingresa tu correo',
               ),
               onChanged: (value) => loginProvider.email = value,
@@ -112,7 +113,7 @@ class __LoginFormState extends State<_LoginForm> {
               style: const TextStyle(color: Colors.black),
               autocorrect: false,
               keyboardType: TextInputType.text,
-              decoration: _buildDecoration(
+              decoration: Styles.buildDecoration(
                 hintText: 'Ingresa tu contraseña',
               ),
               onChanged: (value) => loginProvider.password = value,
@@ -155,8 +156,14 @@ class __LoginFormState extends State<_LoginForm> {
                         Navigator.pushReplacementNamed(context, MyRoutes.rHome);
                       } else {
                         // ignore: use_build_context_synchronously
-                        _showDialog(
-                            context, "ERROR", "Credenciales invalidas", false);
+                        AlertDialogD.showAlertDialog(
+                            context,
+                            "ERROR",
+                            "Credenciales invalidas",
+                            false,
+                            false,
+                            "",
+                            "Volver");
                       }
                     },
               child: const Text(
@@ -173,79 +180,4 @@ class __LoginFormState extends State<_LoginForm> {
       ),
     );
   }
-}
-
-InputDecoration _buildDecoration({
-  final String? hintText,
-}) {
-  return InputDecoration(
-    fillColor: const Color.fromARGB(255, 240, 240, 240),
-    hintStyle: const TextStyle(color: Colors.grey),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-    enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-    hintText: hintText,
-    filled: true,
-  );
-}
-
-// ignore: unused_element
-void _showDialog(BuildContext context, String title, String info, bool img) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)), //this right here
-        child: SizedBox(
-          height: 330,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 30),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                  child: Image.network(
-                      img
-                          ? "https://cdn.icon-icons.com/icons2/1506/PNG/512/emblemdefault_103756.png"
-                          : "https://cdn-icons-png.flaticon.com/512/148/148766.png",
-                      width: 100),
-                ),
-                Text(info),
-                SizedBox(
-                  width: 320.0,
-                  child: MaterialButton(
-                    onPressed: () {
-                      Navigator.pop(context, false);
-                    },
-                    color: Styles.firstColor,
-                    child: const Text(
-                      'Volver',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      );
-    },
-  );
 }

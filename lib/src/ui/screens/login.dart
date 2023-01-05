@@ -152,7 +152,8 @@ class __LoginFormState extends State<_LoginForm> {
 
                       if (errorMessage == null) {
                         // ignore: use_build_context_synchronously
-                        Navigator.pushReplacementNamed(context, MyRoutes.rHome);
+                        Navigator.pushReplacementNamed(
+                            context, MyRoutes.rTutorial);
                       } else {
                         // ignore: use_build_context_synchronously
                         _showDialog(

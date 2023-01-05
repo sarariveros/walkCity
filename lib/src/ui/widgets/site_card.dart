@@ -25,14 +25,15 @@ class SiteCard extends StatelessWidget {
         Container(
           margin: const EdgeInsets.all(5),
           padding: const EdgeInsets.all(4),
-          height: 210,
+          height: 211,
+          width: MediaQuery.of(context).size.width - 25,
           decoration: BoxDecoration(
-            color: Styles.firstColor.withOpacity(0.5),
-            border: Border.all(color: Color.fromARGB(111, 204, 201, 201)),
+            color: Styles.firstColor.withOpacity(0.3),
+            border: Border.all(color: Styles.firstColor, width: 1.5),
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             boxShadow: const [
               BoxShadow(
-                color: Color.fromARGB(216, 174, 180, 180),
+                color: Color.fromARGB(215, 203, 207, 207),
                 blurRadius: 5.0,
                 spreadRadius: 2.0,
                 offset: Offset(0.0, 0.0),
@@ -45,7 +46,7 @@ class SiteCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 height: 170,
-                width: MediaQuery.of(context).size.width - 30,
+                width: MediaQuery.of(context).size.width - 10,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   image: DecorationImage(
@@ -123,22 +124,19 @@ class SiteCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Center(
+              Padding(
+                padding: const EdgeInsets.only(left: 5),
                 child: SizedBox(
-                  height: 30,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 5),
+                    height: 30,
+                    width: MediaQuery.of(context).size.width,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          width: 260,
-                          child: Text(
-                            site.nombre!,
-                            textAlign: TextAlign.left,
-                            style: Styles.sitecardTStyle,
-                            overflow: TextOverflow.clip,
-                          ),
+                        Text(
+                          site.nombre!,
+                          textAlign: TextAlign.left,
+                          style: Styles.sitecardTStyle,
+                          overflow: TextOverflow.clip,
                         ),
                         TextButton(
                             onPressed: () {},
@@ -148,9 +146,7 @@ class SiteCard extends StatelessWidget {
                                   fontSize: 12, fontWeight: FontWeight.bold),
                             ))
                       ],
-                    ),
-                  ),
-                ),
+                    )),
               )
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/favorite_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:walkcity/src/services/index.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
 
@@ -23,7 +24,10 @@ class SiteCardFav extends StatelessWidget {
     final favorito =
         sbFav.favoritos.where((element) => element.id_site == site.id).toList();
     return GestureDetector(
-        onDoubleTap: (() => sbFav.updateFav(favorito[0])),
+        onDoubleTap: (() {
+          sbFav.updateFav(favorito[0]);
+          NotificationServices.showSnackbar('Lugar Ya visitado', Icons.check);
+        }),
         child: Column(
           children: [
             Container(

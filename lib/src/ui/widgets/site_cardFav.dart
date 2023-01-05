@@ -140,7 +140,7 @@ class SiteCardFav extends StatelessWidget {
                       child: Text(
                         site.nombre!,
                         textAlign: TextAlign.left,
-                        style: Styles.sitecardTStyle,
+                        style: Styles.siteCnameTStyle,
                         overflow: TextOverflow.clip,
                         // softWrap: true,
                         //maxLines: 3,

@@ -82,6 +82,7 @@ class PlacePage extends StatelessWidget {
                   )),
             ),
             expandedHeight: MediaQuery.of(context).size.height * 0.5,
+            collapsedHeight: 100,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
                 site.imagen!,
@@ -98,7 +99,7 @@ class PlacePage extends StatelessWidget {
                     margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                     child: Text(
                       site.descripcion!,
-                      style:const TextStyle(fontSize: 15),
+                      style:const TextStyle(fontSize: 16),
                     )),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -125,9 +126,11 @@ class PlacePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
-                          style: (ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll<Color>(
-                                  Styles.textColor))),
+                          style:ElevatedButton.styleFrom(
+                            backgroundColor: Styles.firstColor,  
+                            maximumSize: Size.fromWidth( MediaQuery.of(context).size.height * 0.25)
+                            
+                          ),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -137,8 +140,9 @@ class PlacePage extends StatelessWidget {
                                         )));
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children:const  [
                                 Icon(
                                   Icons.chat,
@@ -155,17 +159,23 @@ class PlacePage extends StatelessWidget {
                             ),
                           )),
                       ElevatedButton(
-                          style: (ButtonStyle(
-                              
-                              backgroundColor: MaterialStatePropertyAll<Color>(
-                                  Styles.firstColor))),
+                          
+                          style:ElevatedButton.styleFrom(
+                            backgroundColor: Styles.firstColor,  
+                            maximumSize: Size.fromWidth( MediaQuery.of(context).size.height * 0.25)
+                            
+                          )
+                                  ,
+                            
+
+                      
                           onPressed: () {
                             mapProvider.goMap(site.linkMap!);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Row(
-                              
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children:const [
                                 Icon(
                                   Icons.location_on,

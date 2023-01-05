@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
 import 'package:walkcity/src/models/favorito_model.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
@@ -92,7 +93,7 @@ class SBFavorite extends ChangeNotifier {
       msg = 'Añadido a Favoritos';
       notifyListeners();
     }
-    NotificationServices.showSnackbar(msg, 1);
+    NotificationServices.showSnackbar(msg, Icons.favorite_outlined);
     return msg;
   }
 
@@ -112,7 +113,7 @@ class SBFavorite extends ChangeNotifier {
       msg = 'Quitado de Favoritos';
       notifyListeners();
     }
-    NotificationServices.showSnackbar(msg, 0);
+    NotificationServices.showSnackbar(msg, Icons.heart_broken);
     return msg;
   }
 }

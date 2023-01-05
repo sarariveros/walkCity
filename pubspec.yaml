@@ -49,6 +49,8 @@ dependencies:
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.7
   youtube_player_flutter: ^8.1.2
+  smooth_page_indicator: ^1.0.0+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,9 +65,9 @@ dev_dependencies:
 
 flutter_native_splash:
   image: assets/logo.png
-  color: "#000000"
+  color: "#1e81b0"
   image_dark: assets/logo.png
-  color_dark: "#000000"
+  color_dark: "#1e81b0"
 
 
 # For information on the generic Dart part of this file, see the

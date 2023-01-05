@@ -84,16 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    // void handleClick(String value) {
-    //   switch (value) {
-    //     case 'Tips':
-    //       wshowDialog(context, 'Tips');
-    //       break;
-    //     case 'Cerrar Sesion':
-    //       break;
-    //   }
-    // }
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -112,14 +102,17 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: opcionesMenu.elementAt(_selectItem),
       bottomNavigationBar: BottomNavigationBar(
+        iconSize: 20,
+        backgroundColor: Styles.firstColor.withOpacity(0.8),
         currentIndex: _selectItem,
+
         type: BottomNavigationBarType.fixed,
         //backgroundColor: Colors.black,
         onTap: (value) => setState(() {
           _selectItem = value;
         }),
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Styles.firstColor,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Styles.firstColor.withGreen(120),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

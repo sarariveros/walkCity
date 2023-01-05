@@ -17,7 +17,7 @@ class Styles {
   static TextStyle textStyleCl = TextStyle(fontSize: 15, color: thirdColor);
   static TextStyle sitecardTStyle = TextStyle(
       fontSize: 12,
-      color: Colors.white,
+      color: thirdColor,
       // height: 1.2,
       fontWeight: FontWeight.bold);
 
@@ -68,4 +68,15 @@ class Styles {
       filled: true,
     );
   }
+
+  static TextStyle tutorialNumber = TextStyle(
+      fontSize: 40,
+      color: sitecardColor,
+      height: 2,
+      fontWeight: FontWeight.w900);
+  static TextStyle tutorialText = TextStyle(
+      fontSize: 17,
+      color: sitecardColor,
+      height: 1.5,
+      fontWeight: FontWeight.w900);
 }

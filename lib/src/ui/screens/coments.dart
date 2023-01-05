@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
+import 'package:walkcity/src/styles/style.dart';
 
 import '../widgets/index.dart';
 import 'package:http/http.dart' as http;
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 class ComentsPage extends StatefulWidget {
@@ -16,7 +18,8 @@ class ComentsPage extends StatefulWidget {
   State<ComentsPage> createState() => _ComentsPageState();
 }
 
-class _ComentsPageState extends State<ComentsPage> {
+class _ComentsPageState extends State<ComentsPage>
+    with TickerProviderStateMixin {
   String apikey =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvd3psbmNmcnJxamNvanhhcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEwNjgzMDQsImV4cCI6MTk4NjY0NDMwNH0.uyGGT_QVwemGWQY-IEsIVPuEC0itGhQ19l4sjJkc1gQ';
   String autorization =
@@ -24,7 +27,31 @@ class _ComentsPageState extends State<ComentsPage> {
 
   List<dynamic> comments = [];
 
-  String comment = "";
+  final _commentController = TextEditingController();
+
+  Widget _buildTextComposer() {
+    return Row(
+      children: [
+        Flexible(
+          child: TextField(
+            controller: _commentController,
+            style: const TextStyle(color: Colors.black),
+            textInputAction: TextInputAction.send,
+            keyboardType: TextInputType.text,
+            decoration: Styles.buildDecoration(
+              hintText: 'Comentar...',
+            ),
+          ),
+        ),
+        IconButton(
+            onPressed: () async {
+              if (_commentController.text == "") return;
+              createComment();
+            },
+            icon: const Icon(Icons.send))
+      ],
+    );
+  }
 
   @override
   void initState() {
@@ -35,61 +62,45 @@ class _ComentsPageState extends State<ComentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 70, 10, 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Comentarios (${comments.length})',
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SingleChildScrollView(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height - 220,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: comments.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    if (comments[i]["id_user"] == Preferences.identificador) {
-                      return MyComment(info: comments[i]);
-                    } else {
-                      return Comment(info: comments[i]);
-                    }
-                  },
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    style: const TextStyle(color: Colors.black),
-                    autocorrect: false,
-                    textInputAction: TextInputAction.send,
-                    keyboardType: TextInputType.text,
-                    decoration: _buildDecoration(
-                      hintText: 'Comentar...',
-                    ),
-                    onChanged: (value) => comment = value,
-                  ),
-                ),
-                IconButton(
-                    onPressed: () async {
-                      if(comment == "") return;
-                      createComment();
-                    },
-                    icon: const Icon(Icons.send))
-              ],
-            )
-          ],
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Comentarios (${comments.length})',
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
+      ),
+      body: Column(
+        children: [
+          Flexible(
+            child: ListView.builder(
+              padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: comments.length,
+              itemBuilder: (BuildContext context, int i) {
+                if (comments[i]["id_user"] == Preferences.identificador) {
+                  return MyComment(info: comments[i]);
+                } else {
+                  return Comment(info: comments[i]);
+                }
+              },
+            ),
+          ),
+          const Divider(
+            height: 1.0,
+          ),
+          Container(
+              margin: const EdgeInsets.only(
+                top: 10,
+                bottom: 20,
+                left: 10,
+                right: 10,
+              ),
+              child: _buildTextComposer())
+        ],
       ),
     );
   }
@@ -123,7 +134,7 @@ class _ComentsPageState extends State<ComentsPage> {
 
     final Map<String, dynamic> data = {
       "hora": DateFormat('KK:mm:ss a').format(DateTime.now()),
-      "comentario": comment,
+      "comentario": _commentController.text,
       "id_sitio": widget.idSite.id,
       "id_user": Preferences.identificador
     };
@@ -131,29 +142,9 @@ class _ComentsPageState extends State<ComentsPage> {
     const url = 'https://kowzlncfrrqjcojxapmv.supabase.co/rest/v1/Comentario';
     final uri = Uri.parse(url);
     await http.post(uri, body: json.encode(data), headers: header);
-    comment = "";
+
+    _commentController.clear();
+
     getData();
   }
-}
-
-InputDecoration _buildDecoration({
-  final String? hintText,
-}) {
-  return InputDecoration(
-    fillColor: const Color.fromARGB(255, 240, 240, 240),
-    hintStyle: const TextStyle(color: Colors.grey),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-    enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(color: Colors.transparent)),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-    hintText: hintText,
-    filled: true,
-  );
 }

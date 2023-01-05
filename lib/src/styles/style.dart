@@ -17,7 +17,7 @@ class Styles {
   static TextStyle textStyleCl = TextStyle(fontSize: 15, color: thirdColor);
   static TextStyle sitecardTStyle = TextStyle(
       fontSize: 12,
-      color: thirdColor,
+      color: Colors.white,
       // height: 1.2,
       fontWeight: FontWeight.bold);
 

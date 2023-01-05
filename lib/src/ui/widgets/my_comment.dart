@@ -81,7 +81,7 @@ class _MyCommentState extends State<MyComment> {
               borderRadius: BorderRadius.circular(100),
               image: DecorationImage(
                 image: NetworkImage(
-                  dataUser["image"] == null
+                  dataUser["image"] == null || dataUser["image"] == ""
                       ? "https://cultura-sorda.org/wp-content/uploads/2015/02/Usuario-Vacio-300x300.png"
                       : 'https://kowzlncfrrqjcojxapmv.supabase.co/storage/v1/object/public/profile.images/data/user/0/com.example.walkcity/cache/${dataUser["image"]}',
                 ),

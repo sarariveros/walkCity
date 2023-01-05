@@ -17,7 +17,7 @@ class Styles {
   static TextStyle textStyleCl = TextStyle(fontSize: 15, color: thirdColor);
   static TextStyle sitecardTStyle = TextStyle(
       fontSize: 12,
-      color: Colors.white,
+      color: thirdColor,
       // height: 1.2,
       fontWeight: FontWeight.bold);
 
@@ -44,6 +44,31 @@ class Styles {
       color: sitecardColor,
       height: 2,
       fontWeight: FontWeight.w900);
+
+  // Diego
+  // ignore: unused_element
+  static InputDecoration buildDecoration(
+      {final String? hintText, final Icon? sufIcon}) {
+    return InputDecoration(
+      suffixIcon: sufIcon,
+      fillColor: const Color.fromARGB(255, 240, 240, 240),
+      hintStyle: const TextStyle(color: Colors.grey),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(color: Colors.transparent)),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(color: Colors.transparent)),
+      errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(color: Colors.transparent)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+      hintText: hintText,
+      filled: true,
+    );
+  }
+
   static TextStyle tutorialNumber = TextStyle(
       fontSize: 40,
       color: sitecardColor,

@@ -40,7 +40,6 @@ dependencies:
   http: ^0.13.5
   google_fonts: ^3.0.1
   provider: ^6.0.4
-  sqflite: ^2.2.2
   path: ^1.8.2
   location: ^4.4.0
   table_calendar: ^3.0.8
@@ -50,6 +49,7 @@ dependencies:
   url_launcher: ^6.1.7
   youtube_player_flutter: ^8.1.2
   smooth_page_indicator: ^1.0.0+2
+  curved_navigation_bar: ^1.0.3
 
 dev_dependencies:
   flutter_test:

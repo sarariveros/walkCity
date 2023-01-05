@@ -135,7 +135,7 @@ class SiteCard extends StatelessWidget {
                         Text(
                           site.nombre!,
                           textAlign: TextAlign.left,
-                          style: Styles.sitecardTStyle,
+                          style: Styles.siteCnameTStyle,
                           overflow: TextOverflow.clip,
                         ),
                         TextButton(

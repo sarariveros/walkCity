@@ -10,3 +10,4 @@ export 'package:walkcity/src/ui/widgets/comment.dart';
 
 export 'package:walkcity/src/ui/widgets/my_comment.dart';
 
+export 'package:walkcity/src/ui/widgets/alert_dialog.dart';

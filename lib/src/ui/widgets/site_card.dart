@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:walkcity/src/models/favorito_model.dart';
 import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/favorite_provider.dart';
-import 'package:walkcity/src/resources/category_icons.dart';
+// import 'package:walkcity/src/resources/category_icons.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
@@ -138,8 +139,15 @@ class SiteCard extends StatelessWidget {
                         // child:
                         SizedBox(
                             width: 55,
-                            child:
-                                CategoryIcon.iconCategory(site.id_categoria!))
+                            child: IconButton(
+                                onPressed: () {
+                                  String msg =
+                                      'Te invito a Visitar ${site.nombre} en Ayacucho. Conoce mas atraves de WalkCity';
+                                  Share.share(msg);
+                                },
+                                icon: Icon(Icons.share))
+                            // CategoryIcon.iconCategory(site.id_categoria!)
+                            )
                         // '100k',
                         // style: TextStyle(
                         //     fontSize: 12, fontWeight: FontWeight.bold

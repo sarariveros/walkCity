@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
-import 'package:walkcity/src/ui/screens/tutorial_page.dart';
 
 class MyRoutes {
   static const String rHome = '/home';
@@ -14,6 +13,7 @@ class MyRoutes {
   static const String rMap = "/map";
   static const String rComment = "/comment";
   static const String rTutorial = "/tutorial";
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case ('/home'):
@@ -32,6 +32,7 @@ class MyRoutes {
         return MaterialPageRoute(builder: (_) => const ComentsPage());
       case ('/tutorial'):
         return MaterialPageRoute(builder: (_) => const TutorialPage());
+
       default:
         return MaterialPageRoute(builder: (_) => const ErrorScreen());
     }

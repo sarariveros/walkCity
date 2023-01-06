@@ -4,10 +4,12 @@ class Styles {
   static Color firstColor = const Color.fromRGBO(20, 200, 226, 1);
   static Color secondColor = const Color.fromARGB(255, 215, 215, 210);
   static Color thirdColor = Colors.black;
+  static Color fouthColor = Colors.white;
+  static Color fithColor = const Color.fromRGBO(255, 204, 0, .7);
 
   static Color textColor = const Color.fromRGBO(53, 82, 88, 1);
-  static Color sitecardColor = Colors.white;
-  static Color textColorCl = const Color.fromARGB(255, 18, 95, 105);
+
+  static Color textColorCl = const Color.fromARGB(255, 17, 67, 73);
 
   static TextStyle textStyle =
       const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
@@ -15,17 +17,12 @@ class Styles {
       const TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
   ///////////////////////////////////////////////////////////
   ///////////////////////sites Cards////////
-  static TextStyle textStyleCl = TextStyle(fontSize: 15, color: thirdColor);
+  static TextStyle textStyleCl = TextStyle(fontSize: 15, color: textColorCl);
 
   static TextStyle siteCnameTStyle = const TextStyle(
       fontSize: 12,
       color: Color.fromARGB(255, 95, 93, 93),
       fontWeight: FontWeight.bold);
-
-  static TextStyle sitecardDStyle =
-      TextStyle(fontSize: 10, color: sitecardColor);
-  static TextStyle sitecardBStyle =
-      TextStyle(fontSize: 10, color: sitecardColor);
 
   static TextStyle title = const TextStyle(
       fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold);
@@ -35,20 +32,11 @@ class Styles {
   ///////////////////////////////////////////////////////////
 
   static TextStyle wdataTextStyle = TextStyle(
-      fontSize: 15,
-      color: sitecardColor,
-      height: 1,
-      fontWeight: FontWeight.bold);
+      fontSize: 15, color: fouthColor, height: 1, fontWeight: FontWeight.bold);
   static TextStyle wdataTempStyle = TextStyle(
-      fontSize: 40,
-      color: sitecardColor,
-      height: 2,
-      fontWeight: FontWeight.bold);
+      fontSize: 40, color: fouthColor, height: 2, fontWeight: FontWeight.bold);
   static TextStyle wTitleStyle = TextStyle(
-      fontSize: 16,
-      color: sitecardColor,
-      height: 2,
-      fontWeight: FontWeight.w900);
+      fontSize: 16, color: fouthColor, height: 2, fontWeight: FontWeight.w900);
 
   // Diego
   // ignore: unused_element
@@ -78,13 +66,10 @@ class Styles {
 /////////////////////tutorial page////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
   static TextStyle tutorialNumber = TextStyle(
-      fontSize: 40,
-      color: sitecardColor,
-      height: 2,
-      fontWeight: FontWeight.w900);
+      fontSize: 40, color: fouthColor, height: 2, fontWeight: FontWeight.w900);
   static TextStyle tutorialText = TextStyle(
       fontSize: 17,
-      color: sitecardColor,
+      color: fouthColor,
       height: 1.5,
       fontWeight: FontWeight.w900);
 }

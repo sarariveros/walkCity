@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:walkcity/src/helper/countries.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/storage_provider.dart';
+import 'package:walkcity/src/resources/countries.dart';
 import 'package:walkcity/src/routes/routes.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/widgets/index.dart';

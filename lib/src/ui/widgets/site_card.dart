@@ -3,6 +3,7 @@ import 'package:walkcity/src/models/favorito_model.dart';
 import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/favorite_provider.dart';
+import 'package:walkcity/src/resources/category_icons.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:provider/provider.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
@@ -84,7 +85,8 @@ class SiteCard extends StatelessWidget {
                           ),
                           IconButton(
                             icon: const Icon(
-                              Icons.send,
+                              Icons.ads_click_sharp,
+                              // .add_circle_outline_sharp,
                               size: 22,
                               color: Colors.white,
                             ),
@@ -103,19 +105,11 @@ class SiteCard extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              if (icon == Icons.favorite) {
-                                sbFav.addFavorite(Favorito.fromMap({
-                                  'id_site': site.id,
-                                  'estado': 0,
-                                  'usuario': Preferences.identificador
-                                }));
-                              } else if (icon == Icons.delete) {
-                                sbFav.removeFavorite(Favorito.fromMap({
-                                  'id_site': site.id,
-                                  'estado': 0,
-                                  'usuario': Preferences.identificador
-                                }));
-                              }
+                              sbFav.addFavorite(Favorito.fromMap({
+                                'id_site': site.id,
+                                'estado': 0,
+                                'usuario': Preferences.identificador
+                              }));
                             },
                           ),
                         ],
@@ -130,6 +124,7 @@ class SiteCard extends StatelessWidget {
                     height: 30,
                     width: MediaQuery.of(context).size.width,
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -138,13 +133,18 @@ class SiteCard extends StatelessWidget {
                           style: Styles.siteCnameTStyle,
                           overflow: TextOverflow.clip,
                         ),
-                        TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              '100k',
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ))
+                        // TextButton(
+                        //     onPressed: () {},
+                        // child:
+                        SizedBox(
+                            width: 55,
+                            child:
+                                CategoryIcon.iconCategory(site.id_categoria!))
+                        // '100k',
+                        // style: TextStyle(
+                        //     fontSize: 12, fontWeight: FontWeight.bold
+                        //),
+                        // )
                       ],
                     )),
               )

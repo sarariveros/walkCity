@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:walkcity/src/resources/countries.dart';
 import 'package:walkcity/src/routes/routes.dart';
 import 'package:walkcity/src/ui/screens/profileSettings.dart';
 import '../../services/service_auth.dart';
-import "../../helper/countries.dart";
 import 'package:walkcity/src/styles/style.dart';
 
 class PerfilScreen extends StatefulWidget {
@@ -45,9 +43,8 @@ class _PerfilScreenState extends State<PerfilScreen> {
                   width: double.infinity,
                   height: 270,
                   decoration: BoxDecoration(
-                    color: Styles.firstColor,
-                    backgroundBlendMode: BlendMode.multiply
-                  ),
+                      color: Styles.firstColor,
+                      backgroundBlendMode: BlendMode.multiply),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -58,11 +55,10 @@ class _PerfilScreenState extends State<PerfilScreen> {
                           borderRadius: BorderRadius.circular(200),
                           color: Colors.white,
                           image: DecorationImage(
-                            image: NetworkImage(
-                              dataUser["image"] == null || dataUser["image"] == ""
-                                  ? "https://cultura-sorda.org/wp-content/uploads/2015/02/Usuario-Vacio-300x300.png"
-                                  : 'https://kowzlncfrrqjcojxapmv.supabase.co/storage/v1/object/public/profile.images/data/user/0/com.example.walkcity/cache/${dataUser["image"]}'
-                            ),
+                            image: NetworkImage(dataUser["image"] == null ||
+                                    dataUser["image"] == ""
+                                ? "https://cultura-sorda.org/wp-content/uploads/2015/02/Usuario-Vacio-300x300.png"
+                                : 'https://kowzlncfrrqjcojxapmv.supabase.co/storage/v1/object/public/profile.images/data/user/0/com.example.walkcity/cache/${dataUser["image"]}'),
                             fit: BoxFit.cover,
                           ),
                         ),

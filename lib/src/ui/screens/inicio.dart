@@ -28,10 +28,10 @@ class _InicioScreenState extends State<InicioScreen> {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: Styles.firstColor,
+                  backgroundColor: Styles.fithColor.withAlpha(240),
                   radius: 18,
                   child: Image.asset(
-                    'assets/escudo.png',
+                    'assets/logo.png',
                     height: 30,
                     width: 30,
                   ),

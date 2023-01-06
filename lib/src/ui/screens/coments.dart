@@ -48,7 +48,10 @@ class _ComentsPageState extends State<ComentsPage>
               if (_commentController.text == "") return;
               createComment();
             },
-            icon: const Icon(Icons.send))
+            icon: Icon(
+              Icons.send,
+              color: Styles.firstColor,
+            ))
       ],
     );
   }

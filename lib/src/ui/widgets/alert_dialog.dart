@@ -53,7 +53,7 @@ class AlertDialogD {
                       color: Styles.firstColor,
                       child: Text(
                         rutaText,
-                        style: TextStyle(color: Styles.sitecardColor),
+                        style: TextStyle(color: Styles.fouthColor),
                       ),
                     ),
                   )

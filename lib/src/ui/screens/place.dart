@@ -4,6 +4,7 @@ import 'package:walkcity/src/models/index.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/favorite_provider.dart';
 import 'package:walkcity/src/providers/map_provider.dart';
+import 'package:walkcity/src/resources/category_icons.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -23,6 +24,10 @@ class PlacePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
             actions: [
               IconButton(
                   onPressed: () {
@@ -32,7 +37,10 @@ class PlacePage extends StatelessWidget {
                       'usuario': Preferences.identificador
                     }));
                   },
-                  icon:Icon(Icons.favorite))
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Styles.thirdColor,
+                  ))
             ],
             elevation: 0,
             pinned: true,
@@ -57,25 +65,29 @@ class PlacePage extends StatelessWidget {
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                   width: double.maxFinite,
-                  padding:const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Text(
                         site.nombre!,
-                        style:TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold,color: Styles.textColor),
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Styles.textColor),
                       ),
-                      iconCategory(site.id_categoria!),
+                      CategoryIcon.iconCategory(site.id_categoria!),
                       const SizedBox(
                         height: 20,
                       ),
-                       Container(
+                      Container(
                         width: double.infinity,
                         child: Text(
                           "Descripcion",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold,color: Styles.firstColor),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Styles.firstColor),
                         ),
                       )
                     ],
@@ -96,25 +108,25 @@ class PlacePage extends StatelessWidget {
               children: [
                 Container(
                     color: Colors.white,
-                    margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    margin:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                     child: Text(
                       site.descripcion!,
-                      style:const TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     )),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: YoutubePlayer(
                     controller: YoutubePlayerController(
-                      initialVideoId: site
-                          .linkVideo!,
-                      flags: YoutubePlayerFlags(
-                        autoPlay: true,
+                      initialVideoId: site.linkVideo!,
+                      flags: const YoutubePlayerFlags(
+                        autoPlay: false,
                         mute: false,
                       ),
                     ),
                     showVideoProgressIndicator: true,
                     progressIndicatorColor: Styles.secondColor,
-                    progressColors:const ProgressBarColors(
+                    progressColors: const ProgressBarColors(
                       playedColor: Color.fromARGB(255, 232, 60, 48),
                       handleColor: Color.fromARGB(255, 232, 60, 48),
                     ),
@@ -126,11 +138,10 @@ class PlacePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
-                          style:ElevatedButton.styleFrom(
-                            backgroundColor: Styles.firstColor,  
-                            maximumSize: Size.fromWidth( MediaQuery.of(context).size.height * 0.25)
-                            
-                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Styles.firstColor,
+                              maximumSize: Size.fromWidth(
+                                  MediaQuery.of(context).size.height * 0.25)),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -142,51 +153,51 @@ class PlacePage extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:const  [
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: const [
                                 Icon(
                                   Icons.chat,
                                   color: Colors.white,
                                   size: 20,
                                 ),
-                                SizedBox(width: 10,),
+                                // SizedBox(
+                                //   width: 10,
+                                // ),
                                 Text(
                                   "Comentarios",
-                                  style:
-                                      TextStyle(color: Colors.white, fontSize: 16),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      overflow: TextOverflow.ellipsis),
                                 ),
                               ],
                             ),
                           )),
                       ElevatedButton(
-                          
-                          style:ElevatedButton.styleFrom(
-                            backgroundColor: Styles.firstColor,  
-                            maximumSize: Size.fromWidth( MediaQuery.of(context).size.height * 0.25)
-                            
-                          )
-                                  ,
-                            
-
-                      
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Styles.firstColor,
+                              maximumSize: Size.fromWidth(
+                                  MediaQuery.of(context).size.height * 0.25)),
                           onPressed: () {
                             mapProvider.goMap(site.linkMap!);
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:const [
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: const [
                                 Icon(
                                   Icons.location_on,
                                   color: Colors.white,
                                   size: 20,
                                 ),
-                                SizedBox(width: 10,),
+                                // SizedBox(
+                                //   width: 10,
+                                // ),
                                 Text(
                                   "Ir al mapa",
-                                  style:
-                                      TextStyle(color: Colors.white, fontSize: 16),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
                                 ),
                               ],
                             ),
@@ -204,41 +215,4 @@ class PlacePage extends StatelessWidget {
       ),
     );
   }
-}
-
-//funcion Para el icono
-Icon iconCategory(category) {
-  Icon icon = Icon(
-    Icons.favorite,
-    color: Color.fromARGB(255, 217, 27, 90),
-  );
-  switch (category) {
-    case "1":
-      icon = Icon(
-        Icons.church,
-        color: Color.fromARGB(255, 215, 147, 147),
-      );
-      break;
-    case "2":
-      icon = Icon(
-        Icons.park,
-        color: Colors.green,
-      );
-      break;
-    case "3":
-      icon = Icon(
-        Icons.museum_sharp,
-        color: Colors.orangeAccent,
-      );
-      break;
-    case "4":
-      icon = Icon(
-        Icons.home_work,
-        color: Color.fromARGB(255, 218, 60, 49),
-      );
-      break;
-    default:
-      icon;
-  }
-  return icon;
 }

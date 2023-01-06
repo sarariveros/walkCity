@@ -35,7 +35,7 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme(
               brightness: Brightness.light,
               primary: Colors.white,
-              onPrimary: Colors.white,
+              onPrimary: Colors.black,
               secondary: Colors.white,
               onSecondary: Colors.white,
               error: Colors.white,

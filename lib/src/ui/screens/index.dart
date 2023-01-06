@@ -1,3 +1,5 @@
+export 'package:walkcity/src/ui/screens/tutorial_page.dart';
+
 export 'package:walkcity/src/ui/screens/perfil.dart';
 
 export 'package:walkcity/src/ui/screens/inicio.dart';
@@ -5,7 +7,6 @@ export 'package:walkcity/src/ui/screens/inicio.dart';
 export 'package:walkcity/src/ui/screens/favoritos.dart';
 
 export 'package:walkcity/src/ui/screens/festividades.dart';
-
 
 export 'package:walkcity/src/ui/screens/place.dart';
 

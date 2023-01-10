@@ -24,38 +24,43 @@ class PlacePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            
             leading: Container(
-              
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only( bottomRight: Radius.circular(10),topRight: Radius.circular(10)),
-                color: Color.fromARGB(129, 0, 0, 0)
-              ),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(40),
+                      topRight: Radius.circular(40)),
+                  color: Color.fromARGB(129, 0, 0, 0)),
               child: IconButton(
-                
-                icon: Icon(Icons.arrow_back,size: 30),
+                alignment: Alignment.centerLeft,
+                icon: const Icon(
+                  Icons.arrow_back,
+                  size: 30,
+                ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
             actions: [
               Container(
-                  width: 55,
-                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only( bottomLeft: Radius.circular(10),topLeft: Radius.circular(10)),
-                color: Color.fromARGB(129, 0, 0, 0)
-              ),
+                width: 53,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                        topLeft: Radius.circular(40)),
+                    color: Color.fromARGB(129, 0, 0, 0)),
                 child: IconButton(
-                    onPressed: () {
-                      sbFav.addFavorite(Favorito.fromMap({
-                        'id_site': site.id,
-                        'estado': 0,
-                        'usuario': Preferences.identificador
-                      }));
-                    },
-                    icon: Icon(
-                      Icons.favorite,size: 25,
-                       ),
-                    ),
+                  alignment: Alignment.centerRight,
+                  onPressed: () {
+                    sbFav.addFavorite(Favorito.fromMap({
+                      'id_site': site.id,
+                      'estado': 0,
+                      'usuario': Preferences.identificador
+                    }));
+                  },
+                  icon: const Icon(
+                    Icons.favorite,
+                    size: 25,
+                  ),
+                ),
               )
             ],
             elevation: 0,
@@ -176,7 +181,6 @@ class PlacePage extends StatelessWidget {
                                   color: Colors.white,
                                   size: 20,
                                 ),
-                                
                                 Text(
                                   "Comentarios",
                                   style: TextStyle(
@@ -205,7 +209,6 @@ class PlacePage extends StatelessWidget {
                                   color: Colors.white,
                                   size: 20,
                                 ),
-                                
                                 Text(
                                   "Ir al mapa",
                                   style: TextStyle(
@@ -217,7 +220,7 @@ class PlacePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 )
               ],

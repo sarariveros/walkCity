@@ -1,8 +1,10 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:walkcity/src/models/festivity_models.dart';
+import 'package:walkcity/src/providers/map_provider.dart';
 import 'package:walkcity/src/styles/style.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -47,6 +49,7 @@ class _CalendarPageState extends State<CalendarPage> {
       equals: isSameDay,
       hashCode: getHashCode,
     )..addAll(_eventsList);
+    final mapProvider = Provider.of<MapProvider>(context);
 
     List _getEventFordia(DateTime dia) {
       return _events[dia] ?? [];
@@ -117,7 +120,7 @@ class _CalendarPageState extends State<CalendarPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical:15 ,horizontal:20 ),
                 
-                child: Text(widget.festivity.descripcion!,style: TextStyle(fontSize: 18,),textAlign: TextAlign.justify,),
+                child: Text(widget.festivity.descripcion!,style: TextStyle(fontSize: 16,),textAlign: TextAlign.justify,),
               ),
               Container(
                 width: 320,
@@ -129,6 +132,33 @@ class _CalendarPageState extends State<CalendarPage> {
                         fit: BoxFit.cover),
                     border: Border.all(color: Styles.secondColor, width: 3)),
               ),
+              SizedBox(height: 20,),
+              ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Styles.firstColor,
+                              maximumSize: Size.fromWidth(
+                                  MediaQuery.of(context).size.height * 0.25)),
+                          onPressed: () {
+                            mapProvider.goMap("content://com.android.calendar/time/");
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: const [
+                                Icon(
+                                  Icons.edit_calendar,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                Text(
+                                  "Agendar",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          )),
               SizedBox(
                 height: 20,
               ),

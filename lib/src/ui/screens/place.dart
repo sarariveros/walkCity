@@ -24,23 +24,39 @@ class PlacePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.of(context).pop(),
+            
+            leading: Container(
+              
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only( bottomRight: Radius.circular(10),topRight: Radius.circular(10)),
+                color: Color.fromARGB(129, 0, 0, 0)
+              ),
+              child: IconButton(
+                
+                icon: Icon(Icons.arrow_back,size: 30),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             ),
             actions: [
-              IconButton(
-                  onPressed: () {
-                    sbFav.addFavorite(Favorito.fromMap({
-                      'id_site': site.id,
-                      'estado': 0,
-                      'usuario': Preferences.identificador
-                    }));
-                  },
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Styles.thirdColor,
-                  ))
+              Container(
+                  width: 55,
+                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only( bottomLeft: Radius.circular(10),topLeft: Radius.circular(10)),
+                color: Color.fromARGB(129, 0, 0, 0)
+              ),
+                child: IconButton(
+                    onPressed: () {
+                      sbFav.addFavorite(Favorito.fromMap({
+                        'id_site': site.id,
+                        'estado': 0,
+                        'usuario': Preferences.identificador
+                      }));
+                    },
+                    icon: Icon(
+                      Icons.favorite,size: 25,
+                       ),
+                    ),
+              )
             ],
             elevation: 0,
             pinned: true,
@@ -71,7 +87,7 @@ class PlacePage extends StatelessWidget {
                       Text(
                         site.nombre!,
                         style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                             color: Styles.textColor),
                       ),
@@ -82,10 +98,10 @@ class PlacePage extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         child: Text(
-                          "Descripcion",
+                          "Descripcion:",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 23,
                               fontWeight: FontWeight.bold,
                               color: Styles.firstColor),
                         ),
@@ -112,7 +128,7 @@ class PlacePage extends StatelessWidget {
                         const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                     child: Text(
                       site.descripcion!,
-                      style: const TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 18),
                     )),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -160,9 +176,7 @@ class PlacePage extends StatelessWidget {
                                   color: Colors.white,
                                   size: 20,
                                 ),
-                                // SizedBox(
-                                //   width: 10,
-                                // ),
+                                
                                 Text(
                                   "Comentarios",
                                   style: TextStyle(
@@ -191,9 +205,7 @@ class PlacePage extends StatelessWidget {
                                   color: Colors.white,
                                   size: 20,
                                 ),
-                                // SizedBox(
-                                //   width: 10,
-                                // ),
+                                
                                 Text(
                                   "Ir al mapa",
                                   style: TextStyle(

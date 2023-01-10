@@ -14,16 +14,16 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime? _focusedDay;
-  DateTime? _selectedDay;
+  DateTime? _focuseddia;
+  DateTime? _selecteddia;
   Map<DateTime, List> _eventsList = {};
 
   int getHashCode(DateTime key) {
     return key.day * 1000000 + key.month * 10000 + key.year;
   }
 
-  int getYear(int month) {
-    if (DateTime.now().month > month) {
+  int getYear(int mes) {
+    if (DateTime.now().month > mes) {
       return DateTime.now().year + 1;
     } else {
       return DateTime.now().year;
@@ -33,11 +33,11 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
-    _selectedDay = DateTime.utc(getYear(widget.festivity.month),
-        widget.festivity.month, widget.festivity.day);
+    _selecteddia = DateTime.utc(getYear(widget.festivity.mes!),
+        widget.festivity.mes!, widget.festivity.dia!);
     _eventsList = {
-      DateTime.utc(getYear(widget.festivity.month), widget.festivity.month,
-          widget.festivity.day): [widget.festivity.title]
+      DateTime.utc(getYear(widget.festivity.mes!), widget.festivity.mes!,
+          widget.festivity.dia!): [widget.festivity.titulo]
     };
   }
 
@@ -48,15 +48,15 @@ class _CalendarPageState extends State<CalendarPage> {
       hashCode: getHashCode,
     )..addAll(_eventsList);
 
-    List _getEventForDay(DateTime day) {
-      return _events[day] ?? [];
+    List _getEventFordia(DateTime dia) {
+      return _events[dia] ?? [];
     }
 
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Styles.firstColor,
-          title: Text( widget.festivity.title,
-                  style:const TextStyle(color: Colors.white, fontSize: 30),),
+          title: Text( widget.festivity.titulo!,
+                  style:const TextStyle(color: Colors.white, fontSize: 25),),
           
         ),
         body: SingleChildScrollView(
@@ -66,9 +66,9 @@ class _CalendarPageState extends State<CalendarPage> {
               TableCalendar(
                 firstDay: DateTime.utc(DateTime.now().year - 1, 1, 1),
                 lastDay: DateTime.utc(DateTime.now().year + 1, 12, 31),
-                focusedDay: DateTime.utc(getYear(widget.festivity.month),
-                    widget.festivity.month, widget.festivity.day),
-                eventLoader: _getEventForDay,
+                focusedDay: DateTime.utc(getYear(widget.festivity.mes!),
+                    widget.festivity.mes!, widget.festivity.dia!),
+                eventLoader: _getEventFordia,
                 headerStyle: HeaderStyle(
                     titleTextStyle:
                         TextStyle(color: Colors.white, fontSize: 20),
@@ -91,7 +91,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     tablePadding:
                         const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                     todayDecoration: BoxDecoration(
-                        color: Styles.secondColor,
+                        color: Color.fromARGB(255, 142, 140, 140),
                         borderRadius: BorderRadius.circular(20)),
                     selectedDecoration: BoxDecoration(
                         color: Styles.firstColor,
@@ -106,12 +106,18 @@ class _CalendarPageState extends State<CalendarPage> {
                     });
                   }
                 },
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
+                selectedDayPredicate: (dia) {
+                  return isSameDay(_selecteddia, dia);
                 },
-                onPageChanged: (focusedDay) {
-                  _focusedDay = focusedDay;
+                onPageChanged: (focuseddia) {
+                  _focuseddia = focuseddia;
                 },
+              ),
+              Text("DESCRIPCIÓN:",textAlign: TextAlign.right,style: TextStyle(color: Styles.textColor,fontSize:23,fontWeight: FontWeight.bold),),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical:15 ,horizontal:20 ),
+                
+                child: Text(widget.festivity.descripcion!,style: TextStyle(fontSize: 18,),textAlign: TextAlign.justify,),
               ),
               Container(
                 width: 320,
@@ -119,13 +125,13 @@ class _CalendarPageState extends State<CalendarPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
-                        image: NetworkImage(widget.festivity.image),
+                        image: NetworkImage(widget.festivity.imagen!),
                         fit: BoxFit.cover),
                     border: Border.all(color: Styles.secondColor, width: 3)),
               ),
               SizedBox(
                 height: 20,
-              )
+              ),
             ],
           ),
         ));

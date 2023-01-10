@@ -1,47 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:walkcity/src/models/favorito_model.dart';
 import 'package:walkcity/src/models/site_model.dart';
 import 'package:walkcity/src/preferences/preferences.dart';
 import 'package:walkcity/src/providers/favorite_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:walkcity/src/services/index.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/screens/index.dart';
 
-class SiteCardFav extends StatelessWidget {
-  final IconData icon;
+class SiteCardFav extends StatefulWidget {
   final Site site;
 
   const SiteCardFav({
     super.key,
-    required this.icon,
     required this.site,
   });
 
   @override
+  State<SiteCardFav> createState() => _SiteCardFavState();
+}
+
+class _SiteCardFavState extends State<SiteCardFav> {
+  @override
   Widget build(BuildContext context) {
     final sbFav = Provider.of<SBFavorite>(context);
-    final favorito =
-        sbFav.favoritos.where((element) => element.id_site == site.id).toList();
+    final favorito = sbFav.favoritos
+        .where((element) => element.id_site == widget.site.id)
+        .toList();
+    int isVisited = favorito[0].estado!;
     return GestureDetector(
-        onDoubleTap: (() {
-          sbFav.updateFav(favorito[0]);
-          NotificationServices.showSnackbar('Lugar Ya visitado', Icons.check);
-        }),
+        onDoubleTap: () {
+          sbFav.removeFavorite(Favorito.fromMap({
+            'id_site': widget.site.id,
+            'estado': 0,
+            'usuario': Preferences.identificador
+          }));
+          // }
+        },
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.all(5),
+              margin: const EdgeInsets.all(6),
               padding: const EdgeInsets.all(4),
-              height: 220,
+              height: 185,
               width: MediaQuery.of(context).size.width / 2 - 10,
               decoration: BoxDecoration(
-                color: Styles.firstColor.withOpacity(0.5),
-                border: Border.all(color: Color.fromARGB(111, 204, 201, 201)),
+                color: const Color.fromARGB(106, 144, 225, 239),
+                border:
+                    Border.all(color: const Color.fromARGB(111, 204, 201, 201)),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 boxShadow: const [
                   BoxShadow(
-                    color: Color.fromARGB(216, 174, 180, 180),
+                    color: Color.fromARGB(118, 174, 180, 180),
                     blurRadius: 5.0,
                     spreadRadius: 2.0,
                     offset: Offset(0.0, 0.0),
@@ -49,242 +60,142 @@ class SiteCardFav extends StatelessWidget {
                 ],
               ),
               child: Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                //crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(10),
-                    height: 170,
+                    height: 125,
                     width: MediaQuery.of(context).size.width / 2 - 10,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       image: DecorationImage(
-                        image: NetworkImage(site.imagen!),
+                        image: NetworkImage(widget.site.imagen!),
                         fit: BoxFit.cover,
                       ),
                     ),
                     child: Stack(
-                      alignment: AlignmentDirectional.bottomEnd,
+                      alignment: AlignmentDirectional.topEnd,
                       children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(123, 79, 80, 79),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          width: 40,
-                          height: 145,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.chat_outlined,
-                                  size: 22,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ComentsPage(
-                                                idSite: site,
-                                              )));
-                                },
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(155, 200, 218, 213),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                               ),
-                              IconButton(
-                                splashColor: Colors.red,
-                                icon: const Icon(
-                                  Icons.ads_click_sharp,
-                                  size: 22,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PlacePage(site: site)));
-                                },
+                              width: 35,
+                              height: 35,
+                              child: SizedBox(
+                                height: 35,
+                                child: IconButton(
+                                    onPressed: () {
+                                      String msg =
+                                          'Te invito a Visitar ${widget.site.nombre} en Ayacucho / Peru. Conoce mas atraves de WalkCity https://melodious-cat-451886.netlify.app/';
+                                      Share.share(msg);
+                                    },
+                                    icon: const Icon(
+                                      Icons.share,
+                                      size: 20,
+                                      color: Color.fromARGB(211, 0, 0, 0),
+                                    )),
                               ),
-                              IconButton(
-                                icon: Icon(
-                                  icon,
-                                  size: 22,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  if (icon == Icons.favorite) {
-                                    sbFav.addFavorite(Favorito.fromMap({
-                                      'id_site': site.id,
-                                      'estado': 0,
-                                      'usuario': Preferences.identificador
-                                    }));
-                                  } else if (icon == Icons.delete) {
-                                    sbFav.removeFavorite(Favorito.fromMap({
-                                      'id_site': site.id,
-                                      'estado': 0,
-                                      'usuario': Preferences.identificador
-                                    }));
-                                  }
-                                },
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(155, 200, 218, 213),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                               ),
-                            ],
-                          ),
+                              width: 35,
+                              height: 35,
+                              child: SizedBox(
+                                height: 35,
+                                child: IconButton(
+                                    onPressed: () {
+                                      sbFav.removeFavorite(Favorito.fromMap({
+                                        'id_site': widget.site.id,
+                                        'estado': 0,
+                                        'usuario': Preferences.identificador
+                                      }));
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      size: 20,
+                                      color: Color.fromARGB(211, 0, 0, 0),
+                                    )),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                  Center(
-                    child: SizedBox(
-                      height: 40,
-                      child: Text(
-                        site.nombre!,
-                        textAlign: TextAlign.left,
-                        style: Styles.siteCnameTStyle,
-                        overflow: TextOverflow.clip,
-                        // softWrap: true,
-                        //maxLines: 3,
-                      ),
+                  SizedBox(
+                    height: 20,
+                    child: Text(
+                      widget.site.nombre!,
+                      textAlign: TextAlign.center,
+                      style: Styles.scNameStyle,
+                      overflow: TextOverflow.ellipsis,
+                      // softWrap: true,
+                      //maxLines: 3,
                     ),
-                  )
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 75,
+                        height: 30,
+                        child: TextButton(
+                          child: Text(
+                            'VER MAS',
+                            style: Styles.scVerStyle,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        PlacePage(site: widget.site)));
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 25,
+                        height: 30,
+                        child: IconButton(
+                          icon: (isVisited == 1)
+                              ? const Icon(
+                                  Icons.check_box_outlined,
+                                  size: 20,
+                                  color: Color.fromARGB(211, 0, 0, 0),
+                                )
+                              : const Icon(
+                                  Icons.check_box_outline_blank_sharp,
+                                  size: 20,
+                                  color: Color.fromARGB(211, 0, 0, 0),
+                                ),
+                          onPressed: () async {
+                            if (favorito.isNotEmpty) {
+                              setState(() {
+                                isVisited = 1;
+                              });
+
+                              Future.delayed(const Duration(seconds: 10));
+                              sbFav.updateFav(favorito[0]);
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ],
         ));
-
-    // return Container(
-    //   margin: const EdgeInsets.only(right: 10, top: 5),
-    //   height: 180,
-    //   width: (MediaQuery.of(context).size.width / 2) - 15,
-    //   decoration: BoxDecoration(
-    //     color: Styles.firstColor,
-    //     borderRadius: const BorderRadius.vertical(
-    //         top: Radius.circular(10), bottom: Radius.circular(10)),
-    //   ),
-    //   child: Column(
-    //     children: [
-    //       Container(
-    //         height: 120,
-    //         decoration: BoxDecoration(
-    //           color: Styles.firstColor,
-    //           borderRadius: const BorderRadius.vertical(
-    //             top: Radius.circular(10),
-    //             // bottom: Radius.circular(10)
-    //           ),
-    //           image: DecorationImage(
-    //             image: NetworkImage(site.imagen!),
-    //             fit: BoxFit.cover,
-    //           ),
-    //         ),
-    //       ),
-    //       Column(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Padding(
-    //             padding: const EdgeInsets.all(8.0),
-    //             child: SizedBox(
-    //               height: 45,
-    //               child: Text(
-    //                 site.nombre!,
-    //                 textAlign: TextAlign.left,
-    //                 style: Styles.sitecardTStyle,
-    //                 // overflow: TextOverflow.clip,
-    //               ),
-    //             ),
-    //           ),
-    //           Stack(alignment: AlignmentDirectional.bottomCenter, children: [
-    //             Container(
-    //               height: 45,
-    //               decoration: const BoxDecoration(
-    //                 color: Color.fromARGB(230, 233, 78, 78),
-    //                 //Styles.firstColor,
-    //                 borderRadius:
-    //                     BorderRadius.vertical(bottom: Radius.circular(10)),
-    //               ),
-    //               width: double.infinity,
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 children: [
-    //                   ElevatedButton(
-    //                     style: ElevatedButton.styleFrom(
-    //                         backgroundColor:
-    //                             const Color.fromARGB(230, 233, 78, 78),
-    //                         minimumSize: const Size(20, 20),
-    //                         shape: const CircleBorder(),
-    //                         padding: const EdgeInsets.all(7)),
-    //                     child: Icon(
-    //                       Icons.message,
-    //                       size: 22,
-    //                       color: Styles.firstColor,
-    //                     ),
-    //                     onPressed: () {
-    //                       Navigator.push(
-    //                           context,
-    //                           MaterialPageRoute(
-    //                               builder: (context) => ComentsPage(
-    //                                     idSite: site,
-    //                                   )));
-    //                     },
-    //                   ),
-    //                   ElevatedButton(
-    //                     style: ElevatedButton.styleFrom(
-    //                         backgroundColor:
-    //                             const Color.fromARGB(230, 233, 78, 78),
-    //                         minimumSize: const Size(20, 20),
-    //                         shape: const CircleBorder(),
-    //                         padding: const EdgeInsets.all(7)),
-    //                     child: Icon(
-    //                       Icons.send,
-    //                       size: 22,
-    //                       color: Styles.firstColor,
-    //                     ),
-    //                     onPressed: () {
-    //                       Navigator.push(
-    //                           context,
-    //                           MaterialPageRoute(
-    //                               builder: (context) => PlacePage(site: site)));
-    //                     },
-    //                   ),
-
-    //                   ElevatedButton(
-    //                     style: ElevatedButton.styleFrom(
-    //                         backgroundColor:
-    //                             const Color.fromARGB(230, 233, 78, 78),
-    //                         minimumSize: const Size(20, 20),
-    //                         shape: const CircleBorder(),
-    //                         padding: const EdgeInsets.all(7)),
-    //                     child: Icon(
-    //                       icon,
-    //                       size: 22,
-    //                       color: Styles.firstColor,
-    //                     ),
-    //                     onPressed: () {
-    //                       if (icon == Icons.favorite) {
-    //                         sbFav.addFavorite(Favorito.fromMap({
-    //                           'id_site': site.id,
-    //                           'estado': 0,
-    //                           'usuario': Preferences.identificador
-    //                         }));
-    //                       } else if (icon == Icons.delete) {
-    //                         sbFav.removeFavorite(Favorito.fromMap({
-    //                           'id_site': site.id,
-    //                           'estado': 0,
-    //                           'usuario': Preferences.identificador
-    //                         }));
-    //                       }
-    //                     },
-    //                   ),
-    //                   // IconButton()
-    //                 ],
-    //               ),
-    //             ),
-    //           ]),
-    //         ],
-    //       ),
-    //     ],
-    //   ),
-    //);
   }
 }

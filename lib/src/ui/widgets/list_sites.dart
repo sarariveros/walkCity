@@ -40,18 +40,24 @@ class ListSites extends StatelessWidget {
       } else {
         List<SiteCardFav> sitesCard = [];
         for (var element in sites) {
-          final card = SiteCardFav(icon: (Icons.delete), site: element);
+          final card = SiteCardFav(
+              //icon: (Icons.delete),
+              site: element);
           sitesCard.add(card);
         }
-        return GridView.builder(
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 0,
-            childAspectRatio: 0.73,
+        return AnimatedOpacity(
+          opacity: 1.0,
+          duration: Duration(milliseconds: 800),
+          child: GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 0,
+              childAspectRatio: 0.73,
+            ),
+            itemBuilder: (context, index) => sitesCard[index],
+            itemCount: sitesCard.length,
           ),
-          itemBuilder: (context, index) => sitesCard[index],
-          itemCount: sitesCard.length,
         );
       }
     }
@@ -78,7 +84,7 @@ class ListSites extends StatelessWidget {
                 final data = sites[index];
                 return SiteCard(
                   site: data,
-                  icon: Icons.favorite,
+                  //  icon: Icons.favorite,
                 );
               }),
         ),

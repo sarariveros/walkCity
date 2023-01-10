@@ -37,31 +37,40 @@ class FavoritosScreen extends StatelessWidget {
         length: 2,
         child: Column(children: [
           TabBar(
-              unselectedLabelColor: Styles.firstColor,
+              // unselectedLabelStyle:
+              //     const TextStyle(fontWeight: FontWeight.bold),
+              unselectedLabelColor: Styles.firstColor.withBlue(220),
               indicatorSize: TabBarIndicatorSize.label,
               indicator: BoxDecoration(
+                  border: Border.all(color: Styles.firstColor, width: 1),
                   borderRadius: BorderRadius.circular(50),
                   color: Styles.firstColor),
               tabs: [
                 Tab(
                   child: Container(
+                    width: MediaQuery.of(context).size.width / 2.5,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Styles.firstColor, width: 1)),
+                        border: Border.all(color: Styles.firstColor, width: 3)),
                     child: const Align(
                       alignment: Alignment.center,
-                      child: Text("POR VISITAR"),
+                      child: Text(
+                        "POR VISITAR",
+                      ),
                     ),
                   ),
                 ),
                 Tab(
                   child: Container(
+                    width: MediaQuery.of(context).size.width / 2.5,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Styles.firstColor, width: 1)),
+                        border: Border.all(color: Styles.firstColor, width: 3)),
                     child: const Align(
                       alignment: Alignment.center,
-                      child: Text("VISITADOS"),
+                      child: Text(
+                        "VISITADOS",
+                      ),
                     ),
                   ),
                 ),

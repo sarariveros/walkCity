@@ -62,7 +62,7 @@ class TutorialPage extends StatelessWidget {
                 color: Styles.firstColor,
                 onPressed: () =>
                     Navigator.pushReplacementNamed(context, MyRoutes.rHome),
-                child: const Text('Saltar'),
+                child: const Text('Omitir'),
               ),
             ),
           ],

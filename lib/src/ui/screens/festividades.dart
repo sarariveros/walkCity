@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:walkcity/src/resources/festivities_repository.dart';
+import 'package:provider/provider.dart';
+import 'package:walkcity/src/providers/index.dart';
+import 'package:walkcity/src/resources/months_repository.dart';
 import 'package:walkcity/src/styles/style.dart';
 import 'package:walkcity/src/ui/screens/calendar_page.dart';
 
@@ -8,16 +10,20 @@ class FestividaddesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: festivities.length,
+    final sbFestivity = Provider.of<SBFestivity>(context);
+    sbFestivity.getFestivities();
+    return 
+    
+    ListView.builder(
+      itemCount:sbFestivity.festivities.length,
       itemBuilder: (context, index) {
-        final festivity = festivities[index];
+        final festivity = sbFestivity.festivities[index];
         return Container(
             height: 150,
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(festivity.image), fit: BoxFit.cover),
+                  image: NetworkImage(festivity.imagen!), fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Center(
@@ -26,7 +32,7 @@ class FestividaddesScreen extends StatelessWidget {
                   radius: 28,
                   backgroundColor: Styles.fithColor,
                   child: Text(
-                    festivity.day.toString(),
+                    festivity.dia.toString(),
                     style: const TextStyle(
                         fontSize: 30, fontWeight: FontWeight.bold),
                   ),
@@ -39,7 +45,7 @@ class FestividaddesScreen extends StatelessWidget {
                       color: const Color.fromARGB(153, 0, 0, 0),
                     ),
                     child: Text(
-                      festivity.title,
+                      festivity.titulo!,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           color: Colors.white,
@@ -55,7 +61,7 @@ class FestividaddesScreen extends StatelessWidget {
                     color: const Color.fromARGB(153, 0, 0, 0),
                   ),
                   child: Text(
-                    festivity.montnString,
+                  (MonthString.getMonthString(festivity.mes!)),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -81,7 +87,7 @@ class FestividaddesScreen extends StatelessWidget {
                 }),
               ),
             ));
-      },
-    );
+      },);
+    
   }
 }

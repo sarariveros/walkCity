@@ -15,6 +15,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SBSite()),
+        ChangeNotifierProvider(create: (_) => SBFestivity()),
         ChangeNotifierProvider(create: (_) => ProviderLogin()),
         ChangeNotifierProvider(
           create: (_) => SBFavorite(),

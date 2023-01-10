@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
 import 'package:walkcity/src/models/favorito_model.dart';

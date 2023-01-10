@@ -27,7 +27,6 @@ class WeaterApiProvider {
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
       final jsonData = jsonDecode(body);
-      print(jsonData);
 
       clima['temp_f'] =
           jsonData['forecast']['forecastday'][0]['day']['maxtemp_f'];

@@ -9,23 +9,33 @@ class Styles {
 
   static Color textColor = const Color.fromRGBO(53, 82, 88, 1);
 
-  static Color textColorCl = const Color.fromARGB(255, 17, 67, 73);
+  static Color textColorCl = const Color.fromARGB(255, 12, 67, 73);
 
   static TextStyle textStyle =
       const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
   static TextStyle textStyleB =
       const TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
+///////////////////////inicio/////////////////////////////////
+/////////////////////////////////////////////////////////////
+  static TextStyle titleAyacucho = const TextStyle(
+      fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold);
+
   ///////////////////////////////////////////////////////////
   ///////////////////////sites Cards////////
   static TextStyle textStyleCl = TextStyle(fontSize: 15, color: textColorCl);
 
-  static TextStyle siteCnameTStyle = const TextStyle(
-      fontSize: 12,
-      color: Color.fromARGB(255, 95, 93, 93),
-      fontWeight: FontWeight.bold);
+  static TextStyle scNameStyle = const TextStyle(
+      fontSize: 13,
+      color: Color.fromARGB(255, 36, 35, 35),
+      fontWeight: FontWeight.w300,
+      letterSpacing: 0.5);
 
-  static TextStyle title = const TextStyle(
-      fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold);
+  static TextStyle scVerStyle = const TextStyle(
+      //background: Color.white,
+      fontSize: 12,
+      letterSpacing: 0.8,
+      color: Color.fromARGB(255, 17, 107, 44),
+      fontWeight: FontWeight.bold);
 
   /////////////////////////////////////////////////////////
   //////////weather widget////

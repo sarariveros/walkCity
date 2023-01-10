@@ -41,7 +41,7 @@ class _InicioScreenState extends State<InicioScreen> {
                 ),
                 Text(
                   'Ayacucho, Peru',
-                  style: Styles.title,
+                  style: Styles.titleAyacucho,
                 ),
               ],
             ),

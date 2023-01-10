@@ -36,14 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(15),
                 ),
-                // boxShadow: const [
-                //   BoxShadow(
-                //     color: Color.fromARGB(235, 143, 165, 161),
-                //     blurRadius: 4.0,
-                //     spreadRadius: 2.0,
-                //     offset: Offset(0.0, 0.0),
-                //   )
-                // ],
               ),
               height: 45,
               child: Row(
@@ -88,8 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      // Color.fromARGB(255, 14, 90, 84),
+      // Styles.firstColor,
+      // Colors.white,
+      //  const Color.fromARGB(221, 206, 255, 251),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        // backgroundColor: Color.fromARGB(221, 206, 255, 251),
         automaticallyImplyLeading: false,
         toolbarHeight: 30,
         actions: [
@@ -97,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               wshowDialog(context, 'TIPS');
             },
-            icon: Icon(Icons.sunny_snowing, color: Styles.firstColor),
+            icon: Icon(Icons.sunny_snowing, color: Styles.fouthColor),
             alignment: Alignment.centerRight,
           ),
         ],
@@ -107,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _selectItem,
         animationDuration: const Duration(milliseconds: 350),
         backgroundColor: Colors.white,
+        // const Color.fromARGB(221, 178, 223, 219),
         buttonBackgroundColor: Styles.firstColor,
         color: Styles.firstColor,
         height: 48,
@@ -136,38 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
           _selectItem = value;
         }),
       ),
-      // BottomNavigationBar(
-      //   elevation: 2,
-      //   iconSize: 20,
-      //   backgroundColor: Colors.white,
-      //   currentIndex: _selectItem,
-
-      //   type: BottomNavigationBarType.fixed,
-      //   //backgroundColor: Colors.black,
-      //   onTap: (value) => setState(() {
-      //     _selectItem = value;
-      //   }),
-      //   unselectedItemColor: Colors.grey,
-      //   selectedItemColor: Styles.firstColor,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: 'Inicio',
-      //     ),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.newspaper), label: 'Festividades'),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.favorite), label: 'Favoritos'),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.people),
-      //         // CircleAvatar(
-      //         //   backgroundImage: NetworkImage(
-      //         //       'https://cdn.pixabay.com/photo/2021/05/23/00/21/woman-6274879_960_720.png'),
-      //         //   radius: 15,
-      //         // ),
-      //         label: 'Perfil'),
-      //   ],
-      //   // currentIndex: _selectedIndex,
     );
   }
 }

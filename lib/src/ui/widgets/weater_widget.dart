@@ -149,15 +149,6 @@ class WeatherWidget extends StatelessWidget {
                                                     ),
                                                   ]),
                                             )),
-                                        // Expanded(
-                                        //   // ignore: unnecessary_new
-                                        //   child: SizedBox(
-                                        //       height: 110,
-                                        //       width: 120,
-                                        //       child: SvgPicture.asset(
-                                        //         'assets/travel2.svg',
-                                        //       )),
-                                        // )
                                       ],
                                     ),
                                   ),
